@@ -1,6 +1,8 @@
 import { getTutorials } from "@/lib/firebase/firestore";
 import Layout from "@/components/Layout";
 
+import Markdown from 'react-markdown'
+
 export const dynamic = "force-dynamic"; //for ssr while using app router
 
 export default async function Home() {
@@ -17,18 +19,49 @@ export default async function Home() {
   });
   subjectDetails.content.map(data => {
     if(data.url === "introduction") {
-        topicContent = data.content;
+        topicContent = data.content.replace("/n", "  \n");
         console.log("topicContent: ", topicContent);
     }
   });
 
+  
+
   return (
     <Layout subjectDetails = {subjectDetails} firestoreData = {firestoreData}>
         <div className="min-h-screen flex flex-col">
-            <div className="m-32">
-                <p>{topicContent}</p>
+            <div className="m-32 prose">
+                <Markdown>{topicContent}</Markdown>
             </div>
         </div>
     </Layout>
   );
+}
+
+export async function generateMetadata() {
+  // return {
+  //   title: "rashmi",
+  // }
+
+  const firestoreData = await getTutorials(); //fetch data from firestore
+
+  let subjectDetails;
+  let title;
+  let desc;
+
+  firestoreData.map(data => {
+    if(data.id === "flutter"){
+        subjectDetails = data;
+    }
+  });
+  subjectDetails.content.map(data => {
+    if(data.url === "introduction") {
+      title = data.title;
+      desc = data.content;
+    }
+  });
+  return {
+    title: title,
+    description: desc
+  }
+
 }
