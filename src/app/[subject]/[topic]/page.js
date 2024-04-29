@@ -1,5 +1,6 @@
 import { getTutorials } from "@/lib/firebase/firestore";
 import Layout from "@/components/Layout";
+import Markdown from 'react-markdown'
 
 export const dynamic = "force-dynamic"; //for ssr while using app router
 
@@ -43,7 +44,7 @@ export default async function TutorialPage({ params }) {
 
     subjectDetails.content.map(data => {
         if(data.url === topic) {
-            topicContent = data.content;
+            topicContent = data.content.replace("/n", "  \n");
             console.log("topicContent: ", topicContent);
         }
     });
@@ -51,12 +52,42 @@ export default async function TutorialPage({ params }) {
     return (
         <Layout subjectDetails = {subjectDetails} firestoreData = {firestoreData}>
             <div className="min-h-screen flex flex-col">
-                <div className="m-8">
-                    <p>{topicContent}</p>
+                <div className="m-8 prose">
+                    <Markdown>{topicContent}</Markdown>
                 </div>
             </div>
         </Layout>
     )
+  }
+
+  export async function generateMetadata({ params }) {
+    let subject = params.subject;
+    let topic = params.topic;
+
+    let title;
+    let desc;
+
+    const firestoreData = await getTutorials(); //fetch data from firestore
+  
+    let subjectDetails;
+  
+    firestoreData.map(data => {
+        if(data.id === subject){
+            subjectDetails = data;
+        }
+    });
+
+    subjectDetails.content.map(data => {
+        if(data.url === topic) {
+            title = data.title;
+            desc = data.content;
+        }
+    });
+  
+    return {
+        title: title,
+        description: desc
+      }
   }
 
 // export default async function Tutorial({ params }) {

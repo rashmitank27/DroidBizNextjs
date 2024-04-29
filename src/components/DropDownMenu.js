@@ -45,7 +45,7 @@ export default function DropdownMenu({firestoreData}) {
                             <Link
                                 key={data.id}
                                 className="hover:bg-zinc-300 hover:text-zinc-500 px-4 py-1"
-                                href="flutter/introduction"
+                                href="/flutter/introduction"
                                 onClick={
                                     toggle
                                 }
