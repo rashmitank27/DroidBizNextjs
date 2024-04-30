@@ -29,6 +29,21 @@ export default async function Home() {
   return (
     <Layout subjectDetails = {subjectDetails} firestoreData = {firestoreData}>
         <div className="min-h-screen flex flex-col">
+
+        <div className="m-32">
+          <ins
+            class="adsbygoogle"
+            style={{ display: "block" }}
+            data-ad-client="ca-pub-7919093913529741"
+            data-ad-slot="3534351170"
+            data-ad-format="auto"
+              data-full-width-responsive="true"
+          > </ins>
+          <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});    
+          </script>
+        </div>
+
             <div className="m-32 prose">
                 <Markdown>{topicContent}</Markdown>
             </div>
