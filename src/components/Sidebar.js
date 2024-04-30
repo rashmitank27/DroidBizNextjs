@@ -48,14 +48,8 @@ export default function Sidebar({ show, setter, pathname, subjectDetails }) {
                 <div className="flex flex-col">
                     {
                         subjectDetails.content.map((data) => {
-                            if(pathname === "/") {
-                                route = subjectDetails.id + "/" + data.url;
-                            } else {
-                                route = data.url;
-                            }
-                            console.log("route: ", route);
                             return (
-                                <MenuItem name={data.title} route={route}></MenuItem>
+                                <MenuItem name={data.title} route={"/" + subjectDetails.id + "/" + data.url}></MenuItem>
                             );
                         })
                     }
