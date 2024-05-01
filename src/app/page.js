@@ -19,7 +19,7 @@ export default async function Home() {
   });
   subjectDetails.content.map(data => {
     if(data.url === "introduction") {
-        topicContent = data.content.replace("/n", "  \n");
+        topicContent = data.content.replaceAll("/n", "  \n");
         console.log("topicContent: ", topicContent);
     }
   });
