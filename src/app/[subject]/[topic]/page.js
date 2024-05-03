@@ -44,7 +44,7 @@ export default async function TutorialPage({ params }) {
 
     subjectDetails.content.map(data => {
         if(data.url === topic) {
-            topicContent = data.content.replace("/n", "  \n");
+            topicContent = data.content.replaceAll("/n", "  \n");
             console.log("topicContent: ", topicContent);
         }
     });
