@@ -15,13 +15,11 @@ export default async function Home() {
   firestoreData.map(data => {
     if(data.id === "flutter"){
         subjectDetails = data;
-        console.log("subjectDetails: ", subjectDetails);
     }
   });
   subjectDetails.content.map(data => {
     if(data.url === "introduction") {
-        topicContent = data.content.replaceAll("/n", "  \n");
-        console.log("topicContent: ", topicContent);
+        topicContent = data.content.replaceAll("/n", "  \n").replaceAll("\t", " ");
     }
   });
 
