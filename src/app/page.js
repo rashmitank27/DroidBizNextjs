@@ -2,6 +2,7 @@ import { getTutorials } from "@/lib/firebase/firestore";
 import Layout from "@/components/Layout";
 
 import Markdown from 'react-markdown'
+import Image from 'next/image'
 
 export const dynamic = "force-dynamic"; //for ssr while using app router
 
@@ -9,18 +10,16 @@ export default async function Home() {
   const firestoreData = await getTutorials(); //fetch data from firestore
 
   let subjectDetails;
-  let topicContent;
+  let topicContent;  
 
   firestoreData.map(data => {
     if(data.id === "flutter"){
         subjectDetails = data;
-        console.log("subjectDetails: ", subjectDetails);
     }
   });
   subjectDetails.content.map(data => {
     if(data.url === "introduction") {
-        topicContent = data.content.replaceAll("/n", "  \n");
-        console.log("topicContent: ", topicContent);
+        topicContent = data.content.replaceAll("/n", "  \n").replaceAll("\t", " ");
     }
   });
 
@@ -29,8 +28,15 @@ export default async function Home() {
   return (
     <Layout subjectDetails = {subjectDetails} firestoreData = {firestoreData}>
         <div className="min-h-screen flex flex-col">
-            <div className="m-32 prose">
-                <Markdown>{topicContent}</Markdown>
+            <div className="md:ml-72 mt-24 ml-9 mr-9 mb-9 prose max-w-none">
+                <Markdown 
+                  components={
+                    {
+                      img: (props) => (
+                        <Image src={props.src} alt={props.alt} />
+                      )
+                    }
+                }>{topicContent}</Markdown>
             </div>
         </div>
     </Layout>

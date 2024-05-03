@@ -19,41 +19,31 @@ export default async function TutorialPage({ params }) {
     let subjectDetails;
     let topicContent;
 
-    // if(!subject && !topic) {
-    //     console.log("undefined");
-    //     firestoreData.map(data => {
-    //         if(data.id === "flutter"){
-    //             subjectDetails = data;
-    //             console.log("subjectDetails: ", subjectDetails);
-    //         }
-    //     });
-    //     subjectDetails.content.map(data => {
-    //         if(data.url === "introduction") {
-    //             topicContent = data.content;
-    //             console.log("topicContent: ", topicContent);
-    //         }
-    //     });
-    // }
-
     firestoreData.map(data => {
         if(data.id === subject){
             subjectDetails = data;
-            console.log("subjectDetails: ", subjectDetails);
         }
     });
 
     subjectDetails.content.map(data => {
         if(data.url === topic) {
-            topicContent = data.content.replaceAll("/n", "  \n");
-            console.log("topicContent: ", topicContent);
+            topicContent = data.content.replaceAll("/n", "  \n").replaceAll("\t", " ");
         }
     });
 
     return (
         <Layout subjectDetails = {subjectDetails} firestoreData = {firestoreData}>
             <div className="min-h-screen flex flex-col">
-                <div className="m-8 prose">
-                    <Markdown>{topicContent}</Markdown>
+                <div className="md:ml-72 mt-24 ml-9 mr-9 mb-9 prose max-w-none">
+                    <Markdown 
+                        components={
+                        {
+                            img: (props) => (
+                                <Image src={props.src} alt={props.alt} />
+                            )
+                        }
+                        }>{topicContent}
+                    </Markdown>
                 </div>
             </div>
         </Layout>
@@ -89,40 +79,3 @@ export default async function TutorialPage({ params }) {
         description: desc
       }
   }
-
-// export default async function Tutorial({ params }) {
-//     let subjectName = params.tutorial;
-//     let name = "";
-//     console.log("params in page: ", params);
-//     console.log("params in page: ", params.tutorial);
-//     const data = await getTutorials(params.tutorial);
-//     console.log("data received: ", data);
-//         if (!data) {
-//             console.log("Error: Invalid data received: ", data);
-//             name = "";
-//         } else {
-//             name = data.name;
-//         }
-//         name = data[0].name
-    
-//     let subjectDetails;
-//     data.map(subject => {
-//         if(subject.id === params.tutorial){
-//             console.log("subject: ", subject);
-//             subjectDetails = subject;
-//             console.log("subjectDetails: ", subjectDetails.content);
-//         }
-//     });
-    
-
-//     return (
-//         <Layout pageTitle='title' subjectName = {subjectName} subjectDetails = {subjectDetails}>
-//             <div className="min-h-screen flex flex-col">
-//                 <div className="m-auto">
-//                     <h1 className="text-4xl">title</h1>
-//                     <p>{name}</p>
-//                 </div>
-//             </div>
-//         </Layout>
-//     )
-//   }
