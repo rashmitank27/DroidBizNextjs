@@ -19,33 +19,24 @@ export default function DropdownMenu({firestoreData}) {
         setIsOpen(old => !old);
     }
 
-    console.log("pathname: ", pathname);
-
-    // let route;
-    // // subjectDetails.content.map((data) => {
-    //     if(pathname === "/") {
-    //         route = subjectDetails.id + "/introduction";
-    //     } else {
-    //         route = data.url;
-    //     }
-    //     console.log("route: ", route);
-    
-    // })
-
+    firestoreData.map(data =>
+        console.log("dropdown: ", data)
+    )
     return (
         <>
-            <div className="relative">
+            <div className="relative top-4">
+            {/* <div className="fixed top-4"> */}
                 <button
-                    className="hover:text-blue-400"
+                    className="text-white/70 hover:text-white top-4"
                     onClick={toggle}
                 >Tutorial</button>
-                <div className={`absolute top-8 z-30 w-[200px] min-h-[20px] flex flex-col py-4 bg-zinc-400 rounded-md ${transClass}`}>
+                <div className={`absolute top-8 z-30 w-[150px] min-h-[20px] flex flex-col py-4 bg-white rounded-md ${transClass}`}>
                     {
                         firestoreData.map(data =>
                             <Link
                                 key={data.id}
-                                className="hover:bg-zinc-300 hover:text-zinc-500 px-4 py-1"
-                                href="/flutter/introduction"
+                                className="hover:text-teal-800 text-teal-700 px-4 py-1"
+                                href={data.base_url}
                                 onClick={
                                     toggle
                                 }
@@ -58,7 +49,7 @@ export default function DropdownMenu({firestoreData}) {
                 isOpen
                     ?
                     <div
-                        className="fixed top-0 right-0 bottom-0 left-0 z-20 bg-black/40"
+                        className="fixed top-0 right-0 bottom-0 left-0 z-20 bg-transparent"
                         onClick={toggle}
                     ></div>
                     :

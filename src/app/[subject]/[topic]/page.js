@@ -22,14 +22,12 @@ export default async function TutorialPage({ params }) {
     firestoreData.map(data => {
         if(data.id === subject){
             subjectDetails = data;
-            console.log("subjectDetails: ", subjectDetails);
         }
     });
 
     subjectDetails.content.map(data => {
         if(data.url === topic) {
-            topicContent = data.content.replaceAll("/n", "  \n");
-            console.log("topicContent: ", topicContent);
+            topicContent = data.content.replaceAll("/n", "  \n").replaceAll("\t", " ");
         }
     });
 
@@ -37,7 +35,15 @@ export default async function TutorialPage({ params }) {
         <Layout subjectDetails = {subjectDetails} firestoreData = {firestoreData}>
             <div className="min-h-screen flex flex-col">
                 <div className="md:ml-72 mt-24 ml-9 mr-9 mb-9 prose max-w-none">
-                    <Markdown>{topicContent}</Markdown>
+                    <Markdown 
+                        components={
+                        {
+                            img: (props) => (
+                                <Image src={props.src} alt={props.alt} />
+                            )
+                        }
+                        }>{topicContent}
+                    </Markdown>
                 </div>
             </div>
         </Layout>
