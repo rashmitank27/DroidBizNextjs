@@ -30,7 +30,7 @@ export default async function Home() {
   return (
     <Layout subjectDetails = {subjectDetails} firestoreData = {firestoreData}>
         <div className="min-h-screen flex flex-col">
-            <div className="m-32 prose max-w-none">
+            <div className="md:ml-72 mt-24 ml-9 mr-9 mb-9 prose max-w-none">
                 <Markdown 
                   components={
                     {

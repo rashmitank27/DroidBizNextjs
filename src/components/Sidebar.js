@@ -6,7 +6,7 @@ export default function Sidebar({ show, setter, pathname, subjectDetails }) {
     const router = useRouter();
 
     // Define our base class
-    const className = "bg-black w-[250px] transition-[margin-left] ease-in-out duration-500 fixed md:static top-0 bottom-0 left-0 z-40";
+    const className = "bg-black w-[250px] transition-[margin-left] ease-in-out duration-500 fixed top-0 bottom-0 left-0 z-40";
     // Append class based on state of sidebar visiblity
     const appendClass = show ? " ml-0" : " ml-[-250px] md:ml-0";
 
@@ -45,7 +45,7 @@ export default function Sidebar({ show, setter, pathname, subjectDetails }) {
     return (
         <>
             <div className={`${className}${appendClass}`}>
-                <div className="flex flex-col">
+                <div className="w-[250px]">
                     {
                         subjectDetails.content.map((data) => {
                             return (
