@@ -3,6 +3,7 @@ import "./globals.css";
 
 import Script from 'next/script';
 import Head from "next/head";
+import GoogleAdsenseScript from "@/components/GAdsense";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,16 +15,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
-      <Script
-          id="Adsense-id"
-          data-ad-client="ca-pub-7919093913529741"
-          async="true"
-          strategy="afterInteractive"
-          crossorigin="anonymous"
-        />
-      </Head>
-      <body className={inter.className}>{children}</body>
+      {/* <body className={inter.className}>{children}</body> */}
+      <body>
+        <main className="flex-auto">
+          {children}
+          <GoogleAdsenseScript/>
+        </main>
+      </body>
+    
     </html>
   );
 }

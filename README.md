@@ -37,3 +37,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 # add tailwind css from styling
 # add react-markdown and tailwing typography plugin for markdown and add prose classname in div element for markdown styling
+
+# create markdown text for this code and replace new line with \n and tab with \t "<CODE>"
