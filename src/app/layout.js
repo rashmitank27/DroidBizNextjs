@@ -15,14 +15,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      {/* <body className={inter.className}>{children}</body> */}
-      <body>
-        <main className="flex-auto">
-          {children}
-          <GoogleAdsenseScript/>
-        </main>
-      </body>
-    
+      <body className={inter.className}>{children}</body>
+      <GoogleAdsenseScript/>    
     </html>
   );
 }

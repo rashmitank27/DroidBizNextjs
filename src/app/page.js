@@ -19,7 +19,7 @@ export default async function Home() {
   });
   subjectDetails.content.map(data => {
     if(data.url === "introduction") {
-        topicContent = data.content.replaceAll("/n", "  \n").replaceAll("\t", " ");
+        topicContent = data.content.replaceAll("/n", "  \n").replaceAll("/t", " ");
     }
   });
 
@@ -49,6 +49,7 @@ export async function generateMetadata() {
   let subjectDetails;
   let title;
   let desc;
+  let keywords;
 
   firestoreData.map(data => {
     if(data.id === "flutter"){
@@ -58,12 +59,20 @@ export async function generateMetadata() {
   subjectDetails.content.map(data => {
     if(data.url === "introduction") {
       title = data.title;
-      desc = data.content;
+      desc = data.descriptionTag;
+      keywords = data.keywords;
     }
   });
   return {
     title: title,
-    description: desc
+    description: desc,
+    keywords: keywords,
+    openGraph: {
+      title: title,
+      description: desc,
+      locale: 'en_US',
+      siteName: 'www.droidbiz.in'
+    }
   }
 
 }
