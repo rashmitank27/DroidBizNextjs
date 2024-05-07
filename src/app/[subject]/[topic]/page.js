@@ -27,7 +27,7 @@ export default async function TutorialPage({ params }) {
 
     subjectDetails.content.map(data => {
         if(data.url === topic) {
-            topicContent = data.content.replaceAll("/n", "  \n").replaceAll("\t", " ");
+            topicContent = data.content.replaceAll("/n", "  \n").replaceAll("/t", " ");
         }
     });
 
@@ -56,6 +56,7 @@ export default async function TutorialPage({ params }) {
 
     let title;
     let desc;
+    let keywords;
 
     const firestoreData = await getTutorials(); //fetch data from firestore
   
@@ -70,12 +71,20 @@ export default async function TutorialPage({ params }) {
     subjectDetails.content.map(data => {
         if(data.url === topic) {
             title = data.title;
-            desc = data.content;
+            desc = data.descriptionTag;
+            keywords = data.keywords;
         }
     });
   
     return {
         title: title,
-        description: desc
+        description: desc,
+        keywords: keywords,
+        openGraph: {
+            title: title,
+            description: desc,
+            locale: 'en_US',
+            siteName: 'www.droidbiz.in'
+        }
       }
   }
