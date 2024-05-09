@@ -5,16 +5,11 @@ import Markdown from 'react-markdown'
 export const dynamic = "force-dynamic"; //for ssr while using app router
 
 export default async function TutorialPage({ params }) {
-    console.log("params in TutorialPage: ", params);
   
     let subject = params.subject;
     let topic = params.topic;
 
-    console.log("subject in TutorialPage: ", subject);
-    console.log("topic in TutorialPage: ", topic);
-
     const firestoreData = await getTutorials(); //fetch data from firestore
-    console.log("data received: ", firestoreData);
 
     let subjectDetails;
     let topicContent;

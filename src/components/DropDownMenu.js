@@ -19,9 +19,6 @@ export default function DropdownMenu({firestoreData}) {
         setIsOpen(old => !old);
     }
 
-    firestoreData.map(data =>
-        console.log("dropdown: ", data)
-    )
     return (
         <>
             <div className="relative top-4">
