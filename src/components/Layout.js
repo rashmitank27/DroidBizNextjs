@@ -7,7 +7,6 @@ import MenuBarMobile from './MenuBarMobile';
 import { usePathname } from 'next/navigation'
 
 export default function Layout({ children, subjectDetails, firestoreData }) {
-    console.log("Log in Layout");
 
     // Mobile sidebar visibility state
     const [showSidebar, setShowSidebar] = useState(false);
