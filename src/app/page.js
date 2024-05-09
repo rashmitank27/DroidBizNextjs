@@ -34,7 +34,7 @@ export default async function Home() {
                   components={
                     {
                       img: (props) => (
-                        <Image src={props.src} alt={props.alt} />
+                        <Image className = "mx-auto" src={props.src} alt={props.alt} />
                       )
                     }
                 }>{topicContent}</Markdown>
