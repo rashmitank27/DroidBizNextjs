@@ -3,6 +3,7 @@ import Layout from "@/components/Layout";
 
 import Markdown from 'react-markdown'
 import Image from 'next/image'
+import GoogleAdsenseScript from "@/components/GAdsense";
 
 export const dynamic = "force-dynamic"; //for ssr while using app router
 
@@ -37,6 +38,7 @@ export default async function Home() {
                       )
                     }
                 }>{topicContent}</Markdown>
+                <GoogleAdsenseScript/> 
             </div>
         </div>
     </Layout>

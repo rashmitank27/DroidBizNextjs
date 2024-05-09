@@ -1,6 +1,7 @@
 import { getTutorials } from "@/lib/firebase/firestore";
 import Layout from "@/components/Layout";
 import Markdown from 'react-markdown'
+import GoogleAdsenseScript from "@/components/GAdsense";
 
 export const dynamic = "force-dynamic"; //for ssr while using app router
 
@@ -39,6 +40,7 @@ export default async function TutorialPage({ params }) {
                         }
                         }>{topicContent}
                     </Markdown>
+                    <GoogleAdsenseScript/> 
                 </div>
             </div>
         </Layout>

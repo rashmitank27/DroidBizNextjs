@@ -26,7 +26,7 @@ export default function DropdownMenu({firestoreData}) {
                 <button
                     className="text-white/70 hover:text-white top-4"
                     onClick={toggle}
-                >Tutorial</button>
+                >Tutorials</button>
                 <div className={`absolute top-8 z-30 w-[150px] min-h-[20px] flex flex-col py-4 bg-white rounded-md ${transClass}`}>
                     {
                         firestoreData.map(data =>
