@@ -24,7 +24,7 @@ export default function MenuBarMobile({ setter, subjectDetails, firestoreData })
             </Link> */}
             {/* <div className="mx-auto gap-8 items-center text-white"> */}
             {/* <div className="fixed right-0 w-[250px] h-[60px] gap-8 items-center text-white"> */}
-            <div className="fixed right-0 w-[250px] gap-8 items-center text-white">
+            <div className="fixed right-0 w-[200px] gap-8 items-center text-white">
                 {
                     <DropdownMenu firestoreData = {firestoreData}/>
                 }
