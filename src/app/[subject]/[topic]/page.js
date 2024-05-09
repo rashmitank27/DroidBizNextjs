@@ -2,6 +2,7 @@ import { getTutorials } from "@/lib/firebase/firestore";
 import Layout from "@/components/Layout";
 import Markdown from 'react-markdown'
 import GoogleAdsenseScript from "@/components/GAdsense";
+import Image from 'next/image'
 
 export const dynamic = "force-dynamic"; //for ssr while using app router
 
@@ -35,7 +36,7 @@ export default async function TutorialPage({ params }) {
                         components={
                         {
                             img: (props) => (
-                                <Image src={props.src} alt={props.alt} />
+                                <Image className = "mx-auto" src={props.src} alt={props.alt} />
                             )
                         }
                         }>{topicContent}
