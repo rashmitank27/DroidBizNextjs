@@ -39,3 +39,17 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 # add react-markdown and tailwing typography plugin for markdown and add prose classname in div element for markdown styling
 
 # create markdown text for this code and replace new line with \n and tab with \t "<CODE>"
+
+# firestore structure
+id: int,
+name: string,
+base_url: string,
+content : {
+    id: int,
+    title: string,
+    url: string,
+    descriptionTag: string,
+    keywords: string,
+    type: int,
+    content: string,
+}
