@@ -38,6 +38,7 @@ export default async function Home() {
                       )
                     }
                 }>{topicContent}</Markdown>
+                <GoogleAdsenseScript/> 
             </div>
         </div>
     </Layout>
