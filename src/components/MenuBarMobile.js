@@ -14,9 +14,9 @@ export default function MenuBarMobile({ setter, subjectDetails, firestoreData })
             >
                 <Icon />
             </button>
-            {/* <Link href="/" className="mx-auto">
+            {/* <Link href="/" className="ml-[260px]">
                 <img
-                    src="/vercel.svg"
+                    src="/logo.png"
                     alt="Logo"
                     width={50}
                     height={50}

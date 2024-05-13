@@ -6,9 +6,11 @@ export default function Sidebar({ show, setter, pathname, subjectDetails }) {
     const router = useRouter();
 
     // Define our base class
-    const className = "bg-teal-700 w-[250px] transition-[margin-left] ease-in-out duration-500 fixed top-0 bottom-0 left-0 z-40";
+    const className = "bg-teal-700 w-[260px] transition-[margin-left] ease-in-out duration-500 fixed top-0 bottom-0 left-0 z-40";
     // Append class based on state of sidebar visiblity
-    const appendClass = show ? " ml-0" : " ml-[-250px] md:ml-0";
+    const appendClass = show ? " ml-0" : " ml-[-260px] md:ml-0";
+
+    const sidebarClass = "w-[260px] top-32 transition-[margin-left] ease-in-out duration-500 fixed bottom-0 left-0 z-40 overflow-auto";
 
     // Clickable menu items
     const MenuItem = ({ name, route, subject1, topic1 }) => {
@@ -42,7 +44,16 @@ export default function Sidebar({ show, setter, pathname, subjectDetails }) {
     return (
         <>
             <div className={`${className}${appendClass}`}>
-                <div className="w-[250px] pt-10">
+                <Link href="/" className="fixed w-[250px] h-[120px] flex [&amp;>*]:my-auto">
+                    <img
+                        className="items-center mx-auto"
+                        src="/logo.png"
+                        alt="Logo"
+                        width={70}
+                        height={70}
+                    />
+                </Link>
+                <div className={`${sidebarClass}${appendClass}`}>
                     {
                         subjectDetails.content.map((data) => {
                             return (
