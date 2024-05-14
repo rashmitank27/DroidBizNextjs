@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  th {
+    background-color: #C8C8C8;
+    border-right: solid 1px #D0D0D0; 
+    border-left: solid 1px #D0D0D0;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 8px;
+  }
+  td {
+    border-right: solid 1px #D0D0D0; 
+    border-left: solid 1px #D0D0D0;
+    border-top: solid 1px #D0D0D0; 
+    border-bottom: solid 1px #D0D0D0;
+  }
+}
+
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
