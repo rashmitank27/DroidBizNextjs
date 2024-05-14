@@ -3,6 +3,7 @@ import Layout from "@/components/Layout";
 import Markdown from 'react-markdown'
 import GoogleAdsenseScript from "@/components/GAdsense";
 import Image from 'next/image'
+import remarkGfm from "remark-gfm";
 
 export const dynamic = "force-dynamic"; //for ssr while using app router
 
@@ -32,7 +33,7 @@ export default async function TutorialPage({ params }) {
         <Layout subjectDetails = {subjectDetails} firestoreData = {firestoreData}>
             <div className="min-h-screen flex flex-col">
                 <div className="md:ml-72 mt-24 ml-9 mr-9 mb-9 prose max-w-none">
-                    <Markdown 
+                    <Markdown remarkPlugins={[remarkGfm]}
                         components={
                         {
                             img: (props) => (
