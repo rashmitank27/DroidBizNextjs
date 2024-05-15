@@ -75,6 +75,9 @@ export async function generateMetadata() {
       description: desc,
       locale: 'en_US',
       siteName: 'www.droidbiz.in'
+    },
+    verification: {
+      google: 'DzEo_8OpTDL4aq1q8mfcjmCQEaQC5jGbJcOm58hzRhs',
     }
   }
 
