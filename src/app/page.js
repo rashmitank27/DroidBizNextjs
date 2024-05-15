@@ -20,7 +20,7 @@ export default async function Home() {
     }
   });
   subjectDetails.content.map(data => {
-    if(data.url === "introduction") {
+    if(data.url === "flutter_introduction") {
         topicContent = data.content.replaceAll("/n", "  \n").replaceAll("/t", " ");
     }
   });
