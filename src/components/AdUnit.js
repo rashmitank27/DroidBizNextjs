@@ -17,7 +17,7 @@ export function InArticleAd({ className }) {
       <AdUnit>
         <ins
           className="adsbygoogle"
-          data-ad-client={process.env.googleClientId}
+          data-ad-client="ca-pub-7919093913529741"
           style={{ display: "block" }}
           data-ad-format="auto"
           data-ad-slot="3534351170"
