@@ -42,7 +42,7 @@ export default async function TutorialPage({ params }) {
                         }
                         }>{topicContent}
                     </Markdown>
-                    {/* <GoogleAdsenseScript/>  */}
+                    <InArticleAd className="p-2 lg:w-3/4 mx-auto" />
                 </div>
             </div>
         </Layout>
