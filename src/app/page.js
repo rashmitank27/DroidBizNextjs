@@ -5,6 +5,7 @@ import Markdown from 'react-markdown'
 import Image from 'next/image'
 import GoogleAdsenseScript from "@/components/GAdsense";
 import remarkGfm from "remark-gfm";
+import { InArticleAd } from "@/components/AdUnit";
 
 export const dynamic = "force-dynamic"; //for ssr while using app router
 
