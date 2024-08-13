@@ -39,6 +39,7 @@ export default async function Home() {
                       )
                     }
                 }>{topicContent}</Markdown>
+                <InArticleAd className="p-2 lg:w-3/4 mx-auto" />
             </div>
         </div>
     </Layout>
