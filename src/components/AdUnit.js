@@ -1,7 +1,5 @@
 import React, { Suspense } from "react"
-import AdUnitClient from "./ad-unit-client"
-import { Card } from "./ui/card"
-
+import AdUnitClient from "./AdUnitClient"
 
 const AdUnit = ({ children }) => {
   return (
