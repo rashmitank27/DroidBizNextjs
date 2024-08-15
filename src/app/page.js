@@ -26,20 +26,30 @@ export default async function Home() {
     }
   });
 
-  
+  const paragraphs = topicContent.split(/\n/); // Split content by newlines
+  const contentWithAds = [];
 
-  return (
-    <Layout subjectDetails = {subjectDetails} firestoreData = {firestoreData}>
-        <div className="min-h-screen flex flex-col">
-            <div className="md:ml-72 mt-24 ml-9 mr-9 mb-9 prose max-w-none">
-                <Markdown remarkPlugins={[remarkGfm]}
+  paragraphs.forEach((paragraph, index) => {
+    contentWithAds.push(<Markdown key={`p-${index}`} remarkPlugins={[remarkGfm]}
                   components={
                     {
                       img: (props) => (
                         <Image className = "mx-auto" src={props.src} alt={props.alt} />
                       )
                     }
-                }>{topicContent}</Markdown>
+                }>{paragraph}</Markdown>);
+
+    // Insert an ad after every two paragraphs
+    if ((index + 1) % 2 === 0 && index !== paragraphs.length - 1) {
+      contentWithAds.push(<InArticleAd key={`ad-${index}`} />);
+    }
+  });
+
+  return (
+    <Layout subjectDetails = {subjectDetails} firestoreData = {firestoreData}>
+        <div className="min-h-screen flex flex-col">
+            <div className="md:ml-72 mt-24 ml-9 mr-9 mb-9 prose max-w-none">
+                {contentWithAds}
                 <InArticleAd className="p-2 lg:w-3/4 mx-auto" />
             </div>
         </div>
