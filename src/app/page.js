@@ -30,6 +30,7 @@ export default async function Home() {
   const contentWithAds = [];
 
   paragraphs.forEach((paragraph, index) => {
+    paragraph.replaceAll("show-adsense-ad", " ");
     contentWithAds.push(<Markdown key={`p-${index}`} remarkPlugins={[remarkGfm]}
                   components={
                     {
