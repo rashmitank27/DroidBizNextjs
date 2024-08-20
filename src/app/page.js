@@ -26,7 +26,7 @@ export default async function Home() {
     }
   });
 
-  const paragraphs = topicContent.split(/\n/); // Split content by newlines
+  const paragraphs = topicContent.split(/show-adsense-ad/); // Split content
   const contentWithAds = [];
 
   paragraphs.forEach((paragraph, index) => {
@@ -38,11 +38,8 @@ export default async function Home() {
                       )
                     }
                 }>{paragraph}</Markdown>);
-
-    // Insert an ad after every two paragraphs
-    if ((index + 1) % 2 === 0 && index !== paragraphs.length - 1) {
-      contentWithAds.push(<InArticleAd key={`ad-${index}`} />);
-    }
+    
+    contentWithAds.push(<InArticleAd key={`ad-${index}`} />);
   });
 
   return (
