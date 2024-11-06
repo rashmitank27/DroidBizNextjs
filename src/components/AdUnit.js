@@ -17,11 +17,11 @@ export function InArticleAd({ className }) {
       <AdUnit>
         <ins
           className="adsbygoogle"
-          data-ad-client="ca-pub-7919093913529741"
-          style={{ display: "block", textAlign: "center" }}
-          data-ad-format="fluid"
-          data-ad-slot="4384927242"
-          data-ad-layout="in-article"
+          data-ad-client={process.env.googleClientId}
+          style={{ display: "block" }}
+          data-ad-format="auto"
+          data-ad-slot="3534351170"
+          data-full-width-responsive="true"
         ></ins>
       </AdUnit>
     </div>

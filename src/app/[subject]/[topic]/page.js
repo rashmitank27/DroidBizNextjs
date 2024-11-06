@@ -4,7 +4,6 @@ import Markdown from 'react-markdown'
 import GoogleAdsenseScript from "@/components/GAdsense";
 import Image from 'next/image'
 import remarkGfm from "remark-gfm";
-import { InArticleAd } from "@/components/AdUnit";
 
 export const dynamic = "force-dynamic"; //for ssr while using app router
 
@@ -30,29 +29,20 @@ export default async function TutorialPage({ params }) {
         }
     });
 
-    const paragraphs = topicContent.split(/show-adsense-ad/); // Split content
-    const contentWithAds = [];
-  
-    paragraphs.forEach((paragraph, index) => {
-      paragraph.replaceAll("show-adsense-ad", " ");
-      contentWithAds.push(<Markdown key={`p-${index}`} remarkPlugins={[remarkGfm]}
-                    components={
-                      {
-                        img: (props) => (
-                          <Image className = "mx-auto" src={props.src} alt={props.alt} />
-                        )
-                      }
-                  }>{paragraph}</Markdown>);
-      
-      contentWithAds.push(<InArticleAd key={`ad-${index}`} />);
-    });
-
     return (
         <Layout subjectDetails = {subjectDetails} firestoreData = {firestoreData}>
             <div className="min-h-screen flex flex-col">
                 <div className="md:ml-72 mt-24 ml-9 mr-9 mb-9 prose max-w-none">
-                    {contentWithAds}
-                    <InArticleAd className="p-2 lg:w-3/4 mx-auto" />
+                    <Markdown remarkPlugins={[remarkGfm]}
+                        components={
+                        {
+                            img: (props) => (
+                                <Image className = "mx-auto" src={props.src} alt={props.alt} />
+                            )
+                        }
+                        }>{topicContent}
+                    </Markdown>
+                    {/* <GoogleAdsenseScript/>  */}
                 </div>
             </div>
         </Layout>
