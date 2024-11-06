@@ -53,3 +53,8 @@ content : {
     type: int,
     content: string,
 }
+
+### sudo npm install -g npm@latest
+### npm install
+### npm run build
+### npm run start
