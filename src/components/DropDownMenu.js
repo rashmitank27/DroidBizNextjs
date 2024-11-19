@@ -29,16 +29,18 @@ export default function DropdownMenu({firestoreData}) {
                 >Tutorials</button>
                 <div className={`absolute top-8 z-30 w-[150px] min-h-[20px] flex flex-col py-4 bg-white rounded-md ${transClass}`}>
                     {
-                        firestoreData.map(data =>
-                            <Link
-                                key={data.id}
-                                className="hover:text-teal-800 text-teal-700 px-4 py-1"
-                                href={data.base_url}
-                                onClick={
-                                    toggle
-                                }
-                            >{data.name}</Link>
-                        )
+                        firestoreData
+                        .filter((data) => data.id !== "blogs")
+                        .map((data) => (
+                          <Link 
+                            key={data.id} 
+                            className="hover:text-teal-800 text-teal-700 px-4 py-1" 
+                            href={data.base_url} 
+                            onClick={toggle}
+                          >
+                            {data.name}
+                          </Link>
+                        ))
                     }
                 </div>
             </div>
