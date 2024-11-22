@@ -14,14 +14,14 @@ export default async function Home() {
   const firestoreData = await getTutorials(); //fetch data from firestore
 
   let subjectDetails;
-  let topicContent;  
+  let topicContent;
 
   firestoreData.map(data => {
-    if(data.id === "blogs"){
-        subjectDetails = data;
+    if (data.id === "blogs") {
+      subjectDetails = data;
     }
   });
-  
+
   return (
     <>
       <BlogLayout subjectDetails={subjectDetails} firestoreData={firestoreData}>
@@ -36,10 +36,15 @@ export default async function Home() {
                         {data.title}
                       </h5>
                       <p class="text-slate-600 leading-normal font-light">
-                        {data.shortDesc}
+                        <Markdown remarkPlugins={[remarkGfm]}>
+                          {data.shortDesc.replaceAll("/n", "  \n").replaceAll("/t", " \t")}
+                        </Markdown>
                       </p>
 
-                      <Link href={"/" + subjectDetails.id + "/" + data.url} class="rounded-md bg-teal-700 py-2 px-4 mt-6 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-teal-600 focus:shadow-none active:bg-teal-600 hover:bg-teal-600 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+                      <Link
+                        href={"/" + subjectDetails.id + "/" + data.url}
+                        class="rounded-md bg-teal-700 py-2 px-4 mt-6 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-teal-600 focus:shadow-none active:bg-teal-600 hover:bg-teal-600 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                        type="button">
                         Read more
                       </Link>
                     </div>
@@ -64,13 +69,13 @@ export async function generateMetadata() {
   let keywords;
 
   firestoreData.map(data => {
-    if(data.id === "blogs"){
-        subjectDetails = data;
+    if (data.id === "blogs") {
+      subjectDetails = data;
     }
   });
-      title = subjectDetails.titleTag;
-      desc = subjectDetails.descriptionTag;
-      keywords = subjectDetails.keywords;
+  title = subjectDetails.titleTag;
+  desc = subjectDetails.descriptionTag;
+  keywords = subjectDetails.keywords;
   return {
     title: title,
     description: desc,
