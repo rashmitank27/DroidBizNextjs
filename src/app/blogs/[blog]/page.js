@@ -1,5 +1,5 @@
 import { getTutorials } from "@/lib/firebase/firestore";
-import Layout from "@/components/Layout";
+import BlogLayout from "@/components/BlogLayout";
 import Markdown from 'react-markdown'
 import GoogleAdsenseScript from "@/components/GAdsense";
 import Image from 'next/image'
@@ -8,10 +8,9 @@ import { InArticleAd } from "@/components/AdUnit";
 
 export const dynamic = "force-dynamic"; //for ssr while using app router
 
-export default async function TutorialPage({ params }) {
-
-    let subject = params.subject;
-    let topic = params.topic;
+export default async function BlogPage({ params }) {
+  
+    let blog = params.blog;
 
     const firestoreData = await getTutorials(); //fetch data from firestore
 
@@ -19,14 +18,14 @@ export default async function TutorialPage({ params }) {
     let topicContent;
 
     firestoreData.map(data => {
-        if (data.id === subject) {
+        if(data.id === "blogs"){
             subjectDetails = data;
         }
     });
 
     subjectDetails.content.map(data => {
-        if (data.url === topic) {
-            topicContent = data.content.replaceAll("/n", "  \n").replaceAll("/t", " ");
+        if(data.url === blog) {
+            topicContent = data.content.replaceAll("/n", "  \n").replaceAll("/t", " \t");
         }
     });
 
@@ -47,44 +46,44 @@ export default async function TutorialPage({ params }) {
         contentWithAds.push(<InArticleAd key={`ad-${index}`} />);
     });
 
+
     return (
-        <Layout subjectDetails={subjectDetails} firestoreData={firestoreData}>
+        <BlogLayout subjectDetails = {subjectDetails} firestoreData = {firestoreData}>
             <div className="min-h-screen flex flex-col">
-                <div className="md:ml-72 mt-24 ml-9 mr-9 mb-9 prose max-w-none">
+                <div className="mt-24 ml-9 mr-9 mb-9 prose max-w-none">
                     {contentWithAds}
                     <InArticleAd className="p-2 lg:w-3/4 mx-auto" />
                 </div>
             </div>
-        </Layout>
+        </BlogLayout>
     )
-}
+  }
 
-export async function generateMetadata({ params }) {
-    let subject = params.subject;
-    let topic = params.topic;
+  export async function generateMetadata({ params }) {
+    let blog = params.blog;
 
     let title;
     let desc;
     let keywords;
 
     const firestoreData = await getTutorials(); //fetch data from firestore
-
+  
     let subjectDetails;
-
+  
     firestoreData.map(data => {
-        if (data.id === subject) {
+        if(data.id === "blogs"){
             subjectDetails = data;
         }
     });
 
     subjectDetails.content.map(data => {
-        if (data.url === topic) {
+        if(data.url === blog) {
             title = data.titleTag;
             desc = data.descriptionTag;
             keywords = data.keywords;
         }
     });
-
+  
     return {
         title: title,
         description: desc,
@@ -97,6 +96,6 @@ export async function generateMetadata({ params }) {
         },
         verification: {
             google: 'DzEo_8OpTDL4aq1q8mfcjmCQEaQC5jGbJcOm58hzRhs',
-        }
-    }
-}
+          }
+      }
+  }
