@@ -25,7 +25,7 @@ export default async function BlogPage({ params }) {
 
     subjectDetails.content.map(data => {
         if(data.url === blog) {
-            topicContent = data.content.replaceAll("/n", "  \n").replaceAll("/t", " ");
+            topicContent = data.content.replaceAll("/n", "  \n").replaceAll("/t", " \t");
         }
     });
 
