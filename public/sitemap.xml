@@ -73,89 +73,25 @@
         <changefreq>daily</changefreq>
         <priority>1.00</priority>
     </url>
-	    <url>
+    <url>
         <loc>https://droidbiz.in/flutter/flutter_scaffold</loc>
         <changefreq>daily</changefreq>
         <priority>1.00</priority>
     </url>
-	    <url>
+    <url>
         <loc>https://droidbiz.in/flutter/flutter_text</loc>
         <changefreq>daily</changefreq>
         <priority>1.00</priority>
     </url>
-	    <url>
+    <url>
         <loc>https://droidbiz.in/flutter/flutter_textfield</loc>
         <changefreq>daily</changefreq>
         <priority>1.00</priority>
     </url>
     <url>
-        <loc>https://www.droidbiz.in/android11/android11_one_time_permission</loc>
+        <loc>https://www.droidbiz.in/blogs/android_15_behavior_changes_all_apps</loc>
         <changefreq>daily</changefreq>
         <priority>1.00</priority>
     </url>
-    <url>
-        <loc>https://www.droidbiz.in/android11/android11_auto_reset_permission</loc>
-        <changefreq>daily</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>https://www.droidbiz.in/android11/android11_permission_dialog_visibility</loc>
-        <changefreq>daily</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>https://www.droidbiz.in/android11/android11_reading_phone_number</loc>
-        <changefreq>daily</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>https://www.droidbiz.in/android11/android11_system_alert_window</loc>
-        <changefreq>daily</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>https://www.droidbiz.in/android11/android11_package_visibility</loc>
-        <changefreq>daily</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>https://www.droidbiz.in/android11/android11_data_access_auditing</loc>
-        <changefreq>daily</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>https://www.droidbiz.in/android11/android11_MAC_address</loc>
-        <changefreq>daily</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>https://www.droidbiz.in/android11/android11_foreground_service_type</loc>
-        <changefreq>daily</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>https://www.droidbiz.in/android11/android11_background_location_access</loc>
-        <changefreq>daily</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>https://www.droidbiz.in/android11/android11_behavior_changes_for_all_apps</loc>
-        <changefreq>daily</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>https://www.droidbiz.in/android11/behavior_changes_for_apps_targeting_android11</loc>
-        <changefreq>daily</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>https://www.droidbiz.in/android11/android11_new_apis</loc>
-        <changefreq>daily</changefreq>
-        <priority>1.00</priority>
-    </url>
-    
-
-
-
 </urlset>
  
