@@ -50,7 +50,7 @@ export default async function BlogPage({ params }) {
     return (
         <BlogLayout subjectDetails = {subjectDetails} firestoreData = {firestoreData}>
             <div className="min-h-screen flex flex-col">
-                <div className="mt-24 ml-9 mr-9 mb-9 prose max-w-none">
+                <div className="mt-24 ml-9 mr-9 mb-9 prose max-w-none bg-white">
                     {contentWithAds}
                     <InArticleAd className="p-2 lg:w-3/4 mx-auto" />
                 </div>
