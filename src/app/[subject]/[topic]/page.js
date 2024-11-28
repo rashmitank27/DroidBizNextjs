@@ -49,8 +49,8 @@ export default async function TutorialPage({ params }) {
 
     return (
         <Layout subjectDetails={subjectDetails} firestoreData={firestoreData}>
-            <div className="min-h-screen flex flex-col">
-                <div className="md:ml-72 mt-24 ml-9 mr-9 mb-9 prose max-w-none bg-white">
+            <div className="min-h-screen flex flex-col bg-white">
+                <div className="md:ml-72 mt-24 ml-9 mr-9 mb-9 prose max-w-none">
                     {contentWithAds}
                     <InArticleAd className="p-2 lg:w-3/4 mx-auto" />
                 </div>
