@@ -93,5 +93,10 @@
         <changefreq>daily</changefreq>
         <priority>1.00</priority>
     </url>
+	<url>
+        <loc>https://www.droidbiz.in/blogs/celpip_test_format_guide_practice_tests</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.00</priority>
+    </url>
 </urlset>
  
