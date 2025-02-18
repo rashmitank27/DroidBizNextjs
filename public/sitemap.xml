@@ -93,8 +93,13 @@
         <changefreq>daily</changefreq>
         <priority>1.00</priority>
     </url>
-	<url>
+    <url>
         <loc>https://www.droidbiz.in/blogs/celpip-practice-tests-and-celpip-exam-format</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.00</priority>
+    </url>
+    <url>
+        <loc>https://www.droidbiz.in/blogs/what-is-kotlin-multiplatform-deep-dive-cross-platform-app-development</loc>
         <changefreq>daily</changefreq>
         <priority>1.00</priority>
     </url>
