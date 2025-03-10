@@ -49,3 +49,9 @@ content - string
 keywords - string
 titleTag - string
 descriptionTag - string
+
+### Add new line to content
+- first json stringify using below url which will add \n to newline
+https://jsonformatter.org/json-stringify-online
+- Replace \n with /n char using below url
+https://onlinestringtools.com/replace-string
