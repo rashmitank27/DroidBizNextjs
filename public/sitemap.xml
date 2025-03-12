@@ -103,5 +103,10 @@
         <changefreq>daily</changefreq>
         <priority>1.00</priority>
     </url>
+    <url>
+        <loc>https://www.droidbiz.in/blogs/what-is-compose-multiplatform</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.00</priority>
+    </url>
 </urlset>
  
