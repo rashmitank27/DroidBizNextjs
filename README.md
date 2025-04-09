@@ -50,6 +50,17 @@ keywords - string
 titleTag - string
 descriptionTag - string
 
+### Tutorial structure
+
+content - string
+id - number
+title - string
+url - string
+type - number
+keywords - string
+titleTag - string
+descriptionTag - string
+
 ### Add new line to content
 - first json stringify using below url which will add \n to newline
 https://jsonformatter.org/json-stringify-online
