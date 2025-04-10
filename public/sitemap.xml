@@ -133,8 +133,7 @@
         <changefreq>daily</changefreq>
         <priority>1.00</priority>
     </url>
-    </url>
-	<url>
+    <url>
         <loc>https://www.droidbiz.in/flutter/flutter-row-and-column-widget</loc>
         <changefreq>daily</changefreq>
         <priority>1.00</priority>
