@@ -108,5 +108,30 @@
         <changefreq>daily</changefreq>
         <priority>1.00</priority>
     </url>
+    <url>
+        <loc>https://www.droidbiz.in/flutter/flutter-container-widget</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.00</priority>
+    </url>
+	<url>
+        <loc>https://www.droidbiz.in/flutter/flutter-button-widget</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.00</priority>
+    </url>
+	<url>
+        <loc>https://www.droidbiz.in/flutter/flutter-icons-widget</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.00</priority>
+    </url>
+	<url>
+        <loc>https://www.droidbiz.in/flutter/flutter-stack-widget</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.00</priority>
+    </url>
+	<url>
+        <loc>https://www.droidbiz.in/flutter/flutter-card-widget</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.00</priority>
+    </url>
 </urlset>
  
