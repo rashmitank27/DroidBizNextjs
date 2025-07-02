@@ -3,7 +3,7 @@ import AdUnitClient from "./AdUnitClient"
 
 const AdUnit = ({ children }) => {
   return (
-    <Suspense>
+    <Suspense fallback={<div>Loading ad...</div>}>
         <AdUnitClient>{children}</AdUnitClient>
     </Suspense>
   )
