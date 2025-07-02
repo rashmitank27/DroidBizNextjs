@@ -1,5 +1,6 @@
 import { getTutorials } from "@/lib/firebase/firestore";
 import BlogLayout from "@/components/BlogLayout";
+import TestAd from "@/components/TestAd";
 
 import Markdown from 'react-markdown'
 import Image from 'next/image'
@@ -53,6 +54,7 @@ export default async function Home() {
               })
             }
             <InArticleAd className="p-2 lg:w-3/4 mx-auto" />
+              <TestAd/>
           </div>
         </div>
       </BlogLayout>
