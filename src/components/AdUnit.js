@@ -1,10 +1,10 @@
 import React, { Suspense } from "react"
 import AdUnitClient from "./AdUnitClient"
 
-const AdUnit = ({ children }) => {
+const AdUnit = ({ children, adKey }) => {
   return (
     <Suspense fallback={<div>Loading ad...</div>}>
-        <AdUnitClient>{children}</AdUnitClient>
+        <AdUnitClient key={adKey}>{children}</AdUnitClient>
     </Suspense>
   )
 }
@@ -12,9 +12,12 @@ const AdUnit = ({ children }) => {
 export default AdUnit
 
 export function InArticleAd({ className }) {
+  // Use pathname or random key to ensure fresh ad rendering
+  const adKey = typeof window !== 'undefined' ? window.location.pathname : Math.random()
+  
   return (
-    <div className={className}>
-      <AdUnit>
+    <div className={`${className} ad-container`}>
+      <AdUnit adKey={adKey}>
         <ins
           className="adsbygoogle"
           data-ad-client={process.env.googleClientId}
