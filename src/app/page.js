@@ -54,7 +54,6 @@ export default async function Home() {
               })
             }
             <InArticleAd className="p-2 lg:w-3/4 mx-auto" />
-              <TestAd/>
           </div>
         </div>
       </BlogLayout>
