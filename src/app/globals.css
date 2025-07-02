@@ -19,30 +19,6 @@
   }
 }
 
-@layer utilities {
-  /* AdSense specific styles */
-  .ad-container {
-    min-height: 250px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .adsbygoogle {
-    display: block !important;
-  }
-
-  /* Additional ad spacing utilities */
-  .ad-spacing {
-    margin: 2rem 0;
-  }
-
-  .ad-responsive {
-    width: 100%;
-    max-width: 100%;
-  }
-}
-
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
