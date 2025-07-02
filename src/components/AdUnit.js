@@ -3,7 +3,7 @@ import AdUnitClient from "./AdUnitClient"
 
 const AdUnit = ({ children, adKey }) => {
   return (
-    <Suspense fallback={<div>Loading ad...</div>}>
+    <Suspense fallback={<div style={{ minHeight: '200px' }}>Loading ad...</div>}>
         <AdUnitClient key={adKey}>{children}</AdUnitClient>
     </Suspense>
   )
@@ -16,8 +16,8 @@ export function InArticleAd({ className }) {
   const adKey = typeof window !== 'undefined' ? window.location.pathname : Math.random()
   
   return (
-    <div className={className}>
-      <AdUnit adKey={adKey}>
+    <div className={className} style={{ minHeight: '200px' }}>
+      <AdUnit>
         <ins
           className="adsbygoogle"
           data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
