@@ -16,7 +16,7 @@ export function InArticleAd({ className }) {
   const adKey = typeof window !== 'undefined' ? window.location.pathname : Math.random()
   
   return (
-    <div className={`${className} ad-container`}>
+    <div className={className}>
       <AdUnit adKey={adKey}>
         <ins
           className="adsbygoogle"
