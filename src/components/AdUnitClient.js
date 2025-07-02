@@ -8,7 +8,10 @@ export default function AdUnitClient({ children }) {
   const searchParams = useSearchParams()
   useEffect(() => {
     try {
-      ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+       // Ensure adsbygoogle is loaded before pushing
+       if (typeof window !== 'undefined' && window.adsbygoogle) {
+        (window.adsbygoogle = window.adsbygoogle || []).push({})
+      }
     } catch (err) {
       console.error(err)
     }
