@@ -18,8 +18,10 @@ export function InArticleAd({ className }) {
         <ins
           className="adsbygoogle"
           data-ad-client={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
-          style="display:inline-block;width:300px;height:250px"
-          data-ad-slot="7666513623"
+          style={{ display: "block" }}
+          data-ad-format="auto"
+          data-ad-slot="3534351170"
+          data-full-width-responsive="true"
         ></ins>
       </AdUnit>
     </div>
