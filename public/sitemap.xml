@@ -280,4 +280,19 @@
 <url>
   <loc>https://www.droidbiz.in/kotlin/kotlin-inheritance</loc>
 </url>
+<url>
+  <loc>https://www.droidbiz.in/kotlin/kotlin-interfaces</loc>
+</url>
+<url>
+  <loc>https://www.droidbiz.in/kotlin/kotlin-data-classes</loc>
+</url>
+<url>
+  <loc>https://www.droidbiz.in/kotlin/kotlin-abstract-class</loc>
+</url>
+<url>
+  <loc>https://www.droidbiz.in/kotlin/kotlin-sealed-class</loc>
+</url>
+<url>
+  <loc>https://www.droidbiz.in/kotlin/kotlin-enum</loc>
+</url>
 </urlset>
