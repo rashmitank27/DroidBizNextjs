@@ -1,13 +1,3 @@
 User-agent: *
 Allow: /
-
-# Sitemap
 Sitemap: https://www.droidbiz.in/sitemap.xml
-
-# Crawl-delay
-Crawl-delay: 1
-
-# Disallow admin paths (if any)
-Disallow: /admin/
-Disallow: /api/
-Disallow: /.next/
