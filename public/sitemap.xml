@@ -1,298 +1,268 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-
-<url>
-  <loc>https://www.droidbiz.in/</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter_introduction</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/jetpack-compose-basics</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-tutorial</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/blogs/android_15_behavior_changes_all_apps</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/blogs/celpip-practice-tests-and-celpip-exam-format</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/blogs/what-is-kotlin-multiplatform-deep-dive-cross-platform-app-development</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/blogs/what-is-compose-multiplatform</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter_windows_installation</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter_web_setup</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter_macos_installation</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter_create_new_project</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter_project_structure</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter_understand_main_dart_file</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter_architecture</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter_widgets</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter_layouts</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter_single_child_layout_widget</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter_multiple_child_layout_widget</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter_themes</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter_scaffold</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter_text</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter_textfield</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter-container-widget</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter-button-widget</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter-icons-widget</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter-stack-widget</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter-card-widget</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter-row-and-column-widget</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter-images</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter-alertdialog</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter-toast</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/flutter/flutter-tabbar</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/jetpack-compose-widgets</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/jetpack-compose-layouts</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/jetpack-compose-text</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/jetpack-compose-button</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/jetpack-compose-textfield</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/jetpack-compose-checkbox</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/jetpack-compose-radio-button</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/jetpack-compose-box</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/jetpack-compose-card</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/jetpack-compose-switch</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/jetpack-compose-floating-action-button</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/jetpack-compose-toast</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/jetpack-compose-snackbar</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/jetpack-compose-alertdialog</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/jetpack-compose-image-views</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/jetpack-compose-preview</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/jetpack-compose-scaffold</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/jetpack-compose-constraintlayout</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/Jetpack-compose-row</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/Jetpack-compose-column</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/Jetpack-compose-lazyrow</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/Jetpack-compose-lazycolumn</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/Jetpack-compose-gridview</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/Jetpack-compose-staggered-gridview</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/Jetpack-compose-navigation</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/Jetpack-compose-navigation-drawer</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/Jetpack-compose-topappbar</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/Jetpack-compose-bottom-navigation</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/jetpack-compose/Jetpack-compose-themes</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-project-setup</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-syntax</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-output</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-comments</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-data-types</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-variables</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-operators</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-strings</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-booleans</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-standard-input-output</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-type-conversion</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-expressions</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-if-else</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-when</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-while-loop</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-break-continue</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-for-loops</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-arrays</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-ranges</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-functions</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-list</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-set</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-map</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-classes-and-objects</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-nested-class-and-inner-class</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-constructors</loc>
-</url> 
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-setter-and-getter</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-visibility-modifiers</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-inheritance</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-interfaces</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-data-classes</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-abstract-class</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-sealed-class</loc>
-</url>
-<url>
-  <loc>https://www.droidbiz.in/kotlin/kotlin-enum</loc>
-</url>
+  <url>
+    <loc>https://www.droidbiz.in</loc>
+    <lastmod>2025-07-23T23:50:03.911Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/blogs/android-15-behavior-changes-apps-targeting-android-15-or-higher</loc>
+    <lastmod>2025-07-23T23:50:03.757Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-tutorial</loc>
+    <lastmod>2025-07-23T23:50:03.880Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-project-setup</loc>
+    <lastmod>2025-07-23T23:50:03.881Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-syntax</loc>
+    <lastmod>2025-07-23T23:50:03.881Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-output</loc>
+    <lastmod>2025-07-23T23:50:03.881Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-comments</loc>
+    <lastmod>2025-07-23T23:50:03.882Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-data-types</loc>
+    <lastmod>2025-07-23T23:50:03.883Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-variables</loc>
+    <lastmod>2025-07-23T23:50:03.883Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-operators</loc>
+    <lastmod>2025-07-23T23:50:03.884Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-strings</loc>
+    <lastmod>2025-07-23T23:50:03.884Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-booleans</loc>
+    <lastmod>2025-07-23T23:50:03.885Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-standard-input-output</loc>
+    <lastmod>2025-07-23T23:50:03.885Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-type-conversion</loc>
+    <lastmod>2025-07-23T23:50:03.886Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-expressions</loc>
+    <lastmod>2025-07-23T23:50:03.886Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-if-else</loc>
+    <lastmod>2025-07-23T23:50:03.887Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-when</loc>
+    <lastmod>2025-07-23T23:50:03.887Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-while-loop</loc>
+    <lastmod>2025-07-23T23:50:03.888Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-break-continue</loc>
+    <lastmod>2025-07-23T23:50:03.888Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-for-loops</loc>
+    <lastmod>2025-07-23T23:50:03.889Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-arrays</loc>
+    <lastmod>2025-07-23T23:50:03.889Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-ranges</loc>
+    <lastmod>2025-07-23T23:50:03.890Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-functions</loc>
+    <lastmod>2025-07-23T23:50:03.890Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-list</loc>
+    <lastmod>2025-07-23T23:50:03.892Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-set</loc>
+    <lastmod>2025-07-23T23:50:03.892Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-map</loc>
+    <lastmod>2025-07-23T23:50:03.893Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-classes-and-objects</loc>
+    <lastmod>2025-07-23T23:50:03.893Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-nested-class-and-inner-class</loc>
+    <lastmod>2025-07-23T23:50:03.893Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-constructors</loc>
+    <lastmod>2025-07-23T23:50:03.894Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-setter-and-getter</loc>
+    <lastmod>2025-07-23T23:50:03.894Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-visibility-modifiers</loc>
+    <lastmod>2025-07-23T23:50:03.894Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-inheritance</loc>
+    <lastmod>2025-07-23T23:50:03.895Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-interfaces</loc>
+    <lastmod>2025-07-23T23:50:03.895Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-data-classes</loc>
+    <lastmod>2025-07-23T23:50:03.895Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-abstract-class</loc>
+    <lastmod>2025-07-23T23:50:03.896Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-sealed-class</loc>
+    <lastmod>2025-07-23T23:50:03.896Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-enum</loc>
+    <lastmod>2025-07-23T23:50:03.896Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-companion-objects</loc>
+    <lastmod>2025-07-23T23:50:03.897Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-null-safety</loc>
+    <lastmod>2025-07-23T23:50:03.897Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-equality</loc>
+    <lastmod>2025-07-23T23:50:03.897Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-exception-handling</loc>
+    <lastmod>2025-07-23T23:50:03.898Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-regular-expressions</loc>
+    <lastmod>2025-07-23T23:50:03.899Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-ranges</loc>
+    <lastmod>2025-07-23T23:50:03.899Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/kotlin/kotlin-this-expressions</loc>
+    <lastmod>2025-07-23T23:50:03.899Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
