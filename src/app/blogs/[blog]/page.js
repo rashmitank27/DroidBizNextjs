@@ -1,101 +1,188 @@
-import { getTutorials } from "@/lib/firebase/firestore";
+import { getTutorials } from "@/lib/data/excelReader";
 import BlogLayout from "@/components/BlogLayout";
 import Markdown from 'react-markdown'
 import GoogleAdsenseScript from "@/components/GAdsense";
 import Image from 'next/image'
 import remarkGfm from "remark-gfm";
 import { InArticleAd } from "@/components/AdUnit";
+import { notFound } from 'next/navigation';
 
-export const dynamic = "force-dynamic"; //for ssr while using app router
+export const dynamic = "force-static"; // Changed to static for better performance with Excel
+export const revalidate = 3600; // Revalidate every hour
 
 export default async function BlogPage({ params }) {
-  
-    let blog = params.blog;
+    const blog = params.blog;
 
-    const firestoreData = await getTutorials(); //fetch data from firestore
+    try {
+        const firestoreData = await getTutorials(); // fetch data from Excel files
 
-    let subjectDetails;
-    let topicContent;
-
-    firestoreData.map(data => {
-        if(data.id === "blogs"){
-            subjectDetails = data;
+        if (!firestoreData || firestoreData.length === 0) {
+            notFound();
         }
-    });
 
-    subjectDetails.content.map(data => {
-        if(data.url === blog) {
-            topicContent = data.content.replaceAll("/n", "  \n").replaceAll("/t", " \t");
+        let subjectDetails = null;
+        let topicContent = null;
+
+        // Find blog details
+        for (const data of firestoreData) {
+            if (data.id === "blogs") {
+                subjectDetails = data;
+                break;
+            }
         }
-    });
 
-    const paragraphs = topicContent.split(/show-adsense-ad/); // Split content
-    const contentWithAds = [];
+        if (!subjectDetails) {
+            notFound();
+        }
 
-    paragraphs.forEach((paragraph, index) => {
-        paragraph.replaceAll("show-adsense-ad", " ");
-        contentWithAds.push(<Markdown key={`p-${index}`} remarkPlugins={[remarkGfm]}
-            components={
-                {
-                    img: (props) => (
-                        <Image className="mx-auto" src={props.src} alt={props.alt} />
-                    )
-                }
-            }>{paragraph}</Markdown>);
+        // Find blog content
+        for (const content of subjectDetails.content) {
+            if (content.url === blog) {
+                topicContent = content.content?.replaceAll("/n", "  \n")?.replaceAll("/t", " \t") || "";
+                break;
+            }
+        }
 
-        contentWithAds.push(<InArticleAd key={`ad-${index}`} />);
-    });
+        if (!topicContent) {
+            notFound();
+        }
 
+        // Split content and insert ads
+        const paragraphs = topicContent.split(/show-adsense-ad/);
+        const contentWithAds = [];
 
-    return (
-        <BlogLayout subjectDetails = {subjectDetails} firestoreData = {firestoreData}>
-            <div className="min-h-screen flex flex-col bg-white">
-                <div className="mt-24 ml-9 mr-9 mb-9 prose max-w-none">
-                    {contentWithAds}
-                    <InArticleAd className="p-2 lg:w-3/4 mx-auto" />
+        paragraphs.forEach((paragraph, index) => {
+            if (paragraph.trim()) {
+                const cleanedParagraph = paragraph.replace(/show-adsense-ad/g, " ");
+                contentWithAds.push(
+                    <Markdown 
+                        key={`p-${index}`} 
+                        remarkPlugins={[remarkGfm]}
+                        components={{
+                            img: (props) => (
+                                <Image 
+                                    className="mx-auto" 
+                                    src={props.src} 
+                                    alt={props.alt || "Blog Image"} 
+                                    width={800}
+                                    height={400}
+                                    style={{ maxWidth: '100%', height: 'auto' }}
+                                />
+                            )
+                        }}
+                    >
+                        {cleanedParagraph}
+                    </Markdown>
+                );
+            }
+
+            // Add ad after each paragraph (except the last one)
+            if (index < paragraphs.length - 1) {
+                contentWithAds.push(<InArticleAd key={`ad-${index}`} />);
+            }
+        });
+
+        return (
+            <BlogLayout subjectDetails={subjectDetails} firestoreData={firestoreData}>
+                <div className="min-h-screen flex flex-col bg-white">
+                    <div className="mt-24 ml-9 mr-9 mb-9 prose max-w-none">
+                        {contentWithAds}
+                        <InArticleAd className="p-2 lg:w-3/4 mx-auto" />
+                    </div>
                 </div>
-            </div>
-        </BlogLayout>
-    )
-  }
+            </BlogLayout>
+        );
+    } catch (error) {
+        console.error('Error loading blog page:', error);
+        notFound();
+    }
+}
 
-  export async function generateMetadata({ params }) {
-    let blog = params.blog;
+export async function generateMetadata({ params }) {
+    const blog = params.blog;
 
-    let title;
-    let desc;
-    let keywords;
-
-    const firestoreData = await getTutorials(); //fetch data from firestore
-  
-    let subjectDetails;
-  
-    firestoreData.map(data => {
-        if(data.id === "blogs"){
-            subjectDetails = data;
+    try {
+        const firestoreData = await getTutorials();
+        
+        if (!firestoreData || firestoreData.length === 0) {
+            return {
+                title: 'Blog Not Found',
+                description: 'The requested blog post could not be found.'
+            };
         }
-    });
 
-    subjectDetails.content.map(data => {
-        if(data.url === blog) {
-            title = data.titleTag;
-            desc = data.descriptionTag;
-            keywords = data.keywords;
+        let subjectDetails = null;
+        let title = 'Blog Post';
+        let desc = '';
+        let keywords = '';
+
+        // Find blog details
+        for (const data of firestoreData) {
+            if (data.id === "blogs") {
+                subjectDetails = data;
+                break;
+            }
         }
-    });
-  
-    return {
-        title: title,
-        description: desc,
-        keywords: keywords,
-        openGraph: {
+
+        if (subjectDetails) {
+            // Find blog metadata
+            for (const content of subjectDetails.content) {
+                if (content.url === blog) {
+                    title = content.titleTag || content.title || 'Blog Post';
+                    desc = content.descriptionTag || content.shortDesc || '';
+                    keywords = content.keywords || '';
+                    break;
+                }
+            }
+        }
+
+        return {
             title: title,
             description: desc,
-            locale: 'en_US',
-            siteName: 'www.droidbiz.in'
-        },
-        verification: {
-            google: 'DzEo_8OpTDL4aq1q8mfcjmCQEaQC5jGbJcOm58hzRhs',
-          }
-      }
-  }
+            keywords: keywords,
+            openGraph: {
+                title: title,
+                description: desc,
+                locale: 'en_US',
+                siteName: 'www.droidbiz.in'
+            },
+            verification: {
+                google: 'DzEo_8OpTDL4aq1q8mfcjmCQEaQC5jGbJcOm58hzRhs',
+            }
+        };
+    } catch (error) {
+        console.error('Error generating blog metadata:', error);
+        return {
+            title: 'Blog Post',
+            description: 'Programming blog post and guide.'
+        };
+    }
+}
+
+// Generate static params for all blog posts at build time
+export async function generateStaticParams() {
+    try {
+        const firestoreData = await getTutorials();
+        const params = [];
+
+        if (firestoreData && firestoreData.length > 0) {
+            for (const subject of firestoreData) {
+                if (subject.id === "blogs" && subject.content && Array.isArray(subject.content)) {
+                    for (const blog of subject.content) {
+                        if (blog.url) {
+                            params.push({
+                                blog: blog.url
+                            });
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+
+        return params;
+    } catch (error) {
+        console.error('Error generating static params for blogs:', error);
+        return [];
+    }
+}
