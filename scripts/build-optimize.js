@@ -287,10 +287,16 @@ class HighPerformanceBuildOptimizer {
         const cachedPath = path.join(OUTPUT_DIR, `${subjectName}.json`);
         
         if (fs.existsSync(cachedPath)) {
-          // File already exists in cache, count its pages
-          const cachedData = JSON.parse(fs.readFileSync(cachedPath, 'utf8'));
-          this.stats.totalPages += cachedData.content.length;
-          this.stats.totalSize += fs.statSync(cachedPath).size;
+          try {
+            // File already exists in cache, count its pages
+            const cachedData = JSON.parse(fs.readFileSync(cachedPath, 'utf8'));
+            if (cachedData && cachedData.content && Array.isArray(cachedData.content)) {
+              this.stats.totalPages += cachedData.content.length;
+              this.stats.totalSize += fs.statSync(cachedPath).size;
+            }
+          } catch (error) {
+            console.log(`   ⚠️  Warning: Could not read cached file ${cachedPath}: ${error.message}`);
+          }
         }
       }
     }
@@ -304,7 +310,7 @@ class HighPerformanceBuildOptimizer {
     
     // This runs much faster since we're reading from processed JSON cache
     const processedFiles = fs.readdirSync(OUTPUT_DIR)
-      .filter(file => file.endsWith('.json'));
+      .filter(file => file.endsWith('.json') && file !== 'file-hashes.json');
 
     const sitemapEntries = [{ // Homepage
       url: 'https://www.droidbiz.in',
@@ -315,29 +321,53 @@ class HighPerformanceBuildOptimizer {
 
     // Process all cached data files
     for (const filename of processedFiles) {
-      const data = JSON.parse(fs.readFileSync(path.join(OUTPUT_DIR, filename), 'utf8'));
-      
-      for (const item of data.content) {
-        const url = data.id === 'blogs' 
-          ? `https://www.droidbiz.in/blogs/${item.url}`
-          : `https://www.droidbiz.in/${data.id}/${item.url}`;
+      try {
+        const data = JSON.parse(fs.readFileSync(path.join(OUTPUT_DIR, filename), 'utf8'));
         
-        sitemapEntries.push({
-          url: url,
-          lastmod: item.lastModified,
-          changefreq: 'weekly',
-          priority: '0.8'
-        });
+        // Validate data structure
+        if (!data || !data.content || !Array.isArray(data.content)) {
+          console.log(`   ⚠️  Warning: Invalid data structure in ${filename}, skipping...`);
+          continue;
+        }
+        
+        for (const item of data.content) {
+          // Validate item structure
+          if (!item || !item.url) {
+            console.log(`   ⚠️  Warning: Invalid item structure in ${filename}, skipping item...`);
+            continue;
+          }
+
+          const url = data.id === 'blogs' 
+            ? `https://www.droidbiz.in/blogs/${item.url}`
+            : `https://www.droidbiz.in/${data.id}/${item.url}`;
+          
+          sitemapEntries.push({
+            url: url,
+            lastmod: item.lastModified || new Date().toISOString(),
+            changefreq: 'weekly',
+            priority: '0.8'
+          });
+        }
+      } catch (error) {
+        console.log(`   ❌ Error processing ${filename} for SEO: ${error.message}`);
+        continue;
       }
     }
 
     // Generate and save sitemap
     const sitemapXML = this.generateSitemapXML(sitemapEntries);
-    fs.writeFileSync(path.join(process.cwd(), 'public', 'sitemap.xml'), sitemapXML);
+    const publicDir = path.join(process.cwd(), 'public');
+    
+    // Ensure public directory exists
+    if (!fs.existsSync(publicDir)) {
+      fs.mkdirSync(publicDir, { recursive: true });
+    }
+    
+    fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapXML);
     
     // Generate robots.txt
     const robotsTxt = `User-agent: *\nAllow: /\nSitemap: https://www.droidbiz.in/sitemap.xml\n`;
-    fs.writeFileSync(path.join(process.cwd(), 'public', 'robots.txt'), robotsTxt);
+    fs.writeFileSync(path.join(publicDir, 'robots.txt'), robotsTxt);
     
     console.log(`   ✅ Generated sitemap with ${sitemapEntries.length} URLs`);
   }
