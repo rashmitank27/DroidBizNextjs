@@ -3,47 +3,114 @@ name: Deploy to Vercel
 on:
   push:
     branches: [main, master, v3]
-    paths: ['.next-cache/**', 'src/**', 'public/**']
+    paths: 
+      - '.next-cache/**'
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'next.config.mjs'
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v4
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
       
-      - name: Setup Node.js
+      - name: 📦 Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
       
-      - name: Install dependencies
+      - name: 🔧 Install dependencies
         run: npm ci
       
-      - name: Verify secrets format
+      - name: 📥 Install Vercel CLI
+        run: npm install -g vercel@latest
+      
+      - name: 🔍 Verify cache and configuration
         run: |
-          echo "Checking token format..."
-          TOKEN_LENGTH=${#VERCEL_TOKEN}
-          echo "Token length: $TOKEN_LENGTH characters"
-          
-          if [ $TOKEN_LENGTH -lt 20 ]; then
-            echo "❌ Token seems too short"
+          echo "Checking cache directory..."
+          if [ ! -d ".next-cache" ]; then
+            echo "❌ .next-cache directory not found!"
             exit 1
           fi
           
-          echo "✅ Token format looks correct"
+          JSON_COUNT=$(find .next-cache -name "*.json" | wc -l)
+          echo "✅ Cache directory found with $JSON_COUNT JSON files"
+          
+          echo "Checking Vercel configuration..."
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "❌ VERCEL_TOKEN secret not configured!"
+            exit 1
+          fi
+          
+          if [ -z "$VERCEL_ORG_ID" ]; then
+            echo "❌ VERCEL_ORG_ID secret not configured!"
+            exit 1
+          fi
+          
+          if [ -z "$VERCEL_PROJECT_ID" ]; then
+            echo "❌ VERCEL_PROJECT_ID secret not configured!"
+            exit 1
+          fi
+          
+          echo "✅ All secrets configured"
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
       
-      - name: Build application
+      - name: 🏗️ Build Next.js application
         run: npm run build
         env:
           NODE_ENV: production
+          NEXT_TELEMETRY_DISABLED: 1
       
-      - name: Deploy to Vercel
-        uses: vercel/action@v1
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prod'
+      - name: 📊 Show build statistics
+        run: |
+          echo "📊 Build Statistics:"
+          echo "Cache files: $(find .next-cache -name "*.json" | wc -l)"
+          echo "Public API files: $(find public/api -name "*.json" 2>/dev/null | wc -l || echo 0)"
+          if [ -d ".next" ]; then
+            echo "Build size: $(du -sh .next 2>/dev/null || echo "N/A")"
+          fi
+      
+      - name: 🚀 Deploy to Vercel
+        run: |
+          echo "🚀 Starting Vercel deployment..."
+          
+          # Set environment variables for Vercel
+          export VERCEL_ORG_ID="${{ secrets.VERCEL_ORG_ID }}"
+          export VERCEL_PROJECT_ID="${{ secrets.VERCEL_PROJECT_ID }}"
+          
+          # Deploy to production
+          DEPLOYMENT_URL=$(vercel deploy --prod --token="${{ secrets.VERCEL_TOKEN }}" 2>&1)
+          
+          echo "Deployment output:"
+          echo "$DEPLOYMENT_URL"
+          
+          # Check if deployment was successful
+          if echo "$DEPLOYMENT_URL" | grep -q "https://"; then
+            echo "✅ Deployment successful!"
+            echo "🌐 URL: $(echo "$DEPLOYMENT_URL" | grep -o 'https://[^[:space:]]*' | head -1)"
+          else
+            echo "❌ Deployment failed!"
+            echo "$DEPLOYMENT_URL"
+            exit 1
+          fi
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      
+      - name: 📝 Deployment Summary
+        if: success()
+        run: |
+          echo "🎉 Deployment completed successfully!"
+          echo "📦 Static cache deployed with processed Excel data"
+          echo "⚡ Fast load times with pre-processed JSON files"
+          echo "🔍 Check your Vercel dashboard for full deployment details"
