@@ -9,7 +9,6 @@ on:
       - 'public/**'
       - 'package.json'
       - 'next.config.mjs'
-      - 'vercel.json'
   workflow_dispatch:
     inputs:
       force_deploy:
@@ -40,7 +39,7 @@ jobs:
           cache: 'npm'
       
       - name: ⚡ Install dependencies
-        run: npm ci --prefer-offline --no-audit
+        run: npm ci
       
       - name: 📥 Install Vercel CLI
         run: npm install -g vercel@latest
