@@ -4,13 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/build-optimize.js && next build",
-    "build:clean": "rm -rf .next .next-cache && npm run build",
-    "start": "next start",
-    "lint": "next lint",
     "optimize": "node scripts/build-optimize.js",
-    "analyze": "ANALYZE=true npm run build",
-    "export": "next export"
+    "build": "npm run optimize && next build",
+    "build:static": "npm run optimize && next build && next export",
+    "start": "next start",
+    "deploy:prepare": "npm run optimize",
+    "deploy:vercel": "vercel --prod",
+    "lint": "next lint"
   },
   "dependencies": {
     "firebase": "^10.11.0",

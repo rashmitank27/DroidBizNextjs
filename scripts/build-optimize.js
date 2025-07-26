@@ -1,22 +1,23 @@
 #!/usr/bin/env node
 
 /**
- * High-Performance Build Optimization Script
- * Includes parallel processing, caching, and incremental builds
+ * Fixed Static Build Optimization Script
+ * Corrected order of operations for manifest generation
  */
 
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const XLSX = require('xlsx');
-const { Worker } = require('worker_threads');
 const os = require('os');
 
 const DATA_DIR = path.join(process.cwd(), 'data', 'excel');
-const OUTPUT_DIR = path.join(process.cwd(), '.next-cache');
-const HASH_FILE = path.join(OUTPUT_DIR, 'file-hashes.json');
+const CACHE_DIR = path.join(process.cwd(), '.next-cache');
+const PUBLIC_DIR = path.join(process.cwd(), 'public');
+const HASH_FILE = path.join(CACHE_DIR, 'file-hashes.json');
+const MANIFEST_FILE = path.join(CACHE_DIR, 'manifest.json');
 
-class HighPerformanceBuildOptimizer {
+class StaticBuildOptimizer {
   constructor() {
     this.stats = {
       filesProcessed: 0,
@@ -25,50 +26,10 @@ class HighPerformanceBuildOptimizer {
       totalSize: 0,
       errors: 0,
       startTime: Date.now(),
-      parallelWorkers: Math.min(os.cpus().length, 8) // Use up to 8 CPU cores
+      parallelWorkers: Math.min(os.cpus().length, 8)
     };
     this.fileHashes = this.loadFileHashes();
-  }
-
-  /**
-   * Main optimization process with parallel processing
-   */
-  async optimize() {
-    console.log(`🚀 Starting high-performance build optimization...`);
-    console.log(`📊 Using ${this.stats.parallelWorkers} parallel workers\n`);
-    
-    try {
-      this.ensureOutputDir();
-      
-      // Get all Excel files and check for changes
-      const allFiles = this.getExcelFiles();
-      const { changedFiles, unchangedFiles } = this.detectChangedFiles(allFiles);
-      
-      console.log(`📁 Total files: ${allFiles.length}`);
-      console.log(`🔄 Changed files: ${changedFiles.length}`);
-      console.log(`✅ Unchanged files: ${unchangedFiles.length} (will be skipped)\n`);
-      
-      // Process changed files in parallel
-      if (changedFiles.length > 0) {
-        await this.processFilesInParallel(changedFiles);
-      }
-      
-      // Copy unchanged files from cache
-      this.copyUnchangedFiles(unchangedFiles);
-      
-      // Generate SEO files
-      await this.generateSEOFiles();
-      
-      // Save new file hashes
-      this.saveFileHashes();
-      
-      this.showOptimizedStats();
-      
-      console.log('✅ High-performance build optimization completed!');
-    } catch (error) {
-      console.error('❌ Build optimization failed:', error);
-      process.exit(1);
-    }
+    this.manifest = this.loadManifest();
   }
 
   /**
@@ -90,6 +51,46 @@ class HighPerformanceBuildOptimizer {
    */
   saveFileHashes() {
     fs.writeFileSync(HASH_FILE, JSON.stringify(this.fileHashes, null, 2));
+  }
+
+  /**
+   * Load manifest from committed cache
+   */
+  loadManifest() {
+    try {
+      if (fs.existsSync(MANIFEST_FILE)) {
+        return JSON.parse(fs.readFileSync(MANIFEST_FILE, 'utf8'));
+      }
+    } catch (error) {
+      console.log('📝 No previous manifest found, creating new one');
+    }
+    return {
+      subjects: [],
+      totalFiles: 0,
+      totalPages: 0,
+      lastUpdated: null,
+      buildId: this.generateBuildId()
+    };
+  }
+
+  /**
+   * Save manifest
+   */
+  saveManifest() {
+    try {
+      fs.writeFileSync(MANIFEST_FILE, JSON.stringify(this.manifest, null, 2));
+      console.log('   ✅ Manifest saved to .next-cache/manifest.json');
+    } catch (error) {
+      console.error('   ❌ Failed to save manifest:', error.message);
+      throw error;
+    }
+  }
+
+  /**
+   * Generate unique build ID
+   */
+  generateBuildId() {
+    return crypto.randomBytes(8).toString('hex');
   }
 
   /**
@@ -134,6 +135,78 @@ class HighPerformanceBuildOptimizer {
   getFileHash(filePath) {
     const fileBuffer = fs.readFileSync(filePath);
     return crypto.createHash('md5').update(fileBuffer).digest('hex');
+  }
+
+  /**
+   * Ensure required directories exist
+   */
+  ensureDirectories() {
+    [CACHE_DIR, PUBLIC_DIR].forEach(dir => {
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+    });
+
+    // Ensure API directories exist
+    const apiDir = path.join(PUBLIC_DIR, 'api');
+    const dataApiDir = path.join(apiDir, 'data');
+    
+    [apiDir, dataApiDir].forEach(dir => {
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+    });
+  }
+
+  /**
+   * Main optimization process - FIXED ORDER
+   */
+  async optimize() {
+    console.log(`🚀 Starting static build optimization...`);
+    console.log(`📊 Using ${this.stats.parallelWorkers} parallel workers\n`);
+    
+    try {
+      // 1. Ensure directories exist first
+      this.ensureDirectories();
+      
+      const allFiles = this.getExcelFiles();
+      const { changedFiles, unchangedFiles } = this.detectChangedFiles(allFiles);
+      
+      console.log(`📁 Total files: ${allFiles.length}`);
+      console.log(`🔄 Changed files: ${changedFiles.length}`);
+      console.log(`✅ Unchanged files: ${unchangedFiles.length} (will be skipped)\n`);
+      
+      // 2. Process changed files
+      if (changedFiles.length > 0) {
+        await this.processFilesInParallel(changedFiles);
+      }
+      
+      // 3. Copy unchanged files from cache
+      this.copyUnchangedFiles(unchangedFiles);
+      
+      // 4. Update manifest BEFORE trying to copy it
+      this.updateManifest(allFiles);
+      
+      // 5. Save manifest BEFORE generating static API
+      this.saveManifest();
+      
+      // 6. Save file hashes
+      this.saveFileHashes();
+      
+      // 7. Generate SEO files
+      await this.generateSEOFiles();
+      
+      // 8. Generate static API routes (now manifest exists)
+      await this.generateStaticAPI();
+      
+      this.showOptimizedStats();
+      
+      console.log('✅ Static build optimization completed!');
+      console.log('📦 Ready for Vercel deployment with static files');
+    } catch (error) {
+      console.error('❌ Build optimization failed:', error);
+      process.exit(1);
+    }
   }
 
   /**
@@ -191,7 +264,7 @@ class HighPerformanceBuildOptimizer {
   }
 
   /**
-   * Process individual Excel file (optimized version)
+   * Process individual Excel file
    */
   async processExcelFile(filename) {
     const filePath = path.join(DATA_DIR, filename);
@@ -212,11 +285,11 @@ class HighPerformanceBuildOptimizer {
       throw new Error('No data found');
     }
 
-    // Transform data (optimized)
+    // Transform data
     const transformedData = this.transformExcelDataOptimized(jsonData, subjectName);
     
     // Save to cache
-    const outputPath = path.join(OUTPUT_DIR, `${subjectName}.json`);
+    const outputPath = path.join(CACHE_DIR, `${subjectName}.json`);
     const jsonString = JSON.stringify(transformedData);
     fs.writeFileSync(outputPath, jsonString);
 
@@ -264,7 +337,7 @@ class HighPerformanceBuildOptimizer {
   extractShortDescOptimized(content) {
     if (!content) return '';
     
-    // Fast regex-based cleaning (more efficient than multiple replace calls)
+    // Fast regex-based cleaning
     const cleaned = content
       .replace(/#{1,6}\s+|\*\*|```[\s\S]*?```|`[^`]*`/g, '')
       .replace(/\s+/g, ' ')
@@ -284,11 +357,10 @@ class HighPerformanceBuildOptimizer {
       
       for (const filename of unchangedFiles) {
         const subjectName = path.basename(filename, '.xlsx').toLowerCase();
-        const cachedPath = path.join(OUTPUT_DIR, `${subjectName}.json`);
+        const cachedPath = path.join(CACHE_DIR, `${subjectName}.json`);
         
         if (fs.existsSync(cachedPath)) {
           try {
-            // File already exists in cache, count its pages
             const cachedData = JSON.parse(fs.readFileSync(cachedPath, 'utf8'));
             if (cachedData && cachedData.content && Array.isArray(cachedData.content)) {
               this.stats.totalPages += cachedData.content.length;
@@ -303,16 +375,135 @@ class HighPerformanceBuildOptimizer {
   }
 
   /**
+   * Update manifest with current data
+   */
+  updateManifest(allFiles) {
+    console.log('\n📋 Updating manifest...');
+    
+    this.manifest.subjects = [];
+    this.manifest.totalFiles = allFiles.length;
+    this.manifest.totalPages = 0; // Will be calculated below
+    this.manifest.lastUpdated = new Date().toISOString();
+    this.manifest.buildId = this.generateBuildId();
+    
+    // Read all processed files to build manifest
+    const cacheFiles = fs.readdirSync(CACHE_DIR)
+      .filter(file => file.endsWith('.json') && 
+                     file !== 'file-hashes.json' && 
+                     file !== 'manifest.json');
+    
+    let totalPagesCount = 0;
+    
+    for (const filename of cacheFiles) {
+      try {
+        const filePath = path.join(CACHE_DIR, filename);
+        const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+        
+        if (data && data.content && Array.isArray(data.content)) {
+          const subjectInfo = {
+            id: data.id,
+            name: data.name,
+            base_url: data.base_url,
+            totalPages: data.content.length,
+            lastModified: data.lastUpdated || new Date().toISOString(),
+            keywords: data.keywords || '',
+            titleTag: data.titleTag || `${data.name} Tutorial`,
+            descriptionTag: data.descriptionTag || `Learn ${data.name} programming.`
+          };
+          
+          this.manifest.subjects.push(subjectInfo);
+          totalPagesCount += subjectInfo.totalPages;
+          
+          console.log(`   ✅ Added ${data.name}: ${subjectInfo.totalPages} pages`);
+        }
+      } catch (error) {
+        console.warn(`   ⚠️  Could not read ${filename} for manifest: ${error.message}`);
+      }
+    }
+    
+    this.manifest.totalPages = totalPagesCount;
+    
+    // Add build statistics
+    this.manifest.buildStats = {
+      filesProcessed: this.stats.filesProcessed,
+      filesSkipped: this.stats.filesSkipped,
+      totalSize: this.stats.totalSize,
+      buildTime: new Date().toISOString(),
+      nodeVersion: process.version,
+      platform: process.platform
+    };
+    
+    console.log(`   📊 Manifest updated: ${this.manifest.subjects.length} subjects, ${totalPagesCount} total pages`);
+  }
+
+  /**
+   * Generate static API routes - FIXED VERSION
+   */
+  async generateStaticAPI() {
+    console.log('\n🔧 Generating static API routes...');
+    
+    const apiDir = path.join(PUBLIC_DIR, 'api');
+    const dataApiDir = path.join(apiDir, 'data');
+    
+    // Ensure directories exist
+    if (!fs.existsSync(apiDir)) {
+      fs.mkdirSync(apiDir, { recursive: true });
+    }
+    if (!fs.existsSync(dataApiDir)) {
+      fs.mkdirSync(dataApiDir, { recursive: true });
+    }
+    
+    // Copy manifest to public API (now it should exist)
+    if (fs.existsSync(MANIFEST_FILE)) {
+      fs.copyFileSync(MANIFEST_FILE, path.join(apiDir, 'manifest.json'));
+      console.log('   ✅ Copied manifest.json to API route');
+    } else {
+      console.warn('   ⚠️  Warning: Manifest file not found, skipping copy');
+    }
+    
+    // Create subject list API
+    const subjectList = this.manifest.subjects.map(s => ({
+      id: s.id,
+      name: s.name,
+      base_url: s.base_url,
+      totalPages: s.totalPages
+    }));
+    
+    fs.writeFileSync(
+      path.join(apiDir, 'subjects.json'),
+      JSON.stringify(subjectList, null, 2)
+    );
+    console.log('   ✅ Generated subjects.json API route');
+    
+    // Copy individual subject data to public API
+    const cacheFiles = fs.readdirSync(CACHE_DIR)
+      .filter(file => file.endsWith('.json') && 
+                     file !== 'file-hashes.json' && 
+                     file !== 'manifest.json');
+    
+    let copiedCount = 0;
+    for (const filename of cacheFiles) {
+      try {
+        fs.copyFileSync(
+          path.join(CACHE_DIR, filename),
+          path.join(dataApiDir, filename)
+        );
+        copiedCount++;
+      } catch (error) {
+        console.warn(`   ⚠️  Failed to copy ${filename}: ${error.message}`);
+      }
+    }
+    
+    console.log(`   ✅ Generated ${copiedCount} data API routes`);
+  }
+
+  /**
    * Generate SEO files (sitemap, robots.txt)
    */
   async generateSEOFiles() {
     console.log('\n🗺️  Generating SEO files...');
     
-    // This runs much faster since we're reading from processed JSON cache
-    const processedFiles = fs.readdirSync(OUTPUT_DIR)
-      .filter(file => file.endsWith('.json') && file !== 'file-hashes.json');
-
-    const sitemapEntries = [{ // Homepage
+    const sitemapEntries = [{
       url: 'https://www.droidbiz.in',
       lastmod: new Date().toISOString(),
       changefreq: 'daily',
@@ -320,22 +511,21 @@ class HighPerformanceBuildOptimizer {
     }];
 
     // Process all cached data files
-    for (const filename of processedFiles) {
+    const cacheFiles = fs.readdirSync(CACHE_DIR)
+      .filter(file => file.endsWith('.json') && 
+                     file !== 'file-hashes.json' && 
+                     file !== 'manifest.json');
+
+    for (const filename of cacheFiles) {
       try {
-        const data = JSON.parse(fs.readFileSync(path.join(OUTPUT_DIR, filename), 'utf8'));
+        const data = JSON.parse(fs.readFileSync(path.join(CACHE_DIR, filename), 'utf8'));
         
-        // Validate data structure
         if (!data || !data.content || !Array.isArray(data.content)) {
-          console.log(`   ⚠️  Warning: Invalid data structure in ${filename}, skipping...`);
           continue;
         }
         
         for (const item of data.content) {
-          // Validate item structure
-          if (!item || !item.url) {
-            console.log(`   ⚠️  Warning: Invalid item structure in ${filename}, skipping item...`);
-            continue;
-          }
+          if (!item || !item.url) continue;
 
           const url = data.id === 'blogs' 
             ? `https://www.droidbiz.in/blogs/${item.url}`
@@ -354,33 +544,15 @@ class HighPerformanceBuildOptimizer {
       }
     }
 
-    // Generate and save sitemap
+    // Generate sitemap
     const sitemapXML = this.generateSitemapXML(sitemapEntries);
-    const publicDir = path.join(process.cwd(), 'public');
-    
-    // Ensure public directory exists
-    if (!fs.existsSync(publicDir)) {
-      fs.mkdirSync(publicDir, { recursive: true });
-    }
-    
-    fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapXML);
+    fs.writeFileSync(path.join(PUBLIC_DIR, 'sitemap.xml'), sitemapXML);
     
     // Generate robots.txt
     const robotsTxt = `User-agent: *\nAllow: /\nSitemap: https://www.droidbiz.in/sitemap.xml\n`;
-    fs.writeFileSync(path.join(publicDir, 'robots.txt'), robotsTxt);
+    fs.writeFileSync(path.join(PUBLIC_DIR, 'robots.txt'), robotsTxt);
     
     console.log(`   ✅ Generated sitemap with ${sitemapEntries.length} URLs`);
-  }
-
-  /**
-   * Split array into chunks for parallel processing
-   */
-  chunkArray(array, chunkSize) {
-    const chunks = [];
-    for (let i = 0; i < array.length; i += chunkSize) {
-      chunks.push(array.slice(i, i + chunkSize));
-    }
-    return chunks;
   }
 
   /**
@@ -402,14 +574,19 @@ ${urls}
   }
 
   /**
-   * Utility functions
+   * Split array into chunks for parallel processing
    */
-  ensureOutputDir() {
-    if (!fs.existsSync(OUTPUT_DIR)) {
-      fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+  chunkArray(array, chunkSize) {
+    const chunks = [];
+    for (let i = 0; i < array.length; i += chunkSize) {
+      chunks.push(array.slice(i, i + chunkSize));
     }
+    return chunks;
   }
 
+  /**
+   * Capitalize first letter of a string
+   */
   capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
@@ -424,7 +601,7 @@ ${urls}
       ? (totalTime / this.stats.filesProcessed).toFixed(2) 
       : 0;
     
-    console.log('\n📊 High-Performance Build Statistics:');
+    console.log('\n📊 Build Statistics:');
     console.log(`   ⏱️  Total time: ${totalTime}s`);
     console.log(`   🔄 Files processed: ${this.stats.filesProcessed}`);
     console.log(`   ⏭️  Files skipped (cached): ${this.stats.filesSkipped}`);
@@ -435,7 +612,7 @@ ${urls}
     console.log(`   ❌ Errors: ${this.stats.errors}`);
     
     // Performance insights
-    const pagesPerSecond = (this.stats.totalPages / totalTime).toFixed(1);
+    const pagesPerSecond = totalTime > 0 ? (this.stats.totalPages / totalTime).toFixed(1) : 0;
     console.log(`   🚀 Pages generated per second: ${pagesPerSecond}`);
     
     if (this.stats.filesSkipped > 0) {
@@ -447,8 +624,8 @@ ${urls}
 
 // Run optimization
 if (require.main === module) {
-  const optimizer = new HighPerformanceBuildOptimizer();
+  const optimizer = new StaticBuildOptimizer();
   optimizer.optimize();
 }
 
-module.exports = HighPerformanceBuildOptimizer;
+module.exports = StaticBuildOptimizer;
