@@ -1,0 +1,28 @@
+# Handle large JSON files efficiently
+*.json text eol=lf
+
+# Git LFS for large cache files (if needed)
+.next-cache/*.json filter=lfs diff=lfs merge=lfs -text
+
+# Ensure proper line endings across platforms
+*.js text eol=lf
+*.jsx text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.css text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.xlsx binary
+*.xls binary

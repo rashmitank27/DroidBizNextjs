@@ -1,192 +1,81 @@
-import * as XLSX from 'xlsx';
 import fs from 'fs';
 import path from 'path';
 
-// Cache to store parsed data
-const dataCache = new Map();
+// For static deployment, read from committed cache
+const CACHE_DIR = path.join(process.cwd(), '.next-cache');
+const MANIFEST_PATH = path.join(CACHE_DIR, 'manifest.json');
+
+let cachedManifest = null;
+let cachedData = new Map();
 
 /**
- * Read and parse Excel file
- * @param {string} filename - Name of the Excel file (e.g., 'Kotlin.xlsx')
- * @returns {Promise<Object>} Parsed data structure matching Firestore format
+ * Load manifest from committed cache
  */
-async function readExcelFile(filename) {
-  // Check cache first
-  if (dataCache.has(filename)) {
-    return dataCache.get(filename);
-  }
-
-  try {
-    const filePath = path.join(process.cwd(), 'data', 'excel', filename);
-    
-    // Check if file exists
-    if (!fs.existsSync(filePath)) {
-      console.error(`Excel file not found: ${filePath}`);
-      return null;
-    }
-
-    const fileBuffer = fs.readFileSync(filePath);
-    const workbook = XLSX.read(fileBuffer, {
-      cellStyles: true,
-      cellFormulas: true,
-      cellDates: true,
-      cellNF: true,
-      sheetStubs: true
-    });
-
-    const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-    const jsonData = XLSX.utils.sheet_to_json(worksheet);
-
-    if (jsonData.length === 0) {
-      console.error(`No data found in Excel file: ${filename}`);
-      return null;
-    }
-
-    // Transform the data to match Firestore structure
-    const transformedData = transformExcelToFirestoreFormat(jsonData, filename);
-    
-    // Cache the result
-    dataCache.set(filename, transformedData);
-    
-    return transformedData;
-  } catch (error) {
-    console.error(`Error reading Excel file ${filename}:`, error);
-    return null;
-  }
-}
-
-/**
- * Transform Excel data to match Firestore structure
- * @param {Array} excelData - Raw Excel data
- * @param {string} filename - Excel filename to derive subject info
- * @returns {Object} Transformed data structure
- */
-function transformExcelToFirestoreFormat(excelData, filename) {
-  // Extract subject name from filename (e.g., 'Kotlin.xlsx' -> 'kotlin')
-  const subjectName = path.basename(filename, '.xlsx').toLowerCase();
-  const subjectId = subjectName;
-
-  // Transform Excel rows to content array
-  const content = excelData.map(row => ({
-    id: row.id || 0,
-    title: row.title || '',
-    url: row.url || '',
-    type: row.type || 1,
-    content: row.content || '',
-    keywords: row.keywords || '',
-    titleTag: row.titleTag || row.title || '',
-    descriptionTag: row.descriptionTag || '',
-    shortDesc: extractShortDesc(row.content || ''),
-  }));
-
-  // Determine if this is a blog or tutorial based on subject name
-  const isBlog = subjectId === 'blogs' || subjectId === 'blog';
+function loadManifest() {
+  if (cachedManifest) return cachedManifest;
   
-  // Create base URL for the subject
-  const baseUrl = isBlog ? '/blogs' : `/${subjectId}`;
-
-  return {
-    id: subjectId,
-    name: capitalizeFirstLetter(subjectName),
-    base_url: baseUrl,
-    content: content,
-    keywords: content.length > 0 ? content[0].keywords : '',
-    titleTag: content.length > 0 ? content[0].titleTag : `${capitalizeFirstLetter(subjectName)} Tutorial`,
-    descriptionTag: content.length > 0 ? content[0].descriptionTag : `Learn ${subjectName} programming with comprehensive tutorials and examples.`,
-  };
-}
-
-/**
- * Extract short description from content (first 150 characters)
- * @param {string} content - Full content text
- * @returns {string} Short description
- */
-function extractShortDesc(content) {
-  if (!content) return '';
-  
-  // Remove markdown headers and formatting
-  const cleanContent = content
-    .replace(/#{1,6}\s+/g, '') // Remove markdown headers
-    .replace(/\*\*/g, '') // Remove bold formatting
-    .replace(/```[\s\S]*?```/g, '') // Remove code blocks
-    .replace(/`[^`]*`/g, '') // Remove inline code
-    .replace(/\n+/g, ' ') // Replace newlines with spaces
-    .trim();
-
-  return cleanContent.length > 150 
-    ? cleanContent.substring(0, 150) + '...'
-    : cleanContent;
-}
-
-/**
- * Capitalize first letter of a string
- * @param {string} str - Input string
- * @returns {string} Capitalized string
- */
-function capitalizeFirstLetter(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-/**
- * Get all available Excel files from the data directory
- * @returns {Array<string>} List of Excel filenames
- */
-function getAvailableExcelFiles() {
   try {
-    const dataDir = path.join(process.cwd(), 'data', 'excel');
-    if (!fs.existsSync(dataDir)) {
-      console.error('Excel data directory not found:', dataDir);
-      return [];
+    if (fs.existsSync(MANIFEST_PATH)) {
+      cachedManifest = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf8'));
+      return cachedManifest;
     }
-
-    return fs.readdirSync(dataDir)
-      .filter(file => file.endsWith('.xlsx') || file.endsWith('.xls'))
-      .sort();
   } catch (error) {
-    console.error('Error reading Excel directory:', error);
-    return [];
+    console.error('Error loading manifest:', error);
   }
+  
+  return { subjects: [], totalFiles: 0, totalPages: 0 };
 }
 
 /**
- * Load all tutorial data from Excel files
- * @returns {Promise<Array>} Array of tutorial subjects
+ * Load specific subject data from cache
+ */
+function loadSubjectData(subjectId) {
+  if (cachedData.has(subjectId)) {
+    return cachedData.get(subjectId);
+  }
+  
+  try {
+    const filePath = path.join(CACHE_DIR, `${subjectId}.json`);
+    if (fs.existsSync(filePath)) {
+      const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+      cachedData.set(subjectId, data);
+      return data;
+    }
+  } catch (error) {
+    console.error(`Error loading subject data for ${subjectId}:`, error);
+  }
+  
+  return null;
+}
+
+/**
+ * Get all tutorials from committed cache
  */
 export async function getTutorials() {
   try {
-    const excelFiles = getAvailableExcelFiles();
-    
-    if (excelFiles.length === 0) {
-      console.error('No Excel files found in data directory');
-      return [];
-    }
-
+    const manifest = loadManifest();
     const results = [];
     
-    // Process each Excel file
-    for (const filename of excelFiles) {
-      const data = await readExcelFile(filename);
+    for (const subject of manifest.subjects) {
+      const data = loadSubjectData(subject.id);
       if (data) {
         results.push(data);
       }
     }
-
+    
     return results;
   } catch (error) {
-    console.error('Error loading tutorials from Excel files:', error);
+    console.error('Error loading tutorials from cache:', error);
     return [];
   }
 }
 
 /**
  * Get specific tutorial by subject ID
- * @param {string} subjectId - Subject identifier
- * @returns {Promise<Object|null>} Tutorial data or null if not found
  */
 export async function getTutorialBySubject(subjectId) {
   try {
-    const filename = `${capitalizeFirstLetter(subjectId)}.xlsx`;
-    return await readExcelFile(filename);
+    return loadSubjectData(subjectId);
   } catch (error) {
     console.error(`Error loading tutorial for subject ${subjectId}:`, error);
     return null;
@@ -194,31 +83,24 @@ export async function getTutorialBySubject(subjectId) {
 }
 
 /**
- * Clear cache - useful for development or when files are updated
+ * Get manifest data
  */
-export function clearCache() {
-  dataCache.clear();
-  console.log('Excel data cache cleared');
+export async function getManifest() {
+  return loadManifest();
 }
 
 /**
- * Preload all Excel files into cache for better performance
- * @returns {Promise<void>}
+ * Clear cache (for development)
  */
-export async function preloadAllData() {
-  try {
-    console.log('Preloading all Excel data...');
-    await getTutorials();
-    console.log('Excel data preloading complete');
-  } catch (error) {
-    console.error('Error preloading Excel data:', error);
-  }
+export function clearCache() {
+  cachedManifest = null;
+  cachedData.clear();
+  console.log('Static data cache cleared');
 }
 
 export default {
   getTutorials,
   getTutorialBySubject,
-  clearCache,
-  preloadAllData,
-  readExcelFile
+  getManifest,
+  clearCache
 };
