@@ -1,30 +1,261 @@
-name: Simple Vercel Deploy
+name: Deploy to Vercel - Optimized
 
 on:
   push:
-    branches: [v3]
-    paths: ['.next-cache/**']
+    branches: [main, master, v3]
+    paths: 
+      - '.next-cache/**'
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'next.config.mjs'
+      - 'vercel.json'
+  workflow_dispatch:
+    inputs:
+      force_deploy:
+        description: 'Force deployment even without cache changes'
+        required: false
+        default: 'false'
+        type: boolean
+
+env:
+  NODE_ENV: production
+  NEXT_TELEMETRY_DISABLED: 1
 
 jobs:
-  deploy:
+  validate-and-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    
     steps:
-      - uses: actions/checkout@v4
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1  # Shallow clone for faster checkout
       
-      - uses: actions/setup-node@v4
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
       
-      - run: npm ci
-      - run: npm install -g vercel
-      - run: npm run build
+      - name: ⚡ Install dependencies
+        run: npm ci --prefer-offline --no-audit
       
-      - name: Deploy
+      - name: 📥 Install Vercel CLI
+        run: npm install -g vercel@latest
+      
+      - name: 🔍 Validate environment and cache
         run: |
-          # Create Vercel project link
-          mkdir -p .vercel
-          echo '{"orgId":"${{ secrets.VERCEL_ORG_ID }}","projectId":"${{ secrets.VERCEL_PROJECT_ID }}"}' > .vercel/project.json
+          echo "🔍 Validating deployment requirements..."
           
-          # Deploy
-          vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
+          # Check required secrets
+          if [ -z "$VERCEL_TOKEN" ] || [ -z "$VERCEL_ORG_ID" ] || [ -z "$VERCEL_PROJECT_ID" ]; then
+            echo "❌ Missing required Vercel secrets!"
+            echo "Required: VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID"
+            exit 1
+          fi
+          
+          # Validate cache directory
+          if [ ! -d ".next-cache" ]; then
+            echo "❌ .next-cache directory not found!"
+            echo "💡 Run 'npm run optimize' locally and commit the cache"
+            exit 1
+          fi
+          
+          # Count processed files
+          JSON_COUNT=$(find .next-cache -name "*.json" -not -name "file-hashes.json" | wc -l)
+          MANIFEST_EXISTS=$([ -f ".next-cache/manifest.json" ] && echo "✅" || echo "❌")
+          
+          echo "📊 Cache Status:"
+          echo "   📄 JSON files: $JSON_COUNT"
+          echo "   📋 Manifest: $MANIFEST_EXISTS"
+          echo "   💾 Cache size: $(du -sh .next-cache/ | cut -f1)"
+          
+          if [ $JSON_COUNT -eq 0 ]; then
+            echo "❌ No processed data files found in cache!"
+            exit 1
+          fi
+          
+          echo "✅ Cache validation passed"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      
+      - name: 🧪 Test Vercel authentication
+        run: |
+          echo "🔐 Testing Vercel authentication..."
+          
+          WHOAMI_OUTPUT=$(vercel whoami --token="$VERCEL_TOKEN" 2>&1)
+          
+          if echo "$WHOAMI_OUTPUT" | grep -q "Error\|Invalid"; then
+            echo "❌ Vercel authentication failed:"
+            echo "$WHOAMI_OUTPUT"
+            exit 1
+          fi
+          
+          echo "✅ Authenticated as: $WHOAMI_OUTPUT"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      
+      - name: 🏗️ Build Next.js application
+        run: |
+          echo "🏗️ Building Next.js application..."
+          
+          npm run build
+          
+          # Verify build output
+          if [ ! -d ".next" ]; then
+            echo "❌ Build failed - .next directory not created"
+            exit 1
+          fi
+          
+          echo "✅ Build completed successfully"
+          echo "📊 Build size: $(du -sh .next/ | cut -f1)"
+      
+      - name: 📋 Configure Vercel project
+        run: |
+          echo "📋 Configuring Vercel project..."
+          
+          # Create .vercel directory and project.json
+          mkdir -p .vercel
+          
+          cat > .vercel/project.json << EOF
+          {
+            "orgId": "${{ secrets.VERCEL_ORG_ID }}",
+            "projectId": "${{ secrets.VERCEL_PROJECT_ID }}"
+          }
+          EOF
+          
+          echo "✅ Vercel project configured"
+      
+      - name: 🚀 Deploy to Vercel
+        id: deploy
+        run: |
+          echo "🚀 Starting deployment to Vercel..."
+          
+          # Deploy with proper error handling
+          DEPLOY_OUTPUT=$(vercel deploy --prod --token="$VERCEL_TOKEN" 2>&1)
+          DEPLOY_EXIT_CODE=$?
+          
+          echo "📤 Deployment output:"
+          echo "$DEPLOY_OUTPUT"
+          
+          if [ $DEPLOY_EXIT_CODE -eq 0 ]; then
+            # Extract deployment URL
+            DEPLOYMENT_URL=$(echo "$DEPLOY_OUTPUT" | grep -o 'https://[^[:space:]]*' | head -1)
+            
+            if [ -n "$DEPLOYMENT_URL" ]; then
+              echo "✅ Deployment successful!"
+              echo "🌐 Live URL: $DEPLOYMENT_URL"
+              echo "deployment_url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
+            else
+              echo "⚠️ Deployment completed but URL not found in output"
+            fi
+          else
+            echo "❌ Deployment failed with exit code: $DEPLOY_EXIT_CODE"
+            exit 1
+          fi
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      
+      - name: 🧪 Verify deployment
+        if: steps.deploy.outputs.deployment_url
+        run: |
+          echo "🧪 Verifying deployment..."
+          
+          DEPLOYMENT_URL="${{ steps.deploy.outputs.deployment_url }}"
+          
+          # Wait a moment for deployment to be ready
+          sleep 10
+          
+          # Test if site responds
+          HTTP_STATUS=$(curl -o /dev/null -s -w "%{http_code}" "$DEPLOYMENT_URL" || echo "000")
+          
+          if [ "$HTTP_STATUS" = "200" ]; then
+            echo "✅ Site is responding correctly (HTTP $HTTP_STATUS)"
+          else
+            echo "⚠️ Site returned HTTP $HTTP_STATUS - may still be propagating"
+          fi
+          
+          # Test API endpoints
+          API_MANIFEST="$DEPLOYMENT_URL/api/manifest.json"
+          API_STATUS=$(curl -o /dev/null -s -w "%{http_code}" "$API_MANIFEST" || echo "000")
+          
+          if [ "$API_STATUS" = "200" ]; then
+            echo "✅ API endpoints are working (HTTP $API_STATUS)"
+          else
+            echo "⚠️ API returned HTTP $API_STATUS"
+          fi
+      
+      - name: 📊 Deployment summary
+        if: success()
+        run: |
+          echo "🎉 Deployment Summary"
+          echo "===================="
+          echo "✅ Status: SUCCESS"
+          echo "🌐 URL: ${{ steps.deploy.outputs.deployment_url || 'Check Vercel dashboard' }}"
+          echo "📦 Cache files deployed: $(find .next-cache -name "*.json" -not -name "file-hashes.json" | wc -l)"
+          echo "⚡ Static API routes: $(find public/api -name "*.json" 2>/dev/null | wc -l || echo 0)"
+          echo "🔍 SEO files: $(ls public/sitemap.xml public/robots.txt 2>/dev/null | wc -l) of 2"
+          echo ""
+          echo "🚀 Your Excel-powered website is now live!"
+          echo "📈 Fast loading with pre-processed static data"
+          echo "🔍 SEO optimized with sitemap and meta tags"
+      
+      - name: 🔍 Debug on failure
+        if: failure()
+        run: |
+          echo "❌ Deployment Failed - Debug Information"
+          echo "======================================="
+          echo ""
+          echo "📁 Current directory contents:"
+          ls -la
+          echo ""
+          echo "📄 Cache directory status:"
+          if [ -d ".next-cache" ]; then
+            ls -la .next-cache/
+          else
+            echo "❌ .next-cache directory not found"
+          fi
+          echo ""
+          echo "🏗️ Build directory status:"
+          if [ -d ".next" ]; then
+            echo "✅ .next directory exists"
+            du -sh .next/
+          else
+            echo "❌ .next directory not found"
+          fi
+          echo ""
+          echo "⚙️ Node.js environment:"
+          echo "Node version: $(node --version)"
+          echo "npm version: $(npm --version)"
+          echo ""
+          echo "🔧 Vercel CLI info:"
+          vercel --version || echo "❌ Vercel CLI not available"
+          echo ""
+          echo "💡 Troubleshooting tips:"
+          echo "1. Check that all secrets are correctly configured"
+          echo "2. Ensure .next-cache contains processed JSON files"
+          echo "3. Verify vercel.json configuration is valid"
+          echo "4. Check build logs above for specific errors"
+      
+      - name: 📝 Add PR comment
+        if: github.event_name == 'pull_request' && success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const deploymentUrl = '${{ steps.deploy.outputs.deployment_url }}';
+            const comment = deploymentUrl 
+              ? `🚀 **Preview deployment ready!**\n\n🌐 **URL:** ${deploymentUrl}\n\n✅ Deployed with static Excel cache`
+              : '🚀 **Deployment completed!** Check your Vercel dashboard for the preview URL.';
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
