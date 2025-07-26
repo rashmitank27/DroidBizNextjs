@@ -2,7 +2,7 @@ name: Deploy to Vercel with Static Cache
 
 on:
   push:
-    branches: [main, master]
+    branches: [main, master, v3]
     paths: 
       - '.next-cache/**'
       - 'src/**'
@@ -10,7 +10,7 @@ on:
       - 'package.json'
       - 'next.config.mjs'
   pull_request:
-    branches: [main, master]
+    branches: [main, master, v3]
     paths:
       - '.next-cache/**'
       - 'src/**'
@@ -84,7 +84,7 @@ jobs:
         run: vercel deploy --token=${{ secrets.VERCEL_TOKEN }}
       
       - name: 🚀 Deploy to Vercel (Production)
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/v3' 
         run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
       
       - name: 📝 Comment PR with deployment URL
