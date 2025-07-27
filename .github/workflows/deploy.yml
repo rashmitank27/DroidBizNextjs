@@ -9,6 +9,8 @@ on:
       - 'public/**'
       - 'package.json'
       - 'next.config.mjs'
+      - 'tailwind.config.js'
+      - 'postcss.config.js'
   workflow_dispatch:
     inputs:
       force_deploy:
@@ -38,8 +40,8 @@ jobs:
           node-version: '18'
           cache: 'npm'
       
-      - name: ⚡ Install dependencies
-        run: npm ci
+      - name: ⚡ Install ALL dependencies (including dev)
+        run: npm install
       
       - name: 📥 Install Vercel CLI
         run: npm install -g vercel@latest
@@ -82,6 +84,22 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
       
+      - name: 🔍 Verify Tailwind CSS installation
+        run: |
+          echo "🔍 Checking Tailwind CSS installation..."
+          if [ -f "node_modules/.bin/tailwindcss" ]; then
+            echo "✅ Tailwind CSS binary found"
+          else
+            echo "❌ Tailwind CSS binary not found"
+            echo "📦 Installed packages:"
+            npm list tailwindcss autoprefixer postcss || true
+            exit 1
+          fi
+          
+          # Check config files
+          echo "📋 Config files:"
+          ls -la tailwind.config.js postcss.config.js || true
+      
       - name: 🧪 Test Vercel authentication
         run: |
           echo "🔐 Testing Vercel authentication..."
@@ -102,6 +120,10 @@ jobs:
         run: |
           echo "🏗️ Building Next.js application..."
           
+          # Set NODE_ENV to production
+          export NODE_ENV=production
+          
+          # Run the build
           npm run build
           
           # Verify build output
@@ -112,6 +134,8 @@ jobs:
           
           echo "✅ Build completed successfully"
           echo "📊 Build size: $(du -sh .next/ | cut -f1)"
+        env:
+          NODE_ENV: production
       
       - name: 📋 Configure Vercel project
         run: |
@@ -233,13 +257,16 @@ jobs:
           echo "Node version: $(node --version)"
           echo "npm version: $(npm --version)"
           echo ""
+          echo "📦 Dev dependencies check:"
+          npm list tailwindcss autoprefixer postcss @tailwindcss/typography || true
+          echo ""
           echo "🔧 Vercel CLI info:"
           vercel --version || echo "❌ Vercel CLI not available"
           echo ""
           echo "💡 Troubleshooting tips:"
           echo "1. Check that all secrets are correctly configured"
           echo "2. Ensure .next-cache contains processed JSON files"
-          echo "3. Verify vercel.json configuration is valid"
+          echo "3. Verify tailwind.config.js and postcss.config.js exist"
           echo "4. Check build logs above for specific errors"
       
       - name: 📝 Add PR comment
