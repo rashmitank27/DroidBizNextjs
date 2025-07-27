@@ -1,3 +1,36 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:56ac54c287f72e7a6c6ee797e6268c02c73cca8045c8615e1e172c8276a15af1
-size 1844
+{
+  "subjects": [
+    {
+      "id": "blogs",
+      "name": "Blogs",
+      "base_url": "/blogs",
+      "totalPages": 1,
+      "lastModified": "2025-07-27T01:40:51.633Z",
+      "keywords": "Android 15 behavior changes, Android 15 API level 35, foreground service timeout, edge-to-edge Android 15, Android 15 targetSdkVersion, OpenJDK Android 15, Android 15 security changes, SequencedCollection Android 15, Android 15 UI changes, Android 15 app compatibility​​​​​​​​​​​​​​​​",
+      "titleTag": "Android 15 Behavior Changes: Apps targeting Android 15 or higher",
+      "descriptionTag": "Essential guide to Android 15 behavior changes for apps targeting API level 35. Learn foreground service timeouts, edge-to-edge UI, OpenJDK updates, security restrictions, and testing methods to ensure compatibility."
+    },
+    {
+      "id": "kotlin",
+      "name": "Kotlin",
+      "base_url": "/kotlin",
+      "totalPages": 42,
+      "lastModified": "2025-07-27T01:40:51.718Z",
+      "keywords": "Kotlin, Kotlin tutorial, Kotlin introduction, Kotlin programming, learn Kotlin, Kotlin syntax, Kotlin examples, Kotlin for beginners, Kotlin language, Kotlin development",
+      "titleTag": "Kotlin Tutorial | Kotlin Introduction ",
+      "descriptionTag": "Learn Kotlin programming from scratch with this comprehensive Kotlin tutorial. Master Kotlin introduction concepts including null safety, data classes, extension functions, and collections with practical examples and a complete working project."
+    }
+  ],
+  "totalFiles": 2,
+  "totalPages": 43,
+  "lastUpdated": "2025-07-27T01:40:51.725Z",
+  "buildId": "5d47f6ecab3234de",
+  "buildStats": {
+    "filesProcessed": 2,
+    "filesSkipped": 0,
+    "totalSize": 755951,
+    "buildTime": "2025-07-27T01:40:51.748Z",
+    "nodeVersion": "v22.17.1",
+    "platform": "win32"
+  }
+}
