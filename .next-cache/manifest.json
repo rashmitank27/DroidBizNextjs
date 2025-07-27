@@ -5,7 +5,7 @@
       "name": "Blogs",
       "base_url": "/blogs",
       "totalPages": 1,
-      "lastModified": "2025-07-27T01:46:24.781Z",
+      "lastModified": "2025-07-27T01:53:05.419Z",
       "keywords": "Android 15 behavior changes, Android 15 API level 35, foreground service timeout, edge-to-edge Android 15, Android 15 targetSdkVersion, OpenJDK Android 15, Android 15 security changes, SequencedCollection Android 15, Android 15 UI changes, Android 15 app compatibility​​​​​​​​​​​​​​​​",
       "titleTag": "Android 15 Behavior Changes: Apps targeting Android 15 or higher",
       "descriptionTag": "Essential guide to Android 15 behavior changes for apps targeting API level 35. Learn foreground service timeouts, edge-to-edge UI, OpenJDK updates, security restrictions, and testing methods to ensure compatibility."
@@ -23,13 +23,13 @@
   ],
   "totalFiles": 2,
   "totalPages": 43,
-  "lastUpdated": "2025-07-27T01:46:24.787Z",
-  "buildId": "306b82dfa5f7ec47",
+  "lastUpdated": "2025-07-27T01:53:05.425Z",
+  "buildId": "71922cf4bf9c5610",
   "buildStats": {
     "filesProcessed": 1,
     "filesSkipped": 1,
-    "totalSize": 755934,
-    "buildTime": "2025-07-27T01:46:24.791Z",
+    "totalSize": 755943,
+    "buildTime": "2025-07-27T01:53:05.429Z",
     "nodeVersion": "v18.20.8",
     "platform": "linux"
   }
