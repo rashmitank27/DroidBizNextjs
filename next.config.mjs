@@ -22,19 +22,6 @@ const nextConfig = {
     return config;
   },
   
-  // Experimental features for better performance
-  experimental: {
-    // Enable static exports
-    staticWorkerRequestDeduplication: true,
-  },
-  
-  // Generate static pages at build time
-  generateStaticParams: true,
-  
-  // Revalidate pages periodically (in seconds)
-  // Set to false for completely static pages
-  revalidate: 3600, // 1 hour
-  
   // Compress responses
   compress: true,
   
