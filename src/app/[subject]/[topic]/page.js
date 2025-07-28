@@ -39,7 +39,7 @@ export default async function TutorialPage({ params }) {
         // Find topic content
         for (const content of subjectDetails.content) {
             if (content.url === topic) {
-                topicContent = content.content?.replaceAll("/n", "  \n")?.replaceAll("/t", " ") || "";
+                topicContent = "# " + content.title + "\n" + content.content?.replaceAll("/n", "  \n")?.replaceAll("/t", " ") || "";
                 break;
             }
         }
