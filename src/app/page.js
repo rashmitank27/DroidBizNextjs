@@ -52,8 +52,9 @@ export default async function Home() {
           <div className="min-h-screen flex flex-col">
             <div className="mt-24 ml-9 mr-9 mb-9 prose max-w-none">
               {subjectDetails.content.map((data, index) => {
-                const shortDesc = data.shortDesc
-    
+                // Use full shortDesc if available, otherwise fallback to truncated content
+                const shortDesc = data.shortDesc || 
+                  (data.content ? data.content.substring(0, 150) + '...' : 'No description available');
                 
                 return (
                   <div key={data.id || index} className="relative flex flex-col my-6 bg-white shadow-sm border border-slate-200 rounded-lg">
@@ -61,7 +62,7 @@ export default async function Home() {
                       <h5 className="mb-2 text-slate-800 text-xl font-semibold">
                         {data.title || 'Untitled Post'}
                       </h5>
-                      <div className="text-slate-600 leading-normal font-light">
+                      <div className="text-slate-600 leading-normal font-light prose prose-sm max-w-none prose-headings:text-slate-800 prose-p:text-slate-600 prose-a:text-teal-600 prose-strong:text-slate-800 prose-code:text-teal-700 prose-code:bg-teal-50 prose-code:px-1 prose-code:rounded">
                         <Markdown remarkPlugins={[remarkGfm]}>
                           {shortDesc.replaceAll("/n", "  \n").replaceAll("/t", " \t")}
                         </Markdown>

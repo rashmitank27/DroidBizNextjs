@@ -23,14 +23,14 @@
   ],
   "totalFiles": 2,
   "totalPages": 43,
-  "lastUpdated": "2025-07-29T00:13:12.240Z",
-  "buildId": "6b7eed3df464e37c",
+  "lastUpdated": "2025-07-29T00:14:54.855Z",
+  "buildId": "d90706bfbe0679f7",
   "buildStats": {
     "filesProcessed": 0,
     "filesSkipped": 2,
     "totalSize": 749849,
-    "buildTime": "2025-07-29T00:13:12.246Z",
-    "nodeVersion": "v18.20.8",
-    "platform": "linux"
+    "buildTime": "2025-07-29T00:14:54.864Z",
+    "nodeVersion": "v22.17.1",
+    "platform": "win32"
   }
 }
