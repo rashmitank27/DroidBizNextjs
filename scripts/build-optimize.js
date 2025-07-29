@@ -312,7 +312,7 @@ class StaticBuildOptimizer {
       keywords: row.keywords || '',
       titleTag: row.titleTag || row.title || '',
       descriptionTag: row.descriptionTag || '',
-      shortDesc: this.extractShortDescOptimized(row.content || ''),
+      shortDesc: row.shortDesc || '',
       lastModified: new Date().toISOString()
     }));
 
