@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Fixed Static Build Optimization Script
+ * Fixed Static Build Optimization Script with Homepage Support (Pipe Separator)
  * Corrected order of operations for manifest generation
  */
 
@@ -66,6 +66,7 @@ class StaticBuildOptimizer {
     }
     return {
       subjects: [],
+      homepages: [],
       totalFiles: 0,
       totalPages: 0,
       lastUpdated: null,
@@ -94,7 +95,7 @@ class StaticBuildOptimizer {
   }
 
   /**
-   * Get all Excel files from data directory
+   * Get all Excel files from data directory (including homepage files)
    */
   getExcelFiles() {
     if (!fs.existsSync(DATA_DIR)) {
@@ -159,14 +160,13 @@ class StaticBuildOptimizer {
   }
 
   /**
-   * Main optimization process - FIXED ORDER
+   * Main optimization process
    */
   async optimize() {
     console.log(`🚀 Starting static build optimization...`);
     console.log(`📊 Using ${this.stats.parallelWorkers} parallel workers\n`);
     
     try {
-      // 1. Ensure directories exist first
       this.ensureDirectories();
       
       const allFiles = this.getExcelFiles();
@@ -176,27 +176,15 @@ class StaticBuildOptimizer {
       console.log(`🔄 Changed files: ${changedFiles.length}`);
       console.log(`✅ Unchanged files: ${unchangedFiles.length} (will be skipped)\n`);
       
-      // 2. Process changed files
       if (changedFiles.length > 0) {
         await this.processFilesInParallel(changedFiles);
       }
       
-      // 3. Copy unchanged files from cache
       this.copyUnchangedFiles(unchangedFiles);
-      
-      // 4. Update manifest BEFORE trying to copy it
       this.updateManifest(allFiles);
-      
-      // 5. Save manifest BEFORE generating static API
       this.saveManifest();
-      
-      // 6. Save file hashes
       this.saveFileHashes();
-      
-      // 7. Generate SEO files
       await this.generateSEOFiles();
-      
-      // 8. Generate static API routes (now manifest exists)
       await this.generateStaticAPI();
       
       this.showOptimizedStats();
@@ -210,21 +198,18 @@ class StaticBuildOptimizer {
   }
 
   /**
-   * Process Excel files in parallel using worker threads
+   * Process Excel files in parallel
    */
   async processFilesInParallel(files) {
     console.log(`⚡ Processing ${files.length} files in parallel...\n`);
 
-    // Split files into chunks for parallel processing
     const chunks = this.chunkArray(files, this.stats.parallelWorkers);
     const processingPromises = chunks.map((chunk, index) => 
       this.processChunk(chunk, index)
     );
 
-    // Wait for all chunks to complete
     const results = await Promise.all(processingPromises);
     
-    // Aggregate results
     results.forEach(result => {
       this.stats.filesProcessed += result.filesProcessed;
       this.stats.totalPages += result.totalPages;
@@ -253,7 +238,11 @@ class StaticBuildOptimizer {
         chunkStats.totalPages += result.pages;
         chunkStats.totalSize += result.size;
         
-        console.log(`   ✅ Worker ${chunkIndex + 1}: ${filename} (${result.pages} pages)`);
+        if (result.type === 'homepage') {
+          console.log(`   ✅ Worker ${chunkIndex + 1}: ${filename} (${result.sections} sections, ${result.tutorials} tutorials)`);
+        } else {
+          console.log(`   ✅ Worker ${chunkIndex + 1}: ${filename} (${result.pages} pages, ${result.sections} sections)`);
+        }
       } catch (error) {
         console.log(`   ❌ Worker ${chunkIndex + 1}: ${filename} failed - ${error.message}`);
         chunkStats.errors++;
@@ -264,43 +253,174 @@ class StaticBuildOptimizer {
   }
 
   /**
-   * Process individual Excel file
+   * Process individual Excel file (updated to handle homepage files)
    */
   async processExcelFile(filename) {
     const filePath = path.join(DATA_DIR, filename);
-    const subjectName = path.basename(filename, '.xlsx').toLowerCase();
+    const isHomepage = filename.includes('_home.');
+    const subjectName = isHomepage 
+      ? path.basename(filename, '.xlsx').replace('_home', '').toLowerCase()
+      : path.basename(filename, '.xlsx').toLowerCase();
     
-    // Read and parse Excel file
-    const fileBuffer = fs.readFileSync(filePath);
-    const workbook = XLSX.read(fileBuffer, {
-      cellStyles: false, // Disable for performance
-      cellFormulas: false, // Disable for performance
-      cellDates: true
-    });
+    try {
+      const fileBuffer = fs.readFileSync(filePath);
+      const workbook = XLSX.read(fileBuffer, {
+        cellStyles: false,
+        cellFormulas: false,
+        cellDates: true
+      });
 
-    const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-    const jsonData = XLSX.utils.sheet_to_json(worksheet);
+      const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+      const jsonData = XLSX.utils.sheet_to_json(worksheet);
 
-    if (jsonData.length === 0) {
-      throw new Error('No data found');
+      if (jsonData.length === 0) {
+        throw new Error('No data found in Excel file');
+      }
+
+      const transformedData = isHomepage 
+        ? this.transformHomepageData(jsonData, subjectName)
+        : this.transformExcelDataOptimized(jsonData, subjectName);
+      
+      if (isHomepage) {
+        this.validateHomepageData(transformedData);
+      }
+      
+      const outputFilename = isHomepage ? `${subjectName}_home.json` : `${subjectName}.json`;
+      const outputPath = path.join(CACHE_DIR, outputFilename);
+      const jsonString = JSON.stringify(transformedData, null, 2);
+      fs.writeFileSync(outputPath, jsonString);
+
+      return {
+        pages: isHomepage ? transformedData.sections?.length || 0 : transformedData.content.length,
+        sections: isHomepage ? transformedData.sections?.length || 0 : transformedData.totalSections || 1,
+        tutorials: isHomepage ? transformedData.totalTutorials || 0 : transformedData.content.length,
+        size: Buffer.byteLength(jsonString),
+        type: isHomepage ? 'homepage' : 'content'
+      };
+    } catch (error) {
+      console.error(`Error processing ${filename}:`, error.message);
+      throw new Error(`Failed to process ${filename}: ${error.message}`);
+    }
+  }
+
+  /**
+   * Transform optimized homepage Excel data (pipe-separated format)
+   */
+  transformHomepageData(excelData, subjectName) {
+    if (!excelData || excelData.length === 0) {
+      throw new Error('No homepage data found');
     }
 
-    // Transform data
-    const transformedData = this.transformExcelDataOptimized(jsonData, subjectName);
+    const firstRow = excelData[0];
+    const title = firstRow.title || `${this.capitalizeFirstLetter(subjectName)} Tutorial`;
+    const shortDesc = firstRow.shortDesc || `Learn ${subjectName} programming`;
+    const keywords = firstRow.keywords || `${subjectName}, programming, tutorial`;
+    const titleTag = firstRow.titleTag || title;
+    const descriptionTag = firstRow.descriptionTag || shortDesc;
+
+    const sections = [];
     
-    // Save to cache
-    const outputPath = path.join(CACHE_DIR, `${subjectName}.json`);
-    const jsonString = JSON.stringify(transformedData);
-    fs.writeFileSync(outputPath, jsonString);
+    excelData.forEach((row, index) => {
+      const sectionName = row.sectionName?.trim() || 'General';
+      const sectionDesc = row.sectionDesc?.trim() || 'Learn programming concepts';
+      
+      // Parse pipe-separated tutorial titles and URLs
+      const tutorialTitles = this.parsePipeSeparatedField(row.tutorialTitles);
+      const tutorialUrls = this.parsePipeSeparatedField(row.tutorialUrls);
+      
+      // Validate that titles and URLs arrays have same length
+      if (tutorialTitles.length !== tutorialUrls.length) {
+        console.warn(`Row ${index + 1}: Mismatch between tutorial titles (${tutorialTitles.length}) and URLs (${tutorialUrls.length})`);
+        const minLength = Math.min(tutorialTitles.length, tutorialUrls.length);
+        tutorialTitles.splice(minLength);
+        tutorialUrls.splice(minLength);
+      }
+      
+      // Create tutorials array
+      const tutorials = [];
+      for (let i = 0; i < tutorialTitles.length; i++) {
+        if (tutorialTitles[i] && tutorialUrls[i]) {
+          tutorials.push({
+            title: tutorialTitles[i],
+            url: tutorialUrls[i]
+          });
+        }
+      }
+      
+      // Only add section if it has tutorials
+      if (tutorials.length > 0) {
+        sections.push({
+          name: sectionName,
+          description: sectionDesc,
+          tutorials: tutorials
+        });
+      }
+    });
 
     return {
-      pages: transformedData.content.length,
-      size: Buffer.byteLength(jsonString)
+      id: `${subjectName}_home`,
+      type: 'homepage',
+      subjectId: subjectName,
+      title: title,
+      shortDesc: shortDesc,
+      sections: sections,
+      keywords: keywords,
+      titleTag: titleTag,
+      descriptionTag: descriptionTag,
+      totalSections: sections.length,
+      totalTutorials: sections.reduce((total, section) => total + section.tutorials.length, 0),
+      lastUpdated: new Date().toISOString()
     };
   }
 
   /**
-   * Optimized data transformation
+   * Parse pipe-separated field with proper trimming and validation
+   */
+  parsePipeSeparatedField(fieldValue) {
+    if (!fieldValue || typeof fieldValue !== 'string') {
+      return [];
+    }
+    
+    return fieldValue
+      .split('|')
+      .map(item => item.trim())
+      .filter(item => item.length > 0);
+  }
+
+  /**
+   * Validate homepage data structure
+   */
+  validateHomepageData(data) {
+    if (!data.title) {
+      throw new Error('Homepage must have a title');
+    }
+    
+    if (!data.sections || data.sections.length === 0) {
+      throw new Error('Homepage must have at least one section');
+    }
+    
+    data.sections.forEach((section, index) => {
+      if (!section.name) {
+        throw new Error(`Section ${index + 1} must have a name`);
+      }
+      
+      if (!section.tutorials || section.tutorials.length === 0) {
+        console.warn(`Section "${section.name}" has no tutorials`);
+      }
+      
+      section.tutorials.forEach((tutorial, tutIndex) => {
+        if (!tutorial.title) {
+          throw new Error(`Tutorial ${tutIndex + 1} in section "${section.name}" must have a title`);
+        }
+        if (!tutorial.url) {
+          throw new Error(`Tutorial "${tutorial.title}" in section "${section.name}" must have a URL`);
+        }
+      });
+    });
+  }
+
+  /**
+   * Optimized data transformation with section support (for regular tutorial files)
    */
   transformExcelDataOptimized(excelData, subjectName) {
     const content = excelData.map((row, index) => ({
@@ -312,21 +432,25 @@ class StaticBuildOptimizer {
       keywords: row.keywords || '',
       titleTag: row.titleTag || row.title || '',
       descriptionTag: row.descriptionTag || '',
-      shortDesc: row.shortDesc || '',
+      shortDesc: row.shortDesc || this.extractShortDescOptimized(row.content),
+      section: row.section || 'General',
       lastModified: new Date().toISOString()
     }));
 
     const baseUrl = subjectName === 'blogs' ? '/blogs' : `/${subjectName}`;
-
+    const sections = [...new Set(content.map(item => item.section))];
+    
     return {
       id: subjectName,
       name: this.capitalizeFirstLetter(subjectName),
       base_url: baseUrl,
       content: content,
+      sections: sections,
       keywords: content[0]?.keywords || '',
       titleTag: content[0]?.titleTag || `${this.capitalizeFirstLetter(subjectName)} Tutorial`,
       descriptionTag: content[0]?.descriptionTag || `Learn ${subjectName} programming.`,
       totalPages: content.length,
+      totalSections: sections.length,
       lastUpdated: new Date().toISOString()
     };
   }
@@ -337,7 +461,6 @@ class StaticBuildOptimizer {
   extractShortDescOptimized(content) {
     if (!content) return '';
     
-    // Fast regex-based cleaning
     const cleaned = content
       .replace(/#{1,6}\s+|\*\*|```[\s\S]*?```|`[^`]*`/g, '')
       .replace(/\s+/g, ' ')
@@ -356,14 +479,23 @@ class StaticBuildOptimizer {
       console.log(`📋 Copying ${unchangedFiles.length} unchanged files from cache...`);
       
       for (const filename of unchangedFiles) {
-        const subjectName = path.basename(filename, '.xlsx').toLowerCase();
-        const cachedPath = path.join(CACHE_DIR, `${subjectName}.json`);
+        const isHomepage = filename.includes('_home.');
+        const subjectName = isHomepage 
+          ? path.basename(filename, '.xlsx').replace('_home', '').toLowerCase()
+          : path.basename(filename, '.xlsx').toLowerCase();
+        
+        const cachedFilename = isHomepage ? `${subjectName}_home.json` : `${subjectName}.json`;
+        const cachedPath = path.join(CACHE_DIR, cachedFilename);
         
         if (fs.existsSync(cachedPath)) {
           try {
             const cachedData = JSON.parse(fs.readFileSync(cachedPath, 'utf8'));
-            if (cachedData && cachedData.content && Array.isArray(cachedData.content)) {
-              this.stats.totalPages += cachedData.content.length;
+            if (cachedData) {
+              if (isHomepage && cachedData.sections) {
+                this.stats.totalPages += cachedData.sections.length;
+              } else if (cachedData.content && Array.isArray(cachedData.content)) {
+                this.stats.totalPages += cachedData.content.length;
+              }
               this.stats.totalSize += fs.statSync(cachedPath).size;
             }
           } catch (error) {
@@ -375,18 +507,18 @@ class StaticBuildOptimizer {
   }
 
   /**
-   * Update manifest with current data
+   * Update manifest with current data (updated for homepage support)
    */
   updateManifest(allFiles) {
     console.log('\n📋 Updating manifest...');
     
     this.manifest.subjects = [];
+    this.manifest.homepages = [];
     this.manifest.totalFiles = allFiles.length;
-    this.manifest.totalPages = 0; // Will be calculated below
+    this.manifest.totalPages = 0;
     this.manifest.lastUpdated = new Date().toISOString();
     this.manifest.buildId = this.generateBuildId();
     
-    // Read all processed files to build manifest
     const cacheFiles = fs.readdirSync(CACHE_DIR)
       .filter(file => file.endsWith('.json') && 
                      file !== 'file-hashes.json' && 
@@ -399,12 +531,31 @@ class StaticBuildOptimizer {
         const filePath = path.join(CACHE_DIR, filename);
         const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
         
-        if (data && data.content && Array.isArray(data.content)) {
+        if (data && data.type === 'homepage') {
+          const homepageInfo = {
+            id: data.id,
+            subjectId: data.subjectId,
+            title: data.title,
+            shortDesc: data.shortDesc,
+            totalSections: data.totalSections,
+            totalTutorials: data.totalTutorials,
+            lastModified: data.lastUpdated,
+            keywords: data.keywords,
+            titleTag: data.titleTag,
+            descriptionTag: data.descriptionTag
+          };
+          
+          this.manifest.homepages.push(homepageInfo);
+          console.log(`   ✅ Added homepage ${data.subjectId}: ${data.totalSections} sections, ${data.totalTutorials} tutorials`);
+          
+        } else if (data && data.content && Array.isArray(data.content)) {
           const subjectInfo = {
             id: data.id,
             name: data.name,
             base_url: data.base_url,
             totalPages: data.content.length,
+            totalSections: data.totalSections || 1,
+            sections: data.sections || ['General'],
             lastModified: data.lastUpdated || new Date().toISOString(),
             keywords: data.keywords || '',
             titleTag: data.titleTag || `${data.name} Tutorial`,
@@ -414,7 +565,7 @@ class StaticBuildOptimizer {
           this.manifest.subjects.push(subjectInfo);
           totalPagesCount += subjectInfo.totalPages;
           
-          console.log(`   ✅ Added ${data.name}: ${subjectInfo.totalPages} pages`);
+          console.log(`   ✅ Added ${data.name}: ${subjectInfo.totalPages} pages, ${subjectInfo.totalSections} sections`);
         }
       } catch (error) {
         console.warn(`   ⚠️  Could not read ${filename} for manifest: ${error.message}`);
@@ -422,8 +573,6 @@ class StaticBuildOptimizer {
     }
     
     this.manifest.totalPages = totalPagesCount;
-    
-    // Add build statistics
     this.manifest.buildStats = {
       filesProcessed: this.stats.filesProcessed,
       filesSkipped: this.stats.filesSkipped,
@@ -433,11 +582,11 @@ class StaticBuildOptimizer {
       platform: process.platform
     };
     
-    console.log(`   📊 Manifest updated: ${this.manifest.subjects.length} subjects, ${totalPagesCount} total pages`);
+    console.log(`   📊 Manifest updated: ${this.manifest.subjects.length} subjects, ${this.manifest.homepages.length} homepages, ${totalPagesCount} total pages`);
   }
 
   /**
-   * Generate static API routes - FIXED VERSION
+   * Generate static API routes
    */
   async generateStaticAPI() {
     console.log('\n🔧 Generating static API routes...');
@@ -445,7 +594,6 @@ class StaticBuildOptimizer {
     const apiDir = path.join(PUBLIC_DIR, 'api');
     const dataApiDir = path.join(apiDir, 'data');
     
-    // Ensure directories exist
     if (!fs.existsSync(apiDir)) {
       fs.mkdirSync(apiDir, { recursive: true });
     }
@@ -453,20 +601,18 @@ class StaticBuildOptimizer {
       fs.mkdirSync(dataApiDir, { recursive: true });
     }
     
-    // Copy manifest to public API (now it should exist)
     if (fs.existsSync(MANIFEST_FILE)) {
       fs.copyFileSync(MANIFEST_FILE, path.join(apiDir, 'manifest.json'));
       console.log('   ✅ Copied manifest.json to API route');
-    } else {
-      console.warn('   ⚠️  Warning: Manifest file not found, skipping copy');
     }
     
-    // Create subject list API
     const subjectList = this.manifest.subjects.map(s => ({
       id: s.id,
       name: s.name,
       base_url: s.base_url,
-      totalPages: s.totalPages
+      totalPages: s.totalPages,
+      totalSections: s.totalSections,
+      sections: s.sections
     }));
     
     fs.writeFileSync(
@@ -475,7 +621,6 @@ class StaticBuildOptimizer {
     );
     console.log('   ✅ Generated subjects.json API route');
     
-    // Copy individual subject data to public API
     const cacheFiles = fs.readdirSync(CACHE_DIR)
       .filter(file => file.endsWith('.json') && 
                      file !== 'file-hashes.json' && 
@@ -510,7 +655,6 @@ class StaticBuildOptimizer {
       priority: '1.0'
     }];
 
-    // Process all cached data files
     const cacheFiles = fs.readdirSync(CACHE_DIR)
       .filter(file => file.endsWith('.json') && 
                      file !== 'file-hashes.json' && 
@@ -520,23 +664,23 @@ class StaticBuildOptimizer {
       try {
         const data = JSON.parse(fs.readFileSync(path.join(CACHE_DIR, filename), 'utf8'));
         
-        if (!data || !data.content || !Array.isArray(data.content)) {
-          continue;
-        }
+        if (!data || data.type === 'homepage') continue;
         
-        for (const item of data.content) {
-          if (!item || !item.url) continue;
+        if (data.content && Array.isArray(data.content)) {
+          for (const item of data.content) {
+            if (!item || !item.url) continue;
 
-          const url = data.id === 'blogs' 
-            ? `https://www.droidbiz.in/blogs/${item.url}`
-            : `https://www.droidbiz.in/${data.id}/${item.url}`;
-          
-          sitemapEntries.push({
-            url: url,
-            lastmod: item.lastModified || new Date().toISOString(),
-            changefreq: 'weekly',
-            priority: '0.8'
-          });
+            const url = data.id === 'blogs' 
+              ? `https://www.droidbiz.in/blogs/${item.url}`
+              : `https://www.droidbiz.in/${data.id}/${item.url}`;
+            
+            sitemapEntries.push({
+              url: url,
+              lastmod: item.lastModified || new Date().toISOString(),
+              changefreq: 'weekly',
+              priority: '0.8'
+            });
+          }
         }
       } catch (error) {
         console.log(`   ❌ Error processing ${filename} for SEO: ${error.message}`);
@@ -544,11 +688,9 @@ class StaticBuildOptimizer {
       }
     }
 
-    // Generate sitemap
     const sitemapXML = this.generateSitemapXML(sitemapEntries);
     fs.writeFileSync(path.join(PUBLIC_DIR, 'sitemap.xml'), sitemapXML);
     
-    // Generate robots.txt
     const robotsTxt = `User-agent: *\nAllow: /\nSitemap: https://www.droidbiz.in/sitemap.xml\n`;
     fs.writeFileSync(path.join(PUBLIC_DIR, 'robots.txt'), robotsTxt);
     
@@ -611,7 +753,6 @@ ${urls}
     console.log(`   🖥️  Parallel workers: ${this.stats.parallelWorkers}`);
     console.log(`   ❌ Errors: ${this.stats.errors}`);
     
-    // Performance insights
     const pagesPerSecond = totalTime > 0 ? (this.stats.totalPages / totalTime).toFixed(1) : 0;
     console.log(`   🚀 Pages generated per second: ${pagesPerSecond}`);
     
