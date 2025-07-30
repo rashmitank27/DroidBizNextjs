@@ -31,17 +31,17 @@
       "descriptionTag": "Learn Kotlin programming from scratch with this comprehensive Kotlin tutorial. Master Kotlin introduction concepts including null safety, data classes, extension functions, and collections with practical examples and a complete working project."
     }
   ],
-  "totalFiles": 3,
+  "totalFiles": 2,
   "totalPages": 11,
-  "lastUpdated": "2025-07-30T00:50:04.374Z",
-  "buildId": "131d1fe6c1eccda7",
+  "lastUpdated": "2025-07-30T00:58:17.992Z",
+  "buildId": "7976e16595bc2f00",
   "buildStats": {
     "filesProcessed": 0,
-    "filesSkipped": 3,
-    "totalSize": 183657,
-    "buildTime": "2025-07-30T00:50:04.377Z",
-    "nodeVersion": "v22.17.1",
-    "platform": "win32"
+    "filesSkipped": 2,
+    "totalSize": 181161,
+    "buildTime": "2025-07-30T00:58:17.994Z",
+    "nodeVersion": "v18.20.8",
+    "platform": "linux"
   },
   "homepages": [
     {
