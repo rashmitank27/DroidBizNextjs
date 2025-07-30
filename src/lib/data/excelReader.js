@@ -23,7 +23,7 @@ function loadManifest() {
     console.error('Error loading manifest:', error);
   }
   
-  return { subjects: [], totalFiles: 0, totalPages: 0 };
+  return { subjects: [], homepages: [], totalFiles: 0, totalPages: 0 };
 }
 
 /**
@@ -49,6 +49,30 @@ function loadSubjectData(subjectId) {
 }
 
 /**
+ * Load specific homepage data from cache
+ */
+function loadHomepageData(subjectId) {
+  const cacheKey = `${subjectId}_home`;
+  
+  if (cachedData.has(cacheKey)) {
+    return cachedData.get(cacheKey);
+  }
+  
+  try {
+    const filePath = path.join(CACHE_DIR, `${subjectId}_home.json`);
+    if (fs.existsSync(filePath)) {
+      const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+      cachedData.set(cacheKey, data);
+      return data;
+    }
+  } catch (error) {
+    console.error(`Error loading homepage data for ${subjectId}:`, error);
+  }
+  
+  return null;
+}
+
+/**
  * Get all tutorials from committed cache
  */
 export async function getTutorials() {
@@ -56,7 +80,7 @@ export async function getTutorials() {
     const manifest = loadManifest();
     const results = [];
     
-    for (const subject of manifest.subjects) {
+    for (const subject of manifest.subjects || []) {
       const data = loadSubjectData(subject.id);
       if (data) {
         results.push(data);
@@ -83,6 +107,40 @@ export async function getTutorialBySubject(subjectId) {
 }
 
 /**
+ * Get homepage data for a specific subject
+ */
+export async function getHomepageBySubject(subjectId) {
+  try {
+    return loadHomepageData(subjectId);
+  } catch (error) {
+    console.error(`Error loading homepage for subject ${subjectId}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Get all homepage data
+ */
+export async function getAllHomepages() {
+  try {
+    const manifest = loadManifest();
+    const results = [];
+    
+    for (const homepage of manifest.homepages || []) {
+      const data = loadHomepageData(homepage.subjectId);
+      if (data) {
+        results.push(data);
+      }
+    }
+    
+    return results;
+  } catch (error) {
+    console.error('Error loading homepages from cache:', error);
+    return [];
+  }
+}
+
+/**
  * Get manifest data
  */
 export async function getManifest() {
@@ -101,6 +159,8 @@ export function clearCache() {
 export default {
   getTutorials,
   getTutorialBySubject,
+  getHomepageBySubject,
+  getAllHomepages,
   getManifest,
   clearCache
 };

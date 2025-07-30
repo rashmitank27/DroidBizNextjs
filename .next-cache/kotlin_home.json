@@ -1,0 +1,81 @@
+{
+  "id": "kotlin_home",
+  "type": "homepage",
+  "subjectId": "kotlin",
+  "title": "Kotlin Tutorial ",
+  "shortDesc": "Learn Kotlin from basics to advanced concepts with hands-on examples and real-world projects",
+  "sections": [
+    {
+      "name": "Getting Started 1",
+      "description": "Learn the fundamentals of Kotlin programming language, setup development environment, and understand basic syntax",
+      "tutorials": [
+        {
+          "title": "Kotlin Introduction and Setup",
+          "url": "kotlin-introduction"
+        },
+        {
+          "title": "Variables and Data Types",
+          "url": "kotlin-variables"
+        },
+        {
+          "title": "Control Flow Statements",
+          "url": "kotlin-control-flow"
+        },
+        {
+          "title": "Functions and Methods",
+          "url": "kotlin-functions"
+        }
+      ]
+    },
+    {
+      "name": "Getting Started 2",
+      "description": "Learn the fundamentals of Kotlin programming language, setup development environment, and understand basic syntax",
+      "tutorials": [
+        {
+          "title": "Kotlin Introduction and Setup",
+          "url": "kotlin-introduction"
+        },
+        {
+          "title": "Variables and Data Types",
+          "url": "kotlin-variables"
+        },
+        {
+          "title": "Control Flow Statements",
+          "url": "kotlin-control-flow"
+        },
+        {
+          "title": "Functions and Methods",
+          "url": "kotlin-functions"
+        }
+      ]
+    },
+    {
+      "name": "Getting Started 2",
+      "description": "Learn the fundamentals of Kotlin programming language, setup development environment, and understand basic syntax",
+      "tutorials": [
+        {
+          "title": "Kotlin Introduction and Setup",
+          "url": "kotlin-introduction"
+        },
+        {
+          "title": "Variables and Data Types",
+          "url": "kotlin-variables"
+        },
+        {
+          "title": "Control Flow Statements",
+          "url": "kotlin-control-flow"
+        },
+        {
+          "title": "Functions and Methods",
+          "url": "kotlin-functions"
+        }
+      ]
+    }
+  ],
+  "keywords": "kotlin,programming,basics,introduction,android",
+  "titleTag": "Kotlin Programming Tutorial - Complete Beginner Guide",
+  "descriptionTag": "Master Kotlin programming with our comprehensive tutorial series covering basics to advanced concepts",
+  "totalSections": 3,
+  "totalTutorials": 12,
+  "lastUpdated": "2025-07-30T00:22:30.868Z"
+}

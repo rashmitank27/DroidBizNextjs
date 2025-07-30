@@ -3,12 +3,22 @@
     "id": "blogs",
     "name": "Blogs",
     "base_url": "/blogs",
-    "totalPages": 1
+    "totalPages": 1,
+    "totalSections": 1,
+    "sections": [
+      "General"
+    ]
   },
   {
     "id": "kotlin",
     "name": "Kotlin",
     "base_url": "/kotlin",
-    "totalPages": 42
+    "totalPages": 10,
+    "totalSections": 3,
+    "sections": [
+      "Getting Started",
+      "Basic Concepts",
+      "Advanced Topics"
+    ]
   }
 ]
