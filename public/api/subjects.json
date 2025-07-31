@@ -10,6 +10,16 @@
     ]
   },
   {
+    "id": "jetpack_compose",
+    "name": "Jetpack_compose",
+    "base_url": "/jetpack_compose",
+    "totalPages": 30,
+    "totalSections": 1,
+    "sections": [
+      "General"
+    ]
+  },
+  {
     "id": "kotlin",
     "name": "Kotlin",
     "base_url": "/kotlin",
