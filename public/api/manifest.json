@@ -4,15 +4,15 @@
       "id": "blogs",
       "name": "Blogs",
       "base_url": "/blogs",
-      "totalPages": 1,
+      "totalPages": 4,
       "totalSections": 1,
       "sections": [
         "General"
       ],
-      "lastModified": "2025-07-28T23:59:54.752Z",
-      "keywords": "Android 15 behavior changes, Android 15 API level 35, foreground service timeout, edge-to-edge Android 15, Android 15 targetSdkVersion, OpenJDK Android 15, Android 15 security changes, SequencedCollection Android 15, Android 15 UI changes, Android 15 app compatibility​​​​​​​​​​​​​​​​",
-      "titleTag": "Android 15 Behavior Changes: Apps targeting Android 15 or higher",
-      "descriptionTag": "Essential guide to Android 15 behavior changes for apps targeting API level 35. Learn foreground service timeouts, edge-to-edge UI, OpenJDK updates, security restrictions, and testing methods to ensure compatibility."
+      "lastModified": "2025-07-30T01:12:35.122Z",
+      "keywords": "Android 15, Android 15 behavior changes, Android 15 updates, Android 15 features, Android 15 compatibility, Android 15 behavior changes for all apps, Android 15 updates for app developers, Android 15 security features for apps, Android 15 performance optimization techniques, Android 15 API changes for developers",
+      "titleTag": "Android 15 Behavior Changes: All Apps",
+      "descriptionTag": "Android 15 : Discover the latest Android 15 behavior changes that affect all apps. Learn about the Android 15 new features, Android 15 updates, and requirements that impact app development and user experience."
     },
     {
       "id": "kotlin",
@@ -31,17 +31,17 @@
       "descriptionTag": "Learn Kotlin programming from scratch with this comprehensive Kotlin tutorial. Master Kotlin introduction concepts including null safety, data classes, extension functions, and collections with practical examples and a complete working project."
     }
   ],
-  "totalFiles": 2,
-  "totalPages": 11,
-  "lastUpdated": "2025-07-30T00:58:17.992Z",
-  "buildId": "7976e16595bc2f00",
+  "totalFiles": 4,
+  "totalPages": 14,
+  "lastUpdated": "2025-07-30T01:12:39.755Z",
+  "buildId": "89476f1426e0d7fd",
   "buildStats": {
     "filesProcessed": 0,
-    "filesSkipped": 2,
-    "totalSize": 181161,
-    "buildTime": "2025-07-30T00:58:17.994Z",
-    "nodeVersion": "v18.20.8",
-    "platform": "linux"
+    "filesSkipped": 4,
+    "totalSize": 205992,
+    "buildTime": "2025-07-30T01:12:39.759Z",
+    "nodeVersion": "v22.17.1",
+    "platform": "win32"
   },
   "homepages": [
     {

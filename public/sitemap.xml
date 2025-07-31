@@ -3,13 +3,31 @@
 
   <url>
     <loc>https://www.droidbiz.in</loc>
-    <lastmod>2025-07-30T00:58:17.994Z</lastmod>
+    <lastmod>2025-07-30T01:12:39.761Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.droidbiz.in/blogs/android-15-behavior-changes-apps-targeting-android-15-or-higher</loc>
-    <lastmod>2025-07-28T23:59:54.752Z</lastmod>
+    <loc>https://www.droidbiz.in/blogs/android_15_behavior_changes_all_apps</loc>
+    <lastmod>2025-07-30T01:12:35.121Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/blogs/celpip-practice-tests-and-celpip-exam-format</loc>
+    <lastmod>2025-07-30T01:12:35.121Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/blogs/what-is-kotlin-multiplatform-deep-dive-cross-platform-app-development</loc>
+    <lastmod>2025-07-30T01:12:35.121Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.droidbiz.in/blogs/what-is-compose-multiplatform</loc>
+    <lastmod>2025-07-30T01:12:35.121Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

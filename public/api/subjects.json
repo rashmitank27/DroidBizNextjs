@@ -3,7 +3,7 @@
     "id": "blogs",
     "name": "Blogs",
     "base_url": "/blogs",
-    "totalPages": 1,
+    "totalPages": 4,
     "totalSections": 1,
     "sections": [
       "General"
