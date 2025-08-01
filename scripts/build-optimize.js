@@ -2,7 +2,7 @@
 
 /**
  * Fixed Static Build Optimization Script with Homepage Support (Pipe Separator)
- * Corrected order of operations for manifest generation
+ * Enhanced with metadata header support
  */
 
 const fs = require('fs');
@@ -75,16 +75,333 @@ class StaticBuildOptimizer {
   }
 
   /**
-   * Save manifest
+   * Transform optimized homepage Excel data with metadata header support
+   * New Excel Structure:
+   * Row 1: Global metadata (title, shortDesc, keywords, titleTag, descriptionTag)
+   * Row 2+: Section data (sectionName, sectionDesc, tutorialTitles, tutorialUrls)
    */
-  saveManifest() {
-    try {
-      fs.writeFileSync(MANIFEST_FILE, JSON.stringify(this.manifest, null, 2));
-      console.log('   ✅ Manifest saved to .next-cache/manifest.json');
-    } catch (error) {
-      console.error('   ❌ Failed to save manifest:', error.message);
-      throw error;
+  transformHomepageDataWithHeader(excelData, subjectName) {
+    if (!excelData || excelData.length === 0) {
+      throw new Error('No homepage data found');
     }
+
+    // Extract global metadata from first row
+    const metadataRow = excelData[0];
+    const globalMetadata = {
+      title: metadataRow.title || `${this.capitalizeFirstLetter(subjectName)} Tutorial`,
+      shortDesc: metadataRow.shortDesc || `Learn ${subjectName} programming`,
+      keywords: metadataRow.keywords || `${subjectName}, programming, tutorial`,
+      titleTag: metadataRow.titleTag || metadataRow.title || `${this.capitalizeFirstLetter(subjectName)} Tutorial`,
+      descriptionTag: metadataRow.descriptionTag || metadataRow.shortDesc || `Learn ${subjectName} programming`
+    };
+
+    const sections = [];
+
+    // Process section data starting from row 2 (index 1)
+    excelData.slice(1).forEach((row, index) => {
+      const sectionName = row.sectionName?.trim() || 'General';
+      const sectionDesc = row.sectionDesc?.trim() || 'Learn programming concepts';
+      
+      // Parse pipe-separated tutorial titles and URLs
+      const tutorialTitles = this.parsePipeSeparatedField(row.tutorialTitles);
+      const tutorialUrls = this.parsePipeSeparatedField(row.tutorialUrls);
+      
+      // Validate that titles and URLs arrays have same length
+      if (tutorialTitles.length !== tutorialUrls.length) {
+        console.warn(`Row ${index + 2}: Mismatch between tutorial titles (${tutorialTitles.length}) and URLs (${tutorialUrls.length})`);
+        const minLength = Math.min(tutorialTitles.length, tutorialUrls.length);
+        tutorialTitles.splice(minLength);
+        tutorialUrls.splice(minLength);
+      }
+
+      // Create tutorials array
+      const tutorials = [];
+      for (let i = 0; i < tutorialTitles.length; i++) {
+        if (tutorialTitles[i] && tutorialUrls[i]) {
+          tutorials.push({
+            title: tutorialTitles[i].trim(),
+            url: tutorialUrls[i].trim()
+          });
+        }
+      }
+
+      // Check if section already exists
+      let existingSection = sections.find(section => section.name === sectionName);
+      if (existingSection) {
+        // Add tutorials to existing section
+        existingSection.tutorials.push(...tutorials);
+      } else {
+        // Create new section
+        sections.push({
+          name: sectionName,
+          desc: sectionDesc,
+          tutorials: tutorials
+        });
+      }
+    });
+
+    // Calculate totals
+    const totalTutorials = sections.reduce((sum, section) => sum + section.tutorials.length, 0);
+
+    return {
+      id: subjectName,
+      name: this.capitalizeFirstLetter(subjectName),
+      ...globalMetadata, // Spread the global metadata
+      sections: sections,
+      totalSections: sections.length,
+      totalTutorials: totalTutorials,
+      lastUpdated: new Date().toISOString()
+    };
+  }
+
+  /**
+   * Auto-detect Excel format and process accordingly
+   */
+  transformHomepageDataSmart(excelData, subjectName) {
+    if (!excelData || excelData.length === 0) {
+      throw new Error('No homepage data found');
+    }
+
+    const firstRow = excelData[0];
+    
+    // Check if first row contains only metadata (no section data)
+    const hasOnlyMetadata = firstRow.title && !firstRow.sectionName && !firstRow.tutorialTitles;
+    
+    if (hasOnlyMetadata && excelData.length > 1) {
+      console.log(`📊 Detected metadata header format for ${subjectName}`);
+      return this.transformHomepageDataWithHeader(excelData, subjectName);
+    } else {
+      console.log(`📊 Using original format for ${subjectName}`);
+      return this.transformHomepageDataOriginal(excelData, subjectName);
+    }
+  }
+
+  /**
+   * Original transform method (renamed for compatibility)
+   */
+  transformHomepageDataOriginal(excelData, subjectName) {
+    const firstRow = excelData[0];
+    const title = firstRow.title || `${this.capitalizeFirstLetter(subjectName)} Tutorial`;
+    const shortDesc = firstRow.shortDesc || `Learn ${subjectName} programming`;
+    const keywords = firstRow.keywords || `${subjectName}, programming, tutorial`;
+    const titleTag = firstRow.titleTag || title;
+    const descriptionTag = firstRow.descriptionTag || shortDesc;
+
+    const sections = [];
+    
+    excelData.forEach((row, index) => {
+      const sectionName = row.sectionName?.trim() || 'General';
+      const sectionDesc = row.sectionDesc?.trim() || 'Learn programming concepts';
+      
+      const tutorialTitles = this.parsePipeSeparatedField(row.tutorialTitles);
+      const tutorialUrls = this.parsePipeSeparatedField(row.tutorialUrls);
+      
+      if (tutorialTitles.length !== tutorialUrls.length) {
+        console.warn(`Row ${index + 1}: Mismatch between tutorial titles and URLs`);
+        const minLength = Math.min(tutorialTitles.length, tutorialUrls.length);
+        tutorialTitles.splice(minLength);
+        tutorialUrls.splice(minLength);
+      }
+
+      const tutorials = [];
+      for (let i = 0; i < tutorialTitles.length; i++) {
+        if (tutorialTitles[i] && tutorialUrls[i]) {
+          tutorials.push({
+            title: tutorialTitles[i].trim(),
+            url: tutorialUrls[i].trim()
+          });
+        }
+      }
+
+      let existingSection = sections.find(section => section.name === sectionName);
+      if (existingSection) {
+        existingSection.tutorials.push(...tutorials);
+      } else {
+        sections.push({
+          name: sectionName,
+          desc: sectionDesc,
+          tutorials: tutorials
+        });
+      }
+    });
+
+    const totalTutorials = sections.reduce((sum, section) => sum + section.tutorials.length, 0);
+
+    return {
+      id: subjectName,
+      name: this.capitalizeFirstLetter(subjectName),
+      title: title,
+      shortDesc: shortDesc,
+      keywords: keywords,
+      titleTag: titleTag,
+      descriptionTag: descriptionTag,
+      sections: sections,
+      totalSections: sections.length,
+      totalTutorials: totalTutorials,
+      lastUpdated: new Date().toISOString()
+    };
+  }
+
+  /**
+   * Transform optimized homepage Excel data (pipe-separated format)
+   * This is the main method that gets called - now uses smart detection
+   */
+  transformHomepageData(excelData, subjectName) {
+    return this.transformHomepageDataSmart(excelData, subjectName);
+  }
+
+  /**
+   * Parse pipe-separated field values
+   */
+  parsePipeSeparatedField(fieldValue) {
+    if (!fieldValue || typeof fieldValue !== 'string') {
+      return [];
+    }
+    
+    return fieldValue
+      .split('|')
+      .map(item => item.trim())
+      .filter(item => item.length > 0);
+  }
+
+  /**
+   * Capitalize first letter of string
+   */
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  /**
+   * Validate homepage data structure
+   */
+  validateHomepageData(data) {
+    if (!data.title) {
+      throw new Error('Homepage must have a title');
+    }
+    
+    if (!data.sections || data.sections.length === 0) {
+      throw new Error('Homepage must have at least one section');
+    }
+    
+    data.sections.forEach((section, index) => {
+      if (!section.name) {
+        throw new Error(`Section ${index + 1} must have a name`);
+      }
+      
+      if (!section.tutorials || section.tutorials.length === 0) {
+        console.warn(`Section "${section.name}" has no tutorials`);
+      }
+      
+      section.tutorials.forEach((tutorial, tutIndex) => {
+        if (!tutorial.title) {
+          throw new Error(`Tutorial ${tutIndex + 1} in section "${section.name}" must have a title`);
+        }
+        if (!tutorial.url) {
+          throw new Error(`Tutorial "${tutorial.title}" in section "${section.name}" must have a URL`);
+        }
+      });
+    });
+  }
+
+  /**
+   * Process individual Excel file (updated to handle homepage files)
+   */
+  async processExcelFile(filename) {
+    const filePath = path.join(DATA_DIR, filename);
+    const isHomepage = filename.includes('_home.');
+    const subjectName = isHomepage 
+      ? path.basename(filename, '.xlsx').replace('_home', '').toLowerCase()
+      : path.basename(filename, '.xlsx').toLowerCase();
+    
+    try {
+      const fileBuffer = fs.readFileSync(filePath);
+      const workbook = XLSX.read(fileBuffer, {
+        cellStyles: false,
+        cellFormulas: false,
+        cellDates: true
+      });
+
+      const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+      const jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+      if (jsonData.length === 0) {
+        throw new Error('No data found in Excel file');
+      }
+
+      const transformedData = isHomepage 
+        ? this.transformHomepageData(jsonData, subjectName)
+        : this.transformExcelDataOptimized(jsonData, subjectName);
+      
+      if (isHomepage) {
+        this.validateHomepageData(transformedData);
+      }
+      
+      const outputFilename = isHomepage ? `${subjectName}_home.json` : `${subjectName}.json`;
+      const outputPath = path.join(CACHE_DIR, outputFilename);
+      const jsonString = JSON.stringify(transformedData, null, 2);
+      fs.writeFileSync(outputPath, jsonString);
+
+      return {
+        pages: isHomepage ? transformedData.sections?.length || 0 : transformedData.content.length,
+        sections: isHomepage ? transformedData.sections?.length || 0 : transformedData.totalSections || 1,
+        tutorials: isHomepage ? transformedData.totalTutorials || 0 : transformedData.content.length,
+        size: Buffer.byteLength(jsonString),
+        type: isHomepage ? 'homepage' : 'content'
+      };
+    } catch (error) {
+      console.error(`Error processing ${filename}:`, error.message);
+      throw new Error(`Failed to process ${filename}: ${error.message}`);
+    }
+  }
+
+  /**
+   * Optimized data transformation with section support (for regular tutorial files)
+   */
+  transformExcelDataOptimized(excelData, subjectName) {
+    const content = excelData.map((row, index) => ({
+      id: row.id || index + 1,
+      title: row.title || `Untitled ${index + 1}`,
+      url: row.url || `page-${index + 1}`,
+      type: row.type || 1,
+      content: row.content || '',
+      keywords: row.keywords || '',
+      titleTag: row.titleTag || row.title || '',
+      descriptionTag: row.descriptionTag || '',
+      shortDesc: row.shortDesc || this.extractShortDescOptimized(row.content),
+      section: row.section || 'General',
+      lastModified: new Date().toISOString()
+    }));
+
+    const baseUrl = subjectName === 'blogs' ? '/blogs' : `/${subjectName}`;
+    const sections = [...new Set(content.map(item => item.section))];
+    
+    return {
+      id: subjectName,
+      name: this.capitalizeFirstLetter(subjectName),
+      base_url: baseUrl,
+      content: content,
+      sections: sections,
+      keywords: content[0]?.keywords || '',
+      titleTag: content[0]?.titleTag || `${this.capitalizeFirstLetter(subjectName)} Tutorial`,
+      descriptionTag: content[0]?.descriptionTag || `Learn ${subjectName} programming.`,
+      totalPages: content.length,
+      totalSections: sections.length,
+      lastUpdated: new Date().toISOString()
+    };
+  }
+
+  /**
+   * Optimized short description extraction
+   */
+  extractShortDescOptimized(content) {
+    if (!content) return '';
+    
+    const cleaned = content
+      .replace(/#{1,6}\s+|\*\*|```[\s\S]*?```|`[^`]*`/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    return cleaned.length > 155 ? cleaned.substring(0, 155) + '...' : cleaned;
   }
 
   /**
@@ -160,44 +477,6 @@ class StaticBuildOptimizer {
   }
 
   /**
-   * Main optimization process
-   */
-  async optimize() {
-    console.log(`🚀 Starting static build optimization...`);
-    console.log(`📊 Using ${this.stats.parallelWorkers} parallel workers\n`);
-    
-    try {
-      this.ensureDirectories();
-      
-      const allFiles = this.getExcelFiles();
-      const { changedFiles, unchangedFiles } = this.detectChangedFiles(allFiles);
-      
-      console.log(`📁 Total files: ${allFiles.length}`);
-      console.log(`🔄 Changed files: ${changedFiles.length}`);
-      console.log(`✅ Unchanged files: ${unchangedFiles.length} (will be skipped)\n`);
-      
-      if (changedFiles.length > 0) {
-        await this.processFilesInParallel(changedFiles);
-      }
-      
-      this.copyUnchangedFiles(unchangedFiles);
-      this.updateManifest(allFiles);
-      this.saveManifest();
-      this.saveFileHashes();
-      await this.generateSEOFiles();
-      await this.generateStaticAPI();
-      
-      this.showOptimizedStats();
-      
-      console.log('✅ Static build optimization completed!');
-      console.log('📦 Ready for Vercel deployment with static files');
-    } catch (error) {
-      console.error('❌ Build optimization failed:', error);
-      process.exit(1);
-    }
-  }
-
-  /**
    * Process Excel files in parallel
    */
   async processFilesInParallel(files) {
@@ -253,469 +532,6 @@ class StaticBuildOptimizer {
   }
 
   /**
-   * Process individual Excel file (updated to handle homepage files)
-   */
-  async processExcelFile(filename) {
-    const filePath = path.join(DATA_DIR, filename);
-    const isHomepage = filename.includes('_home.');
-    const subjectName = isHomepage 
-      ? path.basename(filename, '.xlsx').replace('_home', '').toLowerCase()
-      : path.basename(filename, '.xlsx').toLowerCase();
-    
-    try {
-      const fileBuffer = fs.readFileSync(filePath);
-      const workbook = XLSX.read(fileBuffer, {
-        cellStyles: false,
-        cellFormulas: false,
-        cellDates: true
-      });
-
-      const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-      const jsonData = XLSX.utils.sheet_to_json(worksheet);
-
-      if (jsonData.length === 0) {
-        throw new Error('No data found in Excel file');
-      }
-
-      const transformedData = isHomepage 
-        ? this.transformHomepageData(jsonData, subjectName)
-        : this.transformExcelDataOptimized(jsonData, subjectName);
-      
-      if (isHomepage) {
-        this.validateHomepageData(transformedData);
-      }
-      
-      const outputFilename = isHomepage ? `${subjectName}_home.json` : `${subjectName}.json`;
-      const outputPath = path.join(CACHE_DIR, outputFilename);
-      const jsonString = JSON.stringify(transformedData, null, 2);
-      fs.writeFileSync(outputPath, jsonString);
-
-      return {
-        pages: isHomepage ? transformedData.sections?.length || 0 : transformedData.content.length,
-        sections: isHomepage ? transformedData.sections?.length || 0 : transformedData.totalSections || 1,
-        tutorials: isHomepage ? transformedData.totalTutorials || 0 : transformedData.content.length,
-        size: Buffer.byteLength(jsonString),
-        type: isHomepage ? 'homepage' : 'content'
-      };
-    } catch (error) {
-      console.error(`Error processing ${filename}:`, error.message);
-      throw new Error(`Failed to process ${filename}: ${error.message}`);
-    }
-  }
-
-  /**
-   * Transform optimized homepage Excel data (pipe-separated format)
-   */
-  transformHomepageData(excelData, subjectName) {
-    if (!excelData || excelData.length === 0) {
-      throw new Error('No homepage data found');
-    }
-
-    const firstRow = excelData[0];
-    const title = firstRow.title || `${this.capitalizeFirstLetter(subjectName)} Tutorial`;
-    const shortDesc = firstRow.shortDesc || `Learn ${subjectName} programming`;
-    const keywords = firstRow.keywords || `${subjectName}, programming, tutorial`;
-    const titleTag = firstRow.titleTag || title;
-    const descriptionTag = firstRow.descriptionTag || shortDesc;
-
-    const sections = [];
-    
-    excelData.forEach((row, index) => {
-      const sectionName = row.sectionName?.trim() || 'General';
-      const sectionDesc = row.sectionDesc?.trim() || 'Learn programming concepts';
-      
-      // Parse pipe-separated tutorial titles and URLs
-      const tutorialTitles = this.parsePipeSeparatedField(row.tutorialTitles);
-      const tutorialUrls = this.parsePipeSeparatedField(row.tutorialUrls);
-      
-      // Validate that titles and URLs arrays have same length
-      if (tutorialTitles.length !== tutorialUrls.length) {
-        console.warn(`Row ${index + 1}: Mismatch between tutorial titles (${tutorialTitles.length}) and URLs (${tutorialUrls.length})`);
-        const minLength = Math.min(tutorialTitles.length, tutorialUrls.length);
-        tutorialTitles.splice(minLength);
-        tutorialUrls.splice(minLength);
-      }
-      
-      // Create tutorials array
-      const tutorials = [];
-      for (let i = 0; i < tutorialTitles.length; i++) {
-        if (tutorialTitles[i] && tutorialUrls[i]) {
-          tutorials.push({
-            title: tutorialTitles[i],
-            url: tutorialUrls[i]
-          });
-        }
-      }
-      
-      // Only add section if it has tutorials
-      if (tutorials.length > 0) {
-        sections.push({
-          name: sectionName,
-          description: sectionDesc,
-          tutorials: tutorials
-        });
-      }
-    });
-
-    return {
-      id: `${subjectName}_home`,
-      type: 'homepage',
-      subjectId: subjectName,
-      title: title,
-      shortDesc: shortDesc,
-      sections: sections,
-      keywords: keywords,
-      titleTag: titleTag,
-      descriptionTag: descriptionTag,
-      totalSections: sections.length,
-      totalTutorials: sections.reduce((total, section) => total + section.tutorials.length, 0),
-      lastUpdated: new Date().toISOString()
-    };
-  }
-
-  /**
-   * Parse pipe-separated field with proper trimming and validation
-   */
-  parsePipeSeparatedField(fieldValue) {
-    if (!fieldValue || typeof fieldValue !== 'string') {
-      return [];
-    }
-    
-    return fieldValue
-      .split('|')
-      .map(item => item.trim())
-      .filter(item => item.length > 0);
-  }
-
-  /**
-   * Validate homepage data structure
-   */
-  validateHomepageData(data) {
-    if (!data.title) {
-      throw new Error('Homepage must have a title');
-    }
-    
-    if (!data.sections || data.sections.length === 0) {
-      throw new Error('Homepage must have at least one section');
-    }
-    
-    data.sections.forEach((section, index) => {
-      if (!section.name) {
-        throw new Error(`Section ${index + 1} must have a name`);
-      }
-      
-      if (!section.tutorials || section.tutorials.length === 0) {
-        console.warn(`Section "${section.name}" has no tutorials`);
-      }
-      
-      section.tutorials.forEach((tutorial, tutIndex) => {
-        if (!tutorial.title) {
-          throw new Error(`Tutorial ${tutIndex + 1} in section "${section.name}" must have a title`);
-        }
-        if (!tutorial.url) {
-          throw new Error(`Tutorial "${tutorial.title}" in section "${section.name}" must have a URL`);
-        }
-      });
-    });
-  }
-
-  /**
-   * Optimized data transformation with section support (for regular tutorial files)
-   */
-  transformExcelDataOptimized(excelData, subjectName) {
-    const content = excelData.map((row, index) => ({
-      id: row.id || index + 1,
-      title: row.title || `Untitled ${index + 1}`,
-      url: row.url || `page-${index + 1}`,
-      type: row.type || 1,
-      content: row.content || '',
-      keywords: row.keywords || '',
-      titleTag: row.titleTag || row.title || '',
-      descriptionTag: row.descriptionTag || '',
-      shortDesc: row.shortDesc || this.extractShortDescOptimized(row.content),
-      section: row.section || 'General',
-      lastModified: new Date().toISOString()
-    }));
-
-    const baseUrl = subjectName === 'blogs' ? '/blogs' : `/${subjectName}`;
-    const sections = [...new Set(content.map(item => item.section))];
-    
-    return {
-      id: subjectName,
-      name: this.capitalizeFirstLetter(subjectName),
-      base_url: baseUrl,
-      content: content,
-      sections: sections,
-      keywords: content[0]?.keywords || '',
-      titleTag: content[0]?.titleTag || `${this.capitalizeFirstLetter(subjectName)} Tutorial`,
-      descriptionTag: content[0]?.descriptionTag || `Learn ${subjectName} programming.`,
-      totalPages: content.length,
-      totalSections: sections.length,
-      lastUpdated: new Date().toISOString()
-    };
-  }
-
-  /**
-   * Optimized short description extraction
-   */
-  extractShortDescOptimized(content) {
-    if (!content) return '';
-    
-    const cleaned = content
-      .replace(/#{1,6}\s+|\*\*|```[\s\S]*?```|`[^`]*`/g, '')
-      .replace(/\s+/g, ' ')
-      .trim();
-
-    return cleaned.length > 155 ? cleaned.substring(0, 155) + '...' : cleaned;
-  }
-
-  /**
-   * Copy unchanged files from previous build cache
-   */
-  copyUnchangedFiles(unchangedFiles) {
-    this.stats.filesSkipped = unchangedFiles.length;
-    
-    if (unchangedFiles.length > 0) {
-      console.log(`📋 Copying ${unchangedFiles.length} unchanged files from cache...`);
-      
-      for (const filename of unchangedFiles) {
-        const isHomepage = filename.includes('_home.');
-        const subjectName = isHomepage 
-          ? path.basename(filename, '.xlsx').replace('_home', '').toLowerCase()
-          : path.basename(filename, '.xlsx').toLowerCase();
-        
-        const cachedFilename = isHomepage ? `${subjectName}_home.json` : `${subjectName}.json`;
-        const cachedPath = path.join(CACHE_DIR, cachedFilename);
-        
-        if (fs.existsSync(cachedPath)) {
-          try {
-            const cachedData = JSON.parse(fs.readFileSync(cachedPath, 'utf8'));
-            if (cachedData) {
-              if (isHomepage && cachedData.sections) {
-                this.stats.totalPages += cachedData.sections.length;
-              } else if (cachedData.content && Array.isArray(cachedData.content)) {
-                this.stats.totalPages += cachedData.content.length;
-              }
-              this.stats.totalSize += fs.statSync(cachedPath).size;
-            }
-          } catch (error) {
-            console.log(`   ⚠️  Warning: Could not read cached file ${cachedPath}: ${error.message}`);
-          }
-        }
-      }
-    }
-  }
-
-  /**
-   * Update manifest with current data (updated for homepage support)
-   */
-  updateManifest(allFiles) {
-    console.log('\n📋 Updating manifest...');
-    
-    this.manifest.subjects = [];
-    this.manifest.homepages = [];
-    this.manifest.totalFiles = allFiles.length;
-    this.manifest.totalPages = 0;
-    this.manifest.lastUpdated = new Date().toISOString();
-    this.manifest.buildId = this.generateBuildId();
-    
-    const cacheFiles = fs.readdirSync(CACHE_DIR)
-      .filter(file => file.endsWith('.json') && 
-                     file !== 'file-hashes.json' && 
-                     file !== 'manifest.json');
-    
-    let totalPagesCount = 0;
-    
-    for (const filename of cacheFiles) {
-      try {
-        const filePath = path.join(CACHE_DIR, filename);
-        const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-        
-        if (data && data.type === 'homepage') {
-          const homepageInfo = {
-            id: data.id,
-            subjectId: data.subjectId,
-            title: data.title,
-            shortDesc: data.shortDesc,
-            totalSections: data.totalSections,
-            totalTutorials: data.totalTutorials,
-            lastModified: data.lastUpdated,
-            keywords: data.keywords,
-            titleTag: data.titleTag,
-            descriptionTag: data.descriptionTag
-          };
-          
-          this.manifest.homepages.push(homepageInfo);
-          console.log(`   ✅ Added homepage ${data.subjectId}: ${data.totalSections} sections, ${data.totalTutorials} tutorials`);
-          
-        } else if (data && data.content && Array.isArray(data.content)) {
-          const subjectInfo = {
-            id: data.id,
-            name: data.name,
-            base_url: data.base_url,
-            totalPages: data.content.length,
-            totalSections: data.totalSections || 1,
-            sections: data.sections || ['General'],
-            lastModified: data.lastUpdated || new Date().toISOString(),
-            keywords: data.keywords || '',
-            titleTag: data.titleTag || `${data.name} Tutorial`,
-            descriptionTag: data.descriptionTag || `Learn ${data.name} programming.`
-          };
-          
-          this.manifest.subjects.push(subjectInfo);
-          totalPagesCount += subjectInfo.totalPages;
-          
-          console.log(`   ✅ Added ${data.name}: ${subjectInfo.totalPages} pages, ${subjectInfo.totalSections} sections`);
-        }
-      } catch (error) {
-        console.warn(`   ⚠️  Could not read ${filename} for manifest: ${error.message}`);
-      }
-    }
-    
-    this.manifest.totalPages = totalPagesCount;
-    this.manifest.buildStats = {
-      filesProcessed: this.stats.filesProcessed,
-      filesSkipped: this.stats.filesSkipped,
-      totalSize: this.stats.totalSize,
-      buildTime: new Date().toISOString(),
-      nodeVersion: process.version,
-      platform: process.platform
-    };
-    
-    console.log(`   📊 Manifest updated: ${this.manifest.subjects.length} subjects, ${this.manifest.homepages.length} homepages, ${totalPagesCount} total pages`);
-  }
-
-  /**
-   * Generate static API routes
-   */
-  async generateStaticAPI() {
-    console.log('\n🔧 Generating static API routes...');
-    
-    const apiDir = path.join(PUBLIC_DIR, 'api');
-    const dataApiDir = path.join(apiDir, 'data');
-    
-    if (!fs.existsSync(apiDir)) {
-      fs.mkdirSync(apiDir, { recursive: true });
-    }
-    if (!fs.existsSync(dataApiDir)) {
-      fs.mkdirSync(dataApiDir, { recursive: true });
-    }
-    
-    if (fs.existsSync(MANIFEST_FILE)) {
-      fs.copyFileSync(MANIFEST_FILE, path.join(apiDir, 'manifest.json'));
-      console.log('   ✅ Copied manifest.json to API route');
-    }
-    
-    const subjectList = this.manifest.subjects.map(s => ({
-      id: s.id,
-      name: s.name,
-      base_url: s.base_url,
-      totalPages: s.totalPages,
-      totalSections: s.totalSections,
-      sections: s.sections
-    }));
-    
-    fs.writeFileSync(
-      path.join(apiDir, 'subjects.json'),
-      JSON.stringify(subjectList, null, 2)
-    );
-    console.log('   ✅ Generated subjects.json API route');
-    
-    const cacheFiles = fs.readdirSync(CACHE_DIR)
-      .filter(file => file.endsWith('.json') && 
-                     file !== 'file-hashes.json' && 
-                     file !== 'manifest.json');
-    
-    let copiedCount = 0;
-    for (const filename of cacheFiles) {
-      try {
-        fs.copyFileSync(
-          path.join(CACHE_DIR, filename),
-          path.join(dataApiDir, filename)
-        );
-        copiedCount++;
-      } catch (error) {
-        console.warn(`   ⚠️  Failed to copy ${filename}: ${error.message}`);
-      }
-    }
-    
-    console.log(`   ✅ Generated ${copiedCount} data API routes`);
-  }
-
-  /**
-   * Generate SEO files (sitemap, robots.txt)
-   */
-  async generateSEOFiles() {
-    console.log('\n🗺️  Generating SEO files...');
-    
-    const sitemapEntries = [{
-      url: 'https://www.droidbiz.in',
-      lastmod: new Date().toISOString(),
-      changefreq: 'daily',
-      priority: '1.0'
-    }];
-
-    const cacheFiles = fs.readdirSync(CACHE_DIR)
-      .filter(file => file.endsWith('.json') && 
-                     file !== 'file-hashes.json' && 
-                     file !== 'manifest.json');
-
-    for (const filename of cacheFiles) {
-      try {
-        const data = JSON.parse(fs.readFileSync(path.join(CACHE_DIR, filename), 'utf8'));
-        
-        if (!data || data.type === 'homepage') continue;
-        
-        if (data.content && Array.isArray(data.content)) {
-          for (const item of data.content) {
-            if (!item || !item.url) continue;
-
-            const url = data.id === 'blogs' 
-              ? `https://www.droidbiz.in/blogs/${item.url}`
-              : `https://www.droidbiz.in/${data.id}/${item.url}`;
-            
-            sitemapEntries.push({
-              url: url,
-              lastmod: item.lastModified || new Date().toISOString(),
-              changefreq: 'weekly',
-              priority: '0.8'
-            });
-          }
-        }
-      } catch (error) {
-        console.log(`   ❌ Error processing ${filename} for SEO: ${error.message}`);
-        continue;
-      }
-    }
-
-    const sitemapXML = this.generateSitemapXML(sitemapEntries);
-    fs.writeFileSync(path.join(PUBLIC_DIR, 'sitemap.xml'), sitemapXML);
-    
-    const robotsTxt = `User-agent: *\nAllow: /\nSitemap: https://www.droidbiz.in/sitemap.xml\n`;
-    fs.writeFileSync(path.join(PUBLIC_DIR, 'robots.txt'), robotsTxt);
-    
-    console.log(`   ✅ Generated sitemap with ${sitemapEntries.length} URLs`);
-  }
-
-  /**
-   * Generate sitemap XML
-   */
-  generateSitemapXML(entries) {
-    const urls = entries.map(entry => `
-  <url>
-    <loc>${entry.url}</loc>
-    <lastmod>${entry.lastmod}</lastmod>
-    <changefreq>${entry.changefreq}</changefreq>
-    <priority>${entry.priority}</priority>
-  </url>`).join('');
-
-    return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls}
-</urlset>`;
-  }
-
-  /**
    * Split array into chunks for parallel processing
    */
   chunkArray(array, chunkSize) {
@@ -727,46 +543,42 @@ ${urls}
   }
 
   /**
-   * Capitalize first letter of a string
+   * Main optimization process
    */
-  capitalizeFirstLetter(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-
-  /**
-   * Show optimized build statistics
-   */
-  showOptimizedStats() {
-    const totalTime = ((Date.now() - this.stats.startTime) / 1000).toFixed(1);
-    const totalSizeMB = (this.stats.totalSize / 1024 / 1024).toFixed(2);
-    const avgTimePerFile = this.stats.filesProcessed > 0 
-      ? (totalTime / this.stats.filesProcessed).toFixed(2) 
-      : 0;
+  async optimize() {
+    console.log(`🚀 Starting static build optimization...`);
+    console.log(`📊 Using ${this.stats.parallelWorkers} parallel workers\n`);
     
-    console.log('\n📊 Build Statistics:');
-    console.log(`   ⏱️  Total time: ${totalTime}s`);
-    console.log(`   🔄 Files processed: ${this.stats.filesProcessed}`);
-    console.log(`   ⏭️  Files skipped (cached): ${this.stats.filesSkipped}`);
-    console.log(`   📄 Total pages: ${this.stats.totalPages}`);
-    console.log(`   💾 Total size: ${totalSizeMB} MB`);
-    console.log(`   ⚡ Avg time per file: ${avgTimePerFile}s`);
-    console.log(`   🖥️  Parallel workers: ${this.stats.parallelWorkers}`);
-    console.log(`   ❌ Errors: ${this.stats.errors}`);
-    
-    const pagesPerSecond = totalTime > 0 ? (this.stats.totalPages / totalTime).toFixed(1) : 0;
-    console.log(`   🚀 Pages generated per second: ${pagesPerSecond}`);
-    
-    if (this.stats.filesSkipped > 0) {
-      const timesSaved = (this.stats.filesSkipped * avgTimePerFile).toFixed(1);
-      console.log(`   💰 Time saved by caching: ${timesSaved}s`);
+    try {
+      this.ensureDirectories();
+      
+      const allFiles = this.getExcelFiles();
+      const { changedFiles, unchangedFiles } = this.detectChangedFiles(allFiles);
+      
+      console.log(`📁 Total files: ${allFiles.length}`);
+      console.log(`🔄 Changed files: ${changedFiles.length}`);
+      console.log(`✅ Unchanged files: ${unchangedFiles.length} (will be skipped)\n`);
+      
+      if (changedFiles.length > 0) {
+        await this.processFilesInParallel(changedFiles);
+      }
+      
+      this.saveFileHashes();
+      
+      console.log('✅ Static build optimization completed!');
+      console.log('📦 Ready for Vercel deployment with static files');
+    } catch (error) {
+      console.error('❌ Build optimization failed:', error);
+      process.exit(1);
     }
   }
 }
 
-// Run optimization
-if (require.main === module) {
-  const optimizer = new StaticBuildOptimizer();
-  optimizer.optimize();
-}
+// Create and run optimizer
+const optimizer = new StaticBuildOptimizer();
+optimizer.optimize().catch(error => {
+  console.error('❌ Fatal error:', error);
+  process.exit(1);
+});
 
 module.exports = StaticBuildOptimizer;
