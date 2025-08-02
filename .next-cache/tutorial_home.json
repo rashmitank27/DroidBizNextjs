@@ -1,0 +1,26 @@
+{
+  "id": "tutorial_home",
+  "name": "Tutorial Home",
+  "content": [
+    {
+      "id": 1,
+      "title": "Jetpack Compose Tutorial ",
+      "content": "Jetpack Compose is Android's revolutionary declarative UI toolkit that transforms how developers build native mobile applications. This modern, Kotlin-first approach to Android UI development allows you to create stunning, responsive interfaces with significantly less boilerplate code compared to traditional View-based systems. Whether you're a beginner starting your Android development journey or an experienced developer looking to embrace the future of Android UI, our comprehensive Jetpack Compose tutorials will guide you through every essential concept, from basic composable functions to advanced state management and custom layouts.",
+      "keywords": "Jetpack Compose, Android UI development, Kotlin UI, declarative programming, composable functions, Android development tutorial",
+      "descriptionTag": "Master Jetpack Compose with 30+ comprehensive tutorials covering UI components, layouts, navigation & theming. Complete Android development guide with Kotlin examples.",
+      "url": "jetpack-compose",
+      "lastModified": "2025-08-02T18:25:47.826Z"
+    },
+    {
+      "id": 2,
+      "title": "Kotlin Tutorial",
+      "content": "Jetpack Compose is Android's revolutionary declarative UI toolkit that transforms how developers build native mobile applications. This modern, Kotlin-first approach to Android UI development allows you to create stunning, responsive interfaces with significantly less boilerplate code compared to traditional View-based systems. Whether you're a beginner starting your Android development journey or an experienced developer looking to embrace the future of Android UI, our comprehensive Jetpack Compose tutorials will guide you through every essential concept, from basic composable functions to advanced state management and custom layouts.",
+      "keywords": "Jetpack Compose, Android UI development, Kotlin UI, declarative programming, composable functions, Android development tutorial",
+      "descriptionTag": "Master Jetpack Compose with 30+ comprehensive tutorials covering UI components, layouts, navigation & theming. Complete Android development guide with Kotlin examples.",
+      "url": "kotlin",
+      "lastModified": "2025-08-02T18:25:47.826Z"
+    }
+  ],
+  "totalPages": 2,
+  "lastUpdated": "2025-08-02T18:25:47.826Z"
+}

@@ -572,6 +572,398 @@ class StaticBuildOptimizer {
       process.exit(1);
     }
   }
+
+  // Add this method to your StaticBuildOptimizer class in scripts/build-optimize.js
+
+/**
+ * Process tutorial_home.xlsx file specifically
+ */
+async processExcelFile(filename) {
+  const filePath = path.join(DATA_DIR, filename);
+  const isHomepage = filename.includes('_home.');
+  const isTutorialHome = filename === 'tutorial_home.xlsx';
+  
+  let subjectName, outputFilename;
+  
+  if (isTutorialHome) {
+    subjectName = 'tutorial_home';
+    outputFilename = 'tutorial_home.json';
+  } else if (isHomepage) {
+    subjectName = path.basename(filename, '.xlsx').replace('_home', '').toLowerCase();
+    outputFilename = `${subjectName}_home.json`;
+  } else {
+    subjectName = path.basename(filename, '.xlsx').toLowerCase();
+    outputFilename = `${subjectName}.json`;
+  }
+  
+  try {
+    const fileBuffer = fs.readFileSync(filePath);
+    const workbook = XLSX.read(fileBuffer, {
+      cellStyles: false,
+      cellFormulas: false,
+      cellDates: true
+    });
+
+    const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+    const jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+    if (jsonData.length === 0) {
+      throw new Error('No data found in Excel file');
+    }
+
+    let transformedData;
+    
+    if (isTutorialHome) {
+      // Transform tutorial_home.xlsx data
+      transformedData = this.transformTutorialHomeData(jsonData);
+    } else if (isHomepage) {
+      // Transform regular homepage data
+      transformedData = this.transformHomepageData(jsonData, subjectName);
+    } else {
+      // Transform regular tutorial data
+      transformedData = this.transformExcelDataOptimized(jsonData, subjectName);
+    }
+    
+    if (isHomepage || isTutorialHome) {
+      this.validateHomepageData(transformedData);
+    }
+    
+    const outputPath = path.join(CACHE_DIR, outputFilename);
+    const jsonString = JSON.stringify(transformedData, null, 2);
+    fs.writeFileSync(outputPath, jsonString);
+
+    return {
+      pages: isTutorialHome ? transformedData.content?.length || 0 : 
+             isHomepage ? transformedData.sections?.length || 0 : 
+             transformedData.content.length,
+      sections: isTutorialHome ? 1 : 
+                isHomepage ? transformedData.sections?.length || 0 : 
+                transformedData.totalSections || 1,
+      tutorials: isTutorialHome ? transformedData.content?.length || 0 :
+                 isHomepage ? transformedData.totalTutorials || 0 : 
+                 transformedData.content.length,
+      size: Buffer.byteLength(jsonString),
+      type: isTutorialHome ? 'tutorial_home' : 
+            isHomepage ? 'homepage' : 
+            'content'
+    };
+  } catch (error) {
+    console.error(`Error processing ${filename}:`, error.message);
+    throw new Error(`Failed to process ${filename}: ${error.message}`);
+  }
+}
+
+/**
+ * Transform tutorial_home.xlsx data
+ */
+transformTutorialHomeData(excelData) {
+  if (!excelData || excelData.length === 0) {
+    throw new Error('No tutorial home data found');
+  }
+
+  const content = excelData.map((row, index) => ({
+    id: row.id || index + 1,
+    title: row.title || `Untitled ${index + 1}`,
+    content: row.content || '',
+    keywords: row.keywords || '',
+    descriptionTag: row.descriptionTag || '',
+    url: row.url || `page-${index + 1}`,
+    lastModified: new Date().toISOString()
+  }));
+
+  return {
+    id: 'tutorial_home',
+    name: 'Tutorial Home',
+    content: content,
+    totalPages: content.length,
+    lastUpdated: new Date().toISOString()
+  };
+}
+
+/**
+ * Updated validation for tutorial home data
+ */
+validateHomepageData(data) {
+  if (data.id === 'tutorial_home') {
+    // Validate tutorial_home data
+    if (!data.content || data.content.length === 0) {
+      throw new Error('Tutorial home must have content');
+    }
+    
+    data.content.forEach((item, index) => {
+      if (!item.title) {
+        throw new Error(`Tutorial home item ${index + 1} must have a title`);
+      }
+      if (!item.url) {
+        throw new Error(`Tutorial home item "${item.title}" must have a URL`);
+      }
+    });
+  } else {
+    // Original validation for section-based homepages
+    if (!data.title) {
+      throw new Error('Homepage must have a title');
+    }
+    
+    if (!data.sections || data.sections.length === 0) {
+      throw new Error('Homepage must have at least one section');
+    }
+    
+    data.sections.forEach((section, index) => {
+      if (!section.name) {
+        throw new Error(`Section ${index + 1} must have a name`);
+      }
+      
+      if (!section.tutorials || section.tutorials.length === 0) {
+        console.warn(`Section "${section.name}" has no tutorials`);
+      }
+      
+      section.tutorials.forEach((tutorial, tutIndex) => {
+        if (!tutorial.title) {
+          throw new Error(`Tutorial ${tutIndex + 1} in section "${section.name}" must have a title`);
+        }
+        if (!tutorial.url) {
+          throw new Error(`Tutorial "${tutorial.title}" in section "${section.name}" must have a URL`);
+        }
+      });
+    });
+  }
+}
+
+// Updated build-optimize.js - Add this utility function to the StaticBuildOptimizer class
+
+/**
+ * Convert subject name to URL-friendly slug with hyphens instead of underscores
+ */
+createUrlSlug(filename) {
+  return path.basename(filename, '.xlsx')
+    .toLowerCase()
+    .replace(/_/g, '-')  // Replace underscores with hyphens
+    .replace(/\s+/g, '-')  // Replace spaces with hyphens
+    .replace(/[^a-z0-9-]/g, '')  // Remove special characters except hyphens
+    .replace(/-+/g, '-')  // Replace multiple consecutive hyphens with single hyphen
+    .replace(/^-|-$/g, '');  // Remove leading/trailing hyphens
+}
+
+/**
+ * Updated processExcelFile method with proper URL slug generation
+ */
+async processExcelFile(filename) {
+  const filePath = path.join(DATA_DIR, filename);
+  const isHomepage = filename.includes('_home.');
+  const isTutorialHome = filename === 'tutorial_home.xlsx';
+  
+  let subjectName, outputFilename;
+  
+  if (isTutorialHome) {
+    subjectName = 'tutorial_home';
+    outputFilename = 'tutorial_home.json';
+  } else if (isHomepage) {
+    // For homepage files like "jetpack_compose_home.xlsx"
+    const baseFilename = path.basename(filename, '.xlsx').replace('_home', '');
+    subjectName = this.createUrlSlug(baseFilename);  // Convert to "jetpack-compose"
+    outputFilename = `${subjectName}_home.json`;
+  } else {
+    // For regular tutorial files
+    subjectName = this.createUrlSlug(filename);  // Convert to URL slug
+    outputFilename = `${subjectName}.json`;
+  }
+  
+  try {
+    const fileBuffer = fs.readFileSync(filePath);
+    const workbook = XLSX.read(fileBuffer, {
+      cellStyles: false,
+      cellFormulas: false,
+      cellDates: true
+    });
+
+    const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+    const jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+    if (jsonData.length === 0) {
+      throw new Error('No data found in Excel file');
+    }
+
+    let transformedData;
+    
+    if (isTutorialHome) {
+      // Transform tutorial_home.xlsx data
+      transformedData = this.transformTutorialHomeData(jsonData);
+    } else if (isHomepage) {
+      // Transform regular homepage data
+      transformedData = this.transformHomepageData(jsonData, subjectName);
+    } else {
+      // Transform regular tutorial data
+      transformedData = this.transformExcelDataOptimized(jsonData, subjectName);
+    }
+    
+    if (isHomepage || isTutorialHome) {
+      this.validateHomepageData(transformedData);
+    }
+    
+    const outputPath = path.join(CACHE_DIR, outputFilename);
+    const jsonString = JSON.stringify(transformedData, null, 2);
+    fs.writeFileSync(outputPath, jsonString);
+
+    return {
+      pages: isTutorialHome ? transformedData.content?.length || 0 : 
+             isHomepage ? transformedData.sections?.length || 0 : 
+             transformedData.content.length,
+      sections: isTutorialHome ? 1 : 
+                isHomepage ? transformedData.sections?.length || 0 : 
+                transformedData.totalSections || 1,
+      tutorials: isTutorialHome ? transformedData.content?.length || 0 :
+                 isHomepage ? transformedData.totalTutorials || 0 : 
+                 transformedData.content.length,
+      size: Buffer.byteLength(jsonString),
+      type: isTutorialHome ? 'tutorial_home' : 
+            isHomepage ? 'homepage' : 
+            'content'
+    };
+  } catch (error) {
+    console.error(`Error processing ${filename}:`, error.message);
+    throw new Error(`Failed to process ${filename}: ${error.message}`);
+  }
+}
+
+/**
+ * Updated transformExcelDataOptimized method with proper URL slug
+ */
+transformExcelDataOptimized(excelData, subjectName) {
+  const content = excelData.map((row, index) => {
+    // Base structure for all subjects
+    const baseItem = {
+      id: row.id || index + 1,
+      title: row.title || `Untitled ${index + 1}`,
+      url: row.url || `page-${index + 1}`,
+      content: row.content || '',
+      keywords: row.keywords || '',
+      titleTag: row.titleTag || row.title || '',
+      descriptionTag: row.descriptionTag || '',
+      shortDesc: row.shortDesc || this.extractShortDescOptimized(row.content),
+      lastModified: new Date().toISOString()
+    };
+
+    // Add type and section only for non-blog subjects
+    if (subjectName !== 'blogs') {
+      baseItem.type = row.type || 1;
+      baseItem.section = row.section || 'General';
+    }
+
+    return baseItem;
+  });
+
+  // Create proper URL slug for base_url
+  const baseUrl = subjectName === 'blogs' ? '/blogs' : `/${subjectName}`;
+  
+  // Only calculate sections for non-blog subjects
+  const sections = subjectName === 'blogs' 
+    ? [] 
+    : [...new Set(content.map(item => item.section).filter(Boolean))];
+  
+  const result = {
+    id: subjectName,
+    name: this.capitalizeWords(subjectName),
+    base_url: baseUrl,
+    content: content,
+    keywords: content[0]?.keywords || '',
+    titleTag: content[0]?.titleTag || `${this.capitalizeWords(subjectName)} ${subjectName === 'blogs' ? 'Blog' : 'Tutorial'}`,
+    descriptionTag: content[0]?.descriptionTag || `${subjectName === 'blogs' ? 'Read our latest blog posts' : `Learn ${this.capitalizeWords(subjectName)} programming`}.`,
+    totalPages: content.length,
+    lastUpdated: new Date().toISOString()
+  };
+
+  // Add sections only for non-blog subjects
+  if (subjectName !== 'blogs') {
+    result.sections = sections;
+    result.totalSections = sections.length;
+  }
+
+  return result;
+}
+
+/**
+ * Updated transformHomepageDataOriginal with proper URL slug
+ */
+transformHomepageDataOriginal(excelData, subjectName) {
+  const firstRow = excelData[0];
+  const displayName = this.capitalizeWords(subjectName);
+  const title = firstRow.title || `${displayName} Tutorial`;
+  const shortDesc = firstRow.shortDesc || `Learn ${displayName} programming`;
+  const keywords = firstRow.keywords || `${subjectName.replace(/-/g, ', ')}, programming, tutorial`;
+  const titleTag = firstRow.titleTag || title;
+  const descriptionTag = firstRow.descriptionTag || shortDesc;
+
+  const sections = [];
+  
+  excelData.forEach((row, index) => {
+    const sectionName = row.sectionName?.trim() || 'General';
+    const sectionDesc = row.sectionDesc?.trim() || 'Learn programming concepts';
+    
+    const tutorialTitles = this.parsePipeSeparatedField(row.tutorialTitles);
+    const tutorialUrls = this.parsePipeSeparatedField(row.tutorialUrls);
+    
+    if (tutorialTitles.length !== tutorialUrls.length) {
+      console.warn(`Row ${index + 1}: Mismatch between tutorial titles and URLs`);
+      const minLength = Math.min(tutorialTitles.length, tutorialUrls.length);
+      tutorialTitles.splice(minLength);
+      tutorialUrls.splice(minLength);
+    }
+
+    const tutorials = [];
+    for (let i = 0; i < tutorialTitles.length; i++) {
+      if (tutorialTitles[i] && tutorialUrls[i]) {
+        tutorials.push({
+          title: tutorialTitles[i].trim(),
+          url: tutorialUrls[i].trim()
+        });
+      }
+    }
+
+    let existingSection = sections.find(section => section.name === sectionName);
+    if (existingSection) {
+      existingSection.tutorials.push(...tutorials);
+    } else {
+      sections.push({
+        name: sectionName,
+        desc: sectionDesc,
+        tutorials: tutorials
+      });
+    }
+  });
+
+  const totalTutorials = sections.reduce((sum, section) => sum + section.tutorials.length, 0);
+
+  return {
+    id: subjectName,
+    name: displayName,
+    title: title,
+    shortDesc: shortDesc,
+    keywords: keywords,
+    titleTag: titleTag,
+    descriptionTag: descriptionTag,
+    sections: sections,
+    totalSections: sections.length,
+    totalTutorials: totalTutorials,
+    lastUpdated: new Date().toISOString()
+  };
+}
+
+/**
+ * Helper function to capitalize words and replace hyphens with spaces for display
+ */
+capitalizeWords(str) {
+  return str
+    .replace(/-/g, ' ')  // Replace hyphens with spaces
+    .replace(/\b\w/g, l => l.toUpperCase())  // Capitalize first letter of each word
+    .trim();
+}
+
+/**
+ * Updated capitalizeFirstLetter to handle hyphenated words
+ */
+capitalizeFirstLetter(string) {
+  return this.capitalizeWords(string);
+}
 }
 
 // Create and run optimizer
