@@ -1,6 +1,20 @@
 {
   "subjects": [
     {
+      "id": "blogs",
+      "name": "Blogs",
+      "base_url": "/blogs",
+      "totalPages": 4,
+      "totalSections": 1,
+      "sections": [
+        "General"
+      ],
+      "lastModified": "2025-08-04T01:24:24.777Z",
+      "keywords": "Android 15, Android 15 behavior changes, Android 15 updates, Android 15 features, Android 15 compatibility, Android 15 behavior changes for all apps, Android 15 updates for app developers, Android 15 security features for apps, Android 15 performance optimization techniques, Android 15 API changes for developers",
+      "titleTag": "Android 15 Behavior Changes: All Apps",
+      "descriptionTag": "Android 15 : Discover the latest Android 15 behavior changes that affect all apps. Learn about the Android 15 new features, Android 15 updates, and requirements that impact app development and user experience."
+    },
+    {
       "id": "kotlin",
       "name": "Kotlin",
       "base_url": "/kotlin",
@@ -17,30 +31,30 @@
       "descriptionTag": "Learn Kotlin programming from scratch with this comprehensive Kotlin tutorial. Master Kotlin introduction concepts including null safety, data classes, extension functions, and collections with practical examples and a complete working project."
     },
     {
-      "id": "blogs",
-      "name": "Blogs",
-      "base_url": "/blogs",
-      "totalPages": 4,
+      "id": "jetpack-compose",
+      "name": "Jetpack Compose",
+      "base_url": "/jetpack-compose",
+      "totalPages": 30,
       "totalSections": 1,
       "sections": [
         "General"
       ],
-      "lastModified": "2025-08-04T01:24:24.777Z",
-      "keywords": "Android 15, Android 15 behavior changes, Android 15 updates, Android 15 features, Android 15 compatibility, Android 15 behavior changes for all apps, Android 15 updates for app developers, Android 15 security features for apps, Android 15 performance optimization techniques, Android 15 API changes for developers",
-      "titleTag": "Android 15 Behavior Changes: All Apps",
-      "descriptionTag": "Android 15 : Discover the latest Android 15 behavior changes that affect all apps. Learn about the Android 15 new features, Android 15 updates, and requirements that impact app development and user experience."
+      "lastModified": "2025-08-04T01:24:24.833Z",
+      "keywords": "Jetpack Compose, Android UI development, Kotlin UI, declarative programming, composable functions, state management, Compose project setup, modern Android development, Material Design, native UI toolkit​​​​​​​​​​​​​​​​",
+      "titleTag": "Jetpack Compose Basics",
+      "descriptionTag": "Master Jetpack Compose for Android development with this comprehensive guide covering project setup, fundamental concepts, and best practices. Learn to build modern, responsive UIs using Kotlin's declarative UI toolkit."
     }
   ],
   "homepages": [],
   "totalFiles": 1,
-  "totalPages": 18,
-  "lastUpdated": "2025-08-04T01:31:18.591Z",
-  "buildId": "d287af78bcc620b4",
+  "totalPages": 88,
+  "lastUpdated": "2025-08-04T18:53:37.864Z",
+  "buildId": "e51013cfe1e82403",
   "buildStats": {
     "filesProcessed": 1,
     "filesSkipped": 0,
-    "totalSize": 159409,
-    "buildTime": "2025-08-04T01:31:18.591Z",
+    "totalSize": 27704,
+    "buildTime": "2025-08-04T18:53:37.864Z",
     "nodeVersion": "v18.20.8",
     "platform": "linux"
   }
