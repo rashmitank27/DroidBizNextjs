@@ -91,6 +91,11 @@ function findSubjectDetails(firestoreData, subject) {
 export default async function SubjectHomepage({ params }) {
     const subject = params.subject; // This will be "jetpack-compose" from URL
 
+    // Block underscore URLs
+    if (subject.includes('_')) {
+        notFound();
+    }
+    
     try {
         // Get regular tutorials data for navigation
         const firestoreData = await getTutorials();

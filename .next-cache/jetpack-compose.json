@@ -1,7 +1,7 @@
 {
-  "id": "jetpack_compose",
+  "id": "jetpack-compose",
   "name": "Jetpack Compose",
-  "base_url": "/jetpack_compose",
+  "base_url": "/jetpack-compose",
   "content": [
     {
       "id": 1,
@@ -12,7 +12,7 @@
       "titleTag": "Jetpack Compose Basics",
       "descriptionTag": "Master Jetpack Compose for Android development with this comprehensive guide covering project setup, fundamental concepts, and best practices. Learn to build modern, responsive UIs using Kotlin's declarative UI toolkit.",
       "shortDesc": "Jetpack Compose represents a revolutionary shift in Android UI development, offering a modern, declarative approach to building native user interfaces. As ...",
-      "lastModified": "2025-08-03T00:20:02.816Z",
+      "lastModified": "2025-08-03T23:56:00.302Z",
       "type": 1,
       "section": "General"
     },
@@ -25,7 +25,7 @@
       "titleTag": "Jetpack Compose Widgets",
       "descriptionTag": "Discover the complete guide to Jetpack Compose widgets for Android development. Learn how to implement essential UI components, master layouts, and optimize performance with detailed code examples for building modern, responsive mobile applications using Kotlin and Compose.",
       "shortDesc": "Jetpack Compose has revolutionized how Android developers build user interfaces. As Google's modern toolkit for building native UI, Compose uses a declarat...",
-      "lastModified": "2025-08-03T00:20:02.816Z",
+      "lastModified": "2025-08-03T23:56:00.302Z",
       "type": 1,
       "section": "General"
     },
@@ -38,7 +38,7 @@
       "titleTag": "Jetpack Compose Layouts ",
       "descriptionTag": "Explore a comprehensive guide to Jetpack Compose layouts for Android development. Learn about Box, Column, Row, LazyColumn, ConstraintLayout and other essential Jetpack Compose layouts with detailed properties, optimizations, and real-world examples for building modern Android UIs.",
       "shortDesc": "At its core, Jetpack Compose layouts implement a declarative approach to UI building, departing from the traditional imperative View system. The Jetpack Co...",
-      "lastModified": "2025-08-03T00:20:02.816Z",
+      "lastModified": "2025-08-03T23:56:00.302Z",
       "type": 1,
       "section": "General"
     },
@@ -51,7 +51,7 @@
       "titleTag": "Jetpack Compose Text",
       "descriptionTag": "Explore the complete guide to Jetpack Compose Text widget for Android developers. Learn advanced styling, customization, accessibility features, and performance optimization techniques with practical Kotlin examples for modern Android UI development.",
       "shortDesc": "The Jetpack Compose Text widget represents the fundamental building block for displaying text content in Compose-based Android applications. Unlike the tra...",
-      "lastModified": "2025-08-03T00:20:02.816Z",
+      "lastModified": "2025-08-03T23:56:00.302Z",
       "type": 1,
       "section": "General"
     },
@@ -64,7 +64,7 @@
       "titleTag": "Jetpack Compose Button",
       "descriptionTag": "Master the Jetpack Compose Button widget with our comprehensive developer guide. Learn advanced customization techniques, state management, accessibility best practices, and real-world implementation patterns to create polished Android UIs with Kotlin and Compose.",
       "shortDesc": "The Jetpack Compose Button widget represents a pivotal UI element in modern Android development. As a touchable component designed to trigger actions withi...",
-      "lastModified": "2025-08-03T00:20:02.816Z",
+      "lastModified": "2025-08-03T23:56:00.303Z",
       "type": 1,
       "section": "General"
     },
@@ -77,7 +77,7 @@
       "titleTag": "Jetpack Compose TextField",
       "descriptionTag": "Master Jetpack Compose's TextField widget, the modern EditText replacement for Android developers. Learn implementation techniques, customization options, validation strategies, and Material Design integration for creating responsive and accessible text input experiences in your Kotlin applications.",
       "shortDesc": "The TextField component stands as one of the most essential UI elements in modern Android development with Jetpack Compose. As Android developers transitio...",
-      "lastModified": "2025-08-03T00:20:02.816Z",
+      "lastModified": "2025-08-03T23:56:00.303Z",
       "type": 1,
       "section": "General"
     },
@@ -90,7 +90,7 @@
       "titleTag": "Jetpack Compose Checkbox",
       "descriptionTag": "Discover everything about Jetpack Compose Checkbox implementation in Android development, from basic usage to advanced customization, animations, and performance optimization. This comprehensive guide provides Kotlin code examples for creating accessible, responsive, and visually appealing checkbox components.",
       "shortDesc": "Creating a responsive and user-friendly Checkbox component is essential for modern Android applications. In this comprehensive guide, we'll explore the Jet...",
-      "lastModified": "2025-08-03T00:20:02.816Z",
+      "lastModified": "2025-08-03T23:56:00.303Z",
       "type": 1,
       "section": "General"
     },
@@ -103,7 +103,7 @@
       "titleTag": "Jetpack Compose RadioButton",
       "descriptionTag": "Learn how to implement, customize, and optimize RadioButton in Jetpack Compose with this comprehensive guide. Discover best practices for creating accessible, performant, and visually appealing radio button selections in your Android applications using Kotlin and Compose.",
       "shortDesc": "RadioButtons in Jetpack Compose represent selectable options where only one choice can be active at a time. Unlike traditional Android XML layouts, Compose...",
-      "lastModified": "2025-08-03T00:20:02.816Z",
+      "lastModified": "2025-08-03T23:56:00.303Z",
       "type": 1,
       "section": "General"
     },
@@ -116,7 +116,7 @@
       "titleTag": "Jetpack Compose Box",
       "descriptionTag": "Master the Jetpack Compose Box widget with this comprehensive guide for Android developers. Learn advanced layout techniques, practical applications, and best practices for creating layered UI designs using Kotlin and Compose.",
       "shortDesc": "The Box widget is a fundamental layout container in Jetpack Compose that arranges its children in a stacked formation. Similar to FrameLayout in the tradit...",
-      "lastModified": "2025-08-03T00:20:02.817Z",
+      "lastModified": "2025-08-03T23:56:00.303Z",
       "type": 1,
       "section": "General"
     },
@@ -129,7 +129,7 @@
       "titleTag": "Jetpack Compose Card",
       "descriptionTag": "Discover the power of Jetpack Compose Card components with our in-depth guide exploring essential properties, implementation techniques, and optimization strategies for Android developers building modern UI with Kotlin and Compose.",
       "shortDesc": "The Card component in Jetpack Compose represents a surface-level container that groups related elements with subtle elevation, making the content visually ...",
-      "lastModified": "2025-08-03T00:20:02.817Z",
+      "lastModified": "2025-08-03T23:56:00.303Z",
       "type": 1,
       "section": "General"
     },
@@ -142,7 +142,7 @@
       "titleTag": "Jetpack Compose Switch",
       "descriptionTag": "Explore the complete guide to Jetpack Compose Switch components for Android development. Learn implementation, customization, properties, and best practices for creating modern toggle controls in your Kotlin applications.",
       "shortDesc": "A Switch in Jetpack Compose represents a toggle component that allows users to change a setting between two states - on and off. Unlike the traditional And...",
-      "lastModified": "2025-08-03T00:20:02.817Z",
+      "lastModified": "2025-08-03T23:56:00.303Z",
       "type": 1,
       "section": "General"
     },
@@ -155,7 +155,7 @@
       "titleTag": "Jetpack Compose Floating Action Button (FAB)",
       "descriptionTag": "Learn everything about Jetpack Compose Floating Action Buttons (FABs) in this comprehensive guide. Discover implementation techniques, customization properties, animations, and best practices for creating effective FABs in your Android applications.",
       "shortDesc": "A Floating Action Button (FAB) in Jetpack Compose is a circular button that floats above the UI, typically used to promote a primary action in your applica...",
-      "lastModified": "2025-08-03T00:20:02.817Z",
+      "lastModified": "2025-08-03T23:56:00.303Z",
       "type": 1,
       "section": "General"
     },
@@ -168,7 +168,7 @@
       "titleTag": "Jetpack Compose Toast",
       "descriptionTag": "Learn how to implement Toast in Jetpack Compose with comprehensive examples. Master native Toast API integration, custom positioning, helper functions, ViewModel patterns, testing strategies, and best practices for Android development.",
       "shortDesc": "Toasts are brief notifications that provide simple feedback about an operation. They appear at the bottom of the screen, contain only text messages, and au...",
-      "lastModified": "2025-08-03T00:20:02.817Z",
+      "lastModified": "2025-08-03T23:56:00.303Z",
       "type": 1,
       "section": "General"
     },
@@ -181,7 +181,7 @@
       "titleTag": "Jetpack Compose Snackbar",
       "descriptionTag": "Master Jetpack Compose Snackbar implementation with our comprehensive guide. Learn properties, customization, SnackbarHostState, and best practices for creating effective user notifications in Android applications.",
       "shortDesc": "The Jetpack Compose Snackbar is a material design component that displays brief messages at the bottom of the screen. Unlike Toast messages, Jetpack Compos...",
-      "lastModified": "2025-08-03T00:20:02.817Z",
+      "lastModified": "2025-08-03T23:56:00.304Z",
       "type": 1,
       "section": "General"
     },
@@ -194,7 +194,7 @@
       "titleTag": "Jetpack Compose Alertdialog",
       "descriptionTag": "Comprehensive guide to Jetpack Compose AlertDialog with detailed properties, implementation examples, and best practices. Learn AlertDialog customization, state management, and modern dialog patterns for Android developers using Kotlin and Compose.",
       "shortDesc": "AlertDialog in Jetpack Compose represents a Material Design dialog component that displays important messages or requests user decisions. The AlertDialog c...",
-      "lastModified": "2025-08-03T00:20:02.817Z",
+      "lastModified": "2025-08-03T23:56:00.304Z",
       "type": 1,
       "section": "General"
     },
@@ -207,7 +207,7 @@
       "titleTag": "Jetpack Compose Image Views",
       "descriptionTag": "Learn everything about Jetpack Compose Image views with comprehensive guide on properties, content scaling, alignment, modifiers, best practices and optimization techniques for Android app development. Detailed explanations with examples for beginner to advanced developers.",
       "shortDesc": "Jetpack Compose Image views are fundamental composable functions that display images in your Android applications. Jetpack Compose provides powerful Image ...",
-      "lastModified": "2025-08-03T00:20:02.817Z",
+      "lastModified": "2025-08-03T23:56:00.304Z",
       "type": 1,
       "section": "General"
     },
@@ -220,7 +220,7 @@
       "titleTag": "Jetpack Compose Preview",
       "descriptionTag": "Discover how Jetpack Compose Preview revolutionizes Android UI development. Learn to implement and customize Jetpack Compose Preview to streamline your workflow and build beautiful, responsive interfaces efficiently.",
       "shortDesc": "Jetpack Compose Preview allows developers to visualize their UI components directly within Android Studio without having to deploy the app to an emulator o...",
-      "lastModified": "2025-08-03T00:20:02.817Z",
+      "lastModified": "2025-08-03T23:56:00.304Z",
       "type": 1,
       "section": "General"
     },
@@ -233,7 +233,7 @@
       "titleTag": "Jetpack Compose Scaffold",
       "descriptionTag": "Master Jetpack Compose Scaffold for Android development with this comprehensive guide. Learn how to structure UIs with topBar, bottomBar, FAB, and content properties through practical examples and complete code samples.",
       "shortDesc": "Creating well-structured user interfaces for Android applications has always been a challenge for developers. With the introduction of Jetpack Compose, Goo...",
-      "lastModified": "2025-08-03T00:20:02.817Z",
+      "lastModified": "2025-08-03T23:56:00.304Z",
       "type": 1,
       "section": "General"
     },
@@ -246,7 +246,7 @@
       "titleTag": "Jetpack Compose ConstraintLayout",
       "descriptionTag": "Learn how to master Jetpack Compose ConstraintLayout to build complex, responsive Android UIs with this comprehensive guide covering basic implementation, advanced features like guidelines, barriers, and chains, plus practical examples with complete code.",
       "shortDesc": "Jetpack Compose ConstraintLayout allows you to position composables relative to each other, giving you precise control over your UI design while keeping yo...",
-      "lastModified": "2025-08-03T00:20:02.817Z",
+      "lastModified": "2025-08-03T23:56:00.304Z",
       "type": 1,
       "section": "General"
     },
@@ -259,7 +259,7 @@
       "titleTag": "Jetpack Compose Row",
       "descriptionTag": "Master Jetpack Compose Row layouts with our comprehensive guide. Learn how to create responsive horizontal layouts, understand key properties, and implement advanced techniques with practical examples for Android developers.",
       "shortDesc": "In modern Android development, Jetpack Compose Row has become an essential layout component for creating beautiful, responsive user interfaces. If you're l...",
-      "lastModified": "2025-08-03T00:20:02.818Z",
+      "lastModified": "2025-08-03T23:56:00.304Z",
       "type": 1,
       "section": "General"
     },
@@ -272,7 +272,7 @@
       "titleTag": "Jetpack Compose Column",
       "descriptionTag": "Master Jetpack Compose Column for Android UI development with this comprehensive guide. Learn how to create vertical layouts, customize arrangements, align elements, and build complex interfaces with practical code examples.",
       "shortDesc": "Understanding the Jetpack Compose Column is essential for creating stunning vertical layouts in your Android applications. The Jetpack Compose Column arran...",
-      "lastModified": "2025-08-03T00:20:02.819Z",
+      "lastModified": "2025-08-03T23:56:00.307Z",
       "type": 1,
       "section": "General"
     },
@@ -285,7 +285,7 @@
       "titleTag": "Jetpack Compose LazyRow",
       "descriptionTag": "Learn everything about Jetpack Compose LazyRow for Android development - from basic implementation to advanced pagination and snap scrolling techniques. This comprehensive guide explains properties, animations, efficient state management, and provides complete code examples for horizontal scrollable lists.",
       "shortDesc": "Jetpack Compose LazyRow is a composable function in Jetpack Compose that creates a horizontally scrollable list. Unlike traditional RecyclerView implementa...",
-      "lastModified": "2025-08-03T00:20:02.820Z",
+      "lastModified": "2025-08-03T23:56:00.309Z",
       "type": 1,
       "section": "General"
     },
@@ -298,7 +298,7 @@
       "titleTag": "Jetpack Compose LazyColumn",
       "descriptionTag": "Master Jetpack Compose LazyColumn with this comprehensive guide for Android developers. Learn essential properties, implementation techniques, and performance optimization strategies with practical examples to create efficient scrolling lists in your Android applications.",
       "shortDesc": "Jetpack Compose LazyColumn is a vertically scrolling list component that efficiently renders only the items currently visible on screen. Unlike the traditi...",
-      "lastModified": "2025-08-03T00:20:02.820Z",
+      "lastModified": "2025-08-03T23:56:00.309Z",
       "type": 1,
       "section": "General"
     },
@@ -311,7 +311,7 @@
       "titleTag": "Jetpack Compose GridView",
       "descriptionTag": "Learn how to implement efficient grid layouts in Android with Jetpack Compose GridView. This comprehensive guide covers LazyVerticalGrid implementation, fixed and adaptive columns, custom spans, and practical examples for building responsive grid interfaces in your Compose applications.",
       "shortDesc": "Jetpack Compose GridView, implemented through LazyVerticalGrid, is a composable function that allows you to create grid-based layouts where items are lazil...",
-      "lastModified": "2025-08-03T00:20:02.820Z",
+      "lastModified": "2025-08-03T23:56:00.309Z",
       "type": 1,
       "section": "General"
     },
@@ -324,7 +324,7 @@
       "titleTag": "Jetpack Compose Staggered GridView",
       "descriptionTag": "Learn how to implement a Jetpack Compose Staggered GridView to create Pinterest-style layouts with varying item heights in your Android application. This comprehensive guide covers key properties, implementation examples, and advanced techniques.",
       "shortDesc": "The Jetpack Compose Staggered GridView is implemented using the LazyVerticalStaggeredGrid composable, which was introduced as part of Jetpack Compose's laz...",
-      "lastModified": "2025-08-03T00:20:02.820Z",
+      "lastModified": "2025-08-03T23:56:00.309Z",
       "type": 1,
       "section": "General"
     },
@@ -337,7 +337,7 @@
       "titleTag": "Jetpack Compose Navigation",
       "descriptionTag": "Learn how to implement Jetpack Compose navigation and efficiently pass data between screens in your Android apps. This comprehensive guide covers NavHost setup, route parameters, deep linking, and includes complete working examples for building seamless navigation flows.",
       "shortDesc": "Introduction to Jetpack Compose Navigation Navigating between screens and passing data efficiently are crucial aspects of any modern Android application. J...",
-      "lastModified": "2025-08-03T00:20:02.820Z",
+      "lastModified": "2025-08-03T23:56:00.310Z",
       "type": 1,
       "section": "General"
     },
@@ -350,7 +350,7 @@
       "titleTag": "Jetpack Compose Navigation Drawer",
       "descriptionTag": "Learn how to implement a fully functional Jetpack Compose navigation drawer with step-by-step code examples. This comprehensive guide covers basic setup, customization options, navigation integration, responsive design, and includes complete working examples for Android developers.",
       "shortDesc": "The Jetpack Compose navigation drawer provides a convenient way to navigate between different sections of your application. This powerful component slides ...",
-      "lastModified": "2025-08-03T00:20:02.820Z",
+      "lastModified": "2025-08-03T23:56:00.310Z",
       "type": 1,
       "section": "General"
     },
@@ -363,7 +363,7 @@
       "titleTag": "Jetpack Compose TopAppBar",
       "descriptionTag": "Learn how to implement and customize Jetpack Compose TopAppBar in Android apps. Complete guide with code examples, scroll behaviors, properties, and Material Design integration for modern UI development.",
       "shortDesc": "The Jetpack Compose TopAppBar is a Material Design component that represents the top app bar (formerly known as the action bar or toolbar in the view syste...",
-      "lastModified": "2025-08-03T00:20:02.821Z",
+      "lastModified": "2025-08-03T23:56:00.310Z",
       "type": 1,
       "section": "General"
     },
@@ -376,7 +376,7 @@
       "titleTag": "Jetpack Compose Bottom Navigation ",
       "descriptionTag": "Learn how to implement Jetpack Compose bottom navigation in Android apps with complete code examples, property explanations, and NavController integration. Master declarative navigation bars with our comprehensive guide.",
       "shortDesc": "Jetpack Compose bottom navigation is a Material Design component that provides tab-based navigation at the bottom of your screen. Unlike traditional Androi...",
-      "lastModified": "2025-08-03T00:20:02.821Z",
+      "lastModified": "2025-08-03T23:56:00.310Z",
       "type": 1,
       "section": "General"
     },
@@ -389,7 +389,7 @@
       "titleTag": "Jetpack Compose Themes",
       "descriptionTag": "Master Jetpack Compose themes with our comprehensive guide covering Material Design theming, color schemes, typography, and shapes. Learn to implement custom themes, handle dark mode, dynamic colors, and create consistent UI designs in Android development with complete code examples.",
       "shortDesc": "Jetpack Compose themes are built around the Material Design system, providing a structured approach to styling your application. The theming system in Jetp...",
-      "lastModified": "2025-08-03T00:20:02.821Z",
+      "lastModified": "2025-08-03T23:56:00.310Z",
       "type": 1,
       "section": "General"
     }
@@ -398,7 +398,7 @@
   "titleTag": "Jetpack Compose Basics",
   "descriptionTag": "Master Jetpack Compose for Android development with this comprehensive guide covering project setup, fundamental concepts, and best practices. Learn to build modern, responsive UIs using Kotlin's declarative UI toolkit.",
   "totalPages": 30,
-  "lastUpdated": "2025-08-03T00:20:02.821Z",
+  "lastUpdated": "2025-08-03T23:56:00.310Z",
   "sections": [
     "General"
   ],

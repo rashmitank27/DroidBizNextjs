@@ -14,6 +14,11 @@ export default async function TutorialPage({ params }) {
     const subject = params.subject;
     const topic = params.topic;
 
+    // Block underscore URLs
+    if (subject.includes('_')) {
+        notFound();
+    }
+
     try {
         const firestoreData = await getTutorials(); // fetch data from Excel files
 
