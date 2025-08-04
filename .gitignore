@@ -45,7 +45,7 @@ Thumbs.db
 .directory
 
 # Excel source files (keep local only)
-/data/excel/
+# /data/excel/
 
 # Commit the processed cache
 !/.next-cache/
