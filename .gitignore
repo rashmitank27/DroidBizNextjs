@@ -44,8 +44,12 @@ Thumbs.db
 .DS_Store
 .directory
 
-# Excel source files (keep local only)
-# /data/excel/
+# Excel temporary files (allow source files, block temp files)
+~$*.xlsx
+~$*.xls
+*.tmp
+
+# REMOVED: /data/excel/ (now we commit Excel files!)
 
 # Commit the processed cache
 !/.next-cache/

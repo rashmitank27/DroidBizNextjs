@@ -47,7 +47,6 @@ jobs:
           git config --local user.name "GitHub Action"
           
           git add .next-cache/
-          git add public/api/ || true
           git add public/sitemap.xml || true
           git add public/robots.txt || true
           
