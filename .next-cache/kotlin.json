@@ -12,7 +12,7 @@
       "titleTag": "Kotlin Tutorial | Kotlin Introduction ",
       "descriptionTag": "Learn Kotlin programming from scratch with this comprehensive Kotlin tutorial. Master Kotlin introduction concepts including null safety, data classes, extension functions, and collections with practical examples and a complete working project.",
       "shortDesc": "Kotlin Introduction Kotlin is a statically typed programming language that runs on the Java Virtual Machine (JVM) and can be compiled to JavaScript or nati...",
-      "lastModified": "2025-08-04T00:37:04.640Z",
+      "lastModified": "2025-08-04T01:24:24.875Z",
       "type": 1,
       "section": "Getting Started"
     },
@@ -25,7 +25,7 @@
       "titleTag": "Kotlin Project Setup ",
       "descriptionTag": "Learn complete Kotlin project setup in Android Studio with step-by-step guide. Master Kotlin configuration, dependencies, Gradle setup, and create your first functional Android app using modern development practices.",
       "shortDesc": "Kotlin Project Setup Setting up a Kotlin project is the foundation of modern Android development. Whether you’re creating your first Android app or transit...",
-      "lastModified": "2025-08-04T00:37:04.640Z",
+      "lastModified": "2025-08-04T01:24:24.875Z",
       "type": 1,
       "section": "Getting Started"
     },
@@ -38,7 +38,7 @@
       "titleTag": "Kotlin Syntax ",
       "descriptionTag": "Learn Kotlin syntax with our comprehensive guide covering variables, functions, classes, null safety, and collections. Master Kotlin programming fundamentals with practical examples and complete code demonstrations.",
       "shortDesc": "Kotlin Syntax Learning Kotlin syntax is essential for modern Android development and server-side programming. Kotlin syntax offers a perfect blend of conci...",
-      "lastModified": "2025-08-04T00:37:04.640Z",
+      "lastModified": "2025-08-04T01:24:24.875Z",
       "type": 1,
       "section": "Getting Started"
     },
@@ -51,7 +51,7 @@
       "titleTag": "Kotlin Output ",
       "descriptionTag": "Learn Kotlin output functions with comprehensive examples. Master println(), print(), string templates, and advanced output techniques in Kotlin programming. Complete guide with working code examples and outputs for beginners and developers.",
       "shortDesc": "Kotlin Output Kotlin output is a fundamental concept that every programmer must master when learning Kotlin programming. Understanding how to display outpu...",
-      "lastModified": "2025-08-04T00:37:04.640Z",
+      "lastModified": "2025-08-04T01:24:24.875Z",
       "type": 1,
       "section": "Getting Started"
     },
@@ -64,7 +64,7 @@
       "titleTag": "Kotlin Comments ",
       "descriptionTag": "Learn Kotlin comments with comprehensive examples! Master single-line, multi-line, and KDoc comments in Kotlin programming. Complete guide with syntax, properties, and practical shopping cart example for beginners.",
       "shortDesc": "Kotlin Comments Kotlin comments are non-executable text annotations that developers add to their source code to explain functionality, document methods, or...",
-      "lastModified": "2025-08-04T00:37:04.640Z",
+      "lastModified": "2025-08-04T01:24:24.875Z",
       "type": 1,
       "section": "Basic Concepts"
     },
@@ -77,7 +77,7 @@
       "titleTag": "Kotlin Data Types ",
       "descriptionTag": "Learn Kotlin data types with comprehensive examples and explanations. Master numbers, strings, booleans, arrays, collections, and nullable types in Kotlin programming. Complete guide with practical code examples for beginners and developers.",
       "shortDesc": "Kotlin Data Types Kotlin data types define what kind of values variables can store and how much memory they occupy. Whether you’re building Android applica...",
-      "lastModified": "2025-08-04T00:37:04.640Z",
+      "lastModified": "2025-08-04T01:24:24.875Z",
       "type": 1,
       "section": "Basic Concepts"
     },
@@ -90,7 +90,7 @@
       "titleTag": "Kotlin Variables",
       "descriptionTag": "Learn Kotlin variables with comprehensive examples. Master var vs val, type inference, nullable variables, and late initialization. Complete guide with practical code examples for beginners.",
       "shortDesc": "Kotlin Variables Kotlin variables are named storage locations in memory that hold data values during program execution. Unlike some programming languages, ...",
-      "lastModified": "2025-08-04T00:37:04.640Z",
+      "lastModified": "2025-08-04T01:24:24.875Z",
       "type": 1,
       "section": "Advanced Topics"
     },
@@ -103,7 +103,7 @@
       "titleTag": "Kotlin Operators",
       "descriptionTag": "Master Kotlin operators with this comprehensive guide covering arithmetic, comparison, logical, assignment, and bitwise operators. Learn all Kotlin operator types with detailed examples, syntax, and practical code demonstrations for effective Kotlin programming.",
       "shortDesc": "Kotlin Operators Kotlin operators are predefined symbols that tell the compiler to perform specific mathematical, logical, or relational operations. The Ko...",
-      "lastModified": "2025-08-04T00:37:04.640Z",
+      "lastModified": "2025-08-04T01:24:24.875Z",
       "type": 1,
       "section": "Advanced Topics"
     },
@@ -116,7 +116,7 @@
       "titleTag": "Kotlin Strings ",
       "descriptionTag": "Learn Kotlin strings with comprehensive examples, properties, and functions. Master string interpolation, manipulation, and operations in Kotlin programming with practical code examples and detailed explanations.",
       "shortDesc": "Kotlin Strings Kotlin strings are fundamental data types that represent sequences of characters, and mastering Kotlin strings will significantly improve yo...",
-      "lastModified": "2025-08-04T00:37:04.640Z",
+      "lastModified": "2025-08-04T01:24:24.875Z",
       "type": 1,
       "section": "Advanced Topics"
     },
@@ -129,7 +129,7 @@
       "titleTag": "Kotlin Booleans",
       "descriptionTag": "Learn Kotlin booleans with comprehensive examples and practical applications. Master boolean data types, operators, expressions, and conditional logic in Kotlin programming for Android development.",
       "shortDesc": "Kotlin Booleans Kotlin booleans are primitive data types that can hold only two possible values: or . In Kotlin, the boolean data type is represented by th...",
-      "lastModified": "2025-08-04T00:37:04.641Z",
+      "lastModified": "2025-08-04T01:24:24.876Z",
       "type": 1,
       "section": "Advanced Topics"
     }
@@ -138,7 +138,7 @@
   "titleTag": "Kotlin Tutorial | Kotlin Introduction ",
   "descriptionTag": "Learn Kotlin programming from scratch with this comprehensive Kotlin tutorial. Master Kotlin introduction concepts including null safety, data classes, extension functions, and collections with practical examples and a complete working project.",
   "totalPages": 10,
-  "lastUpdated": "2025-08-04T00:37:04.641Z",
+  "lastUpdated": "2025-08-04T01:24:24.876Z",
   "sections": [
     "Getting Started",
     "Basic Concepts",

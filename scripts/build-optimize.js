@@ -585,7 +585,7 @@ class StaticBuildOptimizer {
       // Step 7: Save everything
       this.saveManifest();
       this.saveFileHashes();
-      await this.generateStaticAPI();
+      // await this.generateStaticAPI();
       
       // Step 8: Show results
       this.showOptimizedStats();
