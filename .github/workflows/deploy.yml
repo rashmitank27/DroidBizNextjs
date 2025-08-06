@@ -2,7 +2,7 @@ name: Process Excel Data & Deploy
 
 on:
   push:
-    branches: [v3]
+    branches: [v3, v3_prod]
     paths: 
       - 'data/excel/**'  # Trigger when Excel files change
       - 'scripts/**'     # Or when processing scripts change
