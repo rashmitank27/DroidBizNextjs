@@ -1,6 +1,20 @@
 {
   "subjects": [
     {
+      "id": "kotlin",
+      "name": "Kotlin",
+      "base_url": "/kotlin",
+      "totalPages": 10,
+      "totalSections": 1,
+      "sections": [
+        "General"
+      ],
+      "lastModified": "2025-08-06T00:42:56.657Z",
+      "keywords": "Kotlin, Kotlin tutorial, Kotlin introduction, Kotlin programming, learn Kotlin, Kotlin syntax, Kotlin examples, Kotlin for beginners, Kotlin language, Kotlin development",
+      "titleTag": "Kotlin Tutorial",
+      "descriptionTag": "Learn Kotlin programming from scratch with this comprehensive Kotlin tutorial. Master Kotlin introduction concepts including null safety, data classes, extension functions, and collections with practical examples and a complete working project."
+    },
+    {
       "id": "blogs",
       "name": "Blogs",
       "base_url": "/blogs",
@@ -27,33 +41,19 @@
       "keywords": "Jetpack Compose, Android UI development, Kotlin UI, declarative programming, composable functions, state management, Compose project setup, modern Android development, Material Design, native UI toolkit​​​​​​​​​​​​​​​​",
       "titleTag": "Jetpack Compose Tutorial",
       "descriptionTag": "Master Jetpack Compose for Android development with this comprehensive guide covering project setup, fundamental concepts, and best practices. Learn to build modern, responsive UIs using Kotlin's declarative UI toolkit."
-    },
-    {
-      "id": "kotlin",
-      "name": "Kotlin",
-      "base_url": "/kotlin",
-      "totalPages": 10,
-      "totalSections": 1,
-      "sections": [
-        "General"
-      ],
-      "lastModified": "2025-08-06T00:32:35.403Z",
-      "keywords": "Kotlin, Kotlin tutorial, Kotlin introduction, Kotlin programming, learn Kotlin, Kotlin syntax, Kotlin examples, Kotlin for beginners, Kotlin language, Kotlin development",
-      "titleTag": "Kotlin Tutorial",
-      "descriptionTag": "Learn Kotlin programming from scratch with this comprehensive Kotlin tutorial. Master Kotlin introduction concepts including null safety, data classes, extension functions, and collections with practical examples and a complete working project."
     }
   ],
   "homepages": [],
-  "totalFiles": 0,
-  "totalPages": 88,
-  "lastUpdated": "2025-08-06T00:32:51.317Z",
-  "buildId": "a9008094c063f821",
+  "totalFiles": 1,
+  "totalPages": 78,
+  "lastUpdated": "2025-08-06T00:42:56.664Z",
+  "buildId": "deace703250c8834",
   "buildStats": {
-    "filesProcessed": 0,
+    "filesProcessed": 1,
     "filesSkipped": 0,
-    "totalSize": 0,
-    "buildTime": "2025-08-06T00:32:51.317Z",
-    "nodeVersion": "v22.17.1",
-    "platform": "win32"
+    "totalSize": 159278,
+    "buildTime": "2025-08-06T00:42:56.664Z",
+    "nodeVersion": "v18.20.8",
+    "platform": "linux"
   }
 }
