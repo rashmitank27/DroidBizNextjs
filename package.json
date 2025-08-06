@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "optimize": "node scripts/build-optimize.js",
-    "build": "npm run optimize && next build",
+    "build": "next build",
+    "build:local": "npm run optimize && next build",
     "build:static": "npm run optimize && next build && next export",
     "start": "next start",
     "deploy:prepare": "npm run optimize",
