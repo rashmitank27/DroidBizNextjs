@@ -9,7 +9,7 @@
       "sections": [
         "General"
       ],
-      "lastModified": "2025-08-06T21:55:32.027Z",
+      "lastModified": "2025-08-06T22:02:13.877Z",
       "keywords": "Kotlin, Kotlin tutorial, Kotlin introduction, Kotlin programming, learn Kotlin, Kotlin syntax, Kotlin examples, Kotlin for beginners, Kotlin language, Kotlin development",
       "titleTag": "Kotlin Tutorial",
       "descriptionTag": "Learn Kotlin programming from scratch with this comprehensive Kotlin tutorial. Master Kotlin introduction concepts including null safety, data classes, extension functions, and collections with practical examples and a complete working project."
@@ -46,13 +46,13 @@
   "homepages": [],
   "totalFiles": 1,
   "totalPages": 110,
-  "lastUpdated": "2025-08-06T21:55:32.040Z",
-  "buildId": "5ec49fece23277e6",
+  "lastUpdated": "2025-08-06T22:02:13.889Z",
+  "buildId": "a4945f4e9322e13d",
   "buildStats": {
     "filesProcessed": 1,
     "filesSkipped": 0,
-    "totalSize": 774782,
-    "buildTime": "2025-08-06T21:55:32.040Z",
+    "totalSize": 774784,
+    "buildTime": "2025-08-06T22:02:13.889Z",
     "nodeVersion": "v18.20.8",
     "platform": "linux"
   }

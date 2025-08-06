@@ -12,7 +12,7 @@
       "titleTag": "Kotlin Tutorial | Kotlin Introduction ",
       "descriptionTag": "Learn Kotlin programming from scratch with this comprehensive Kotlin tutorial. Master Kotlin introduction concepts including null safety, data classes, extension functions, and collections with practical examples and a complete working project.",
       "shortDesc": "Kotlin Introduction Kotlin is a statically typed programming language that runs on the Java Virtual Machine (JVM) and can be compiled to JavaScript or nati...",
-      "lastModified": "2025-08-06T21:55:32.015Z",
+      "lastModified": "2025-08-06T22:02:13.866Z",
       "type": 1,
       "section": "General"
     },
@@ -25,7 +25,7 @@
       "titleTag": "Kotlin Project Setup ",
       "descriptionTag": "Learn complete Kotlin project setup in Android Studio with step-by-step guide. Master Kotlin configuration, dependencies, Gradle setup, and create your first functional Android app using modern development practices.",
       "shortDesc": "Kotlin Project Setup Setting up a Kotlin project is the foundation of modern Android development. Whether you’re creating your first Android app or transit...",
-      "lastModified": "2025-08-06T21:55:32.015Z",
+      "lastModified": "2025-08-06T22:02:13.866Z",
       "type": 1,
       "section": "General"
     },
@@ -38,7 +38,7 @@
       "titleTag": "Kotlin Syntax ",
       "descriptionTag": "Learn Kotlin syntax with our comprehensive guide covering variables, functions, classes, null safety, and collections. Master Kotlin programming fundamentals with practical examples and complete code demonstrations.",
       "shortDesc": "Kotlin Syntax Learning Kotlin syntax is essential for modern Android development and server-side programming. Kotlin syntax offers a perfect blend of conci...",
-      "lastModified": "2025-08-06T21:55:32.015Z",
+      "lastModified": "2025-08-06T22:02:13.866Z",
       "type": 1,
       "section": "General"
     },
@@ -51,7 +51,7 @@
       "titleTag": "Kotlin Output ",
       "descriptionTag": "Learn Kotlin output functions with comprehensive examples. Master println(), print(), string templates, and advanced output techniques in Kotlin programming. Complete guide with working code examples and outputs for beginners and developers.",
       "shortDesc": "Kotlin Output Kotlin output is a fundamental concept that every programmer must master when learning Kotlin programming. Understanding how to display outpu...",
-      "lastModified": "2025-08-06T21:55:32.015Z",
+      "lastModified": "2025-08-06T22:02:13.866Z",
       "type": 1,
       "section": "General"
     },
@@ -64,7 +64,7 @@
       "titleTag": "Kotlin Comments ",
       "descriptionTag": "Learn Kotlin comments with comprehensive examples! Master single-line, multi-line, and KDoc comments in Kotlin programming. Complete guide with syntax, properties, and practical shopping cart example for beginners.",
       "shortDesc": "Kotlin Comments Kotlin comments are non-executable text annotations that developers add to their source code to explain functionality, document methods, or...",
-      "lastModified": "2025-08-06T21:55:32.015Z",
+      "lastModified": "2025-08-06T22:02:13.866Z",
       "type": 1,
       "section": "General"
     },
@@ -77,7 +77,7 @@
       "titleTag": "Kotlin Data Types ",
       "descriptionTag": "Learn Kotlin data types with comprehensive examples and explanations. Master numbers, strings, booleans, arrays, collections, and nullable types in Kotlin programming. Complete guide with practical code examples for beginners and developers.",
       "shortDesc": "Kotlin Data Types Kotlin data types define what kind of values variables can store and how much memory they occupy. Whether you’re building Android applica...",
-      "lastModified": "2025-08-06T21:55:32.015Z",
+      "lastModified": "2025-08-06T22:02:13.866Z",
       "type": 1,
       "section": "General"
     },
@@ -90,7 +90,7 @@
       "titleTag": "Kotlin Variables",
       "descriptionTag": "Learn Kotlin variables with comprehensive examples. Master var vs val, type inference, nullable variables, and late initialization. Complete guide with practical code examples for beginners.",
       "shortDesc": "Kotlin Variables Kotlin variables are named storage locations in memory that hold data values during program execution. Unlike some programming languages, ...",
-      "lastModified": "2025-08-06T21:55:32.015Z",
+      "lastModified": "2025-08-06T22:02:13.866Z",
       "type": 1,
       "section": "General"
     },
@@ -103,7 +103,7 @@
       "titleTag": "Kotlin Operators",
       "descriptionTag": "Master Kotlin operators with this comprehensive guide covering arithmetic, comparison, logical, assignment, and bitwise operators. Learn all Kotlin operator types with detailed examples, syntax, and practical code demonstrations for effective Kotlin programming.",
       "shortDesc": "Kotlin Operators Kotlin operators are predefined symbols that tell the compiler to perform specific mathematical, logical, or relational operations. The Ko...",
-      "lastModified": "2025-08-06T21:55:32.015Z",
+      "lastModified": "2025-08-06T22:02:13.866Z",
       "type": 1,
       "section": "General"
     },
@@ -116,7 +116,7 @@
       "titleTag": "Kotlin Strings ",
       "descriptionTag": "Learn Kotlin strings with comprehensive examples, properties, and functions. Master string interpolation, manipulation, and operations in Kotlin programming with practical code examples and detailed explanations.",
       "shortDesc": "Kotlin Strings Kotlin strings are fundamental data types that represent sequences of characters, and mastering Kotlin strings will significantly improve yo...",
-      "lastModified": "2025-08-06T21:55:32.015Z",
+      "lastModified": "2025-08-06T22:02:13.866Z",
       "type": 1,
       "section": "General"
     },
@@ -129,7 +129,7 @@
       "titleTag": "Kotlin Booleans",
       "descriptionTag": "Learn Kotlin booleans with comprehensive examples and practical applications. Master boolean data types, operators, expressions, and conditional logic in Kotlin programming for Android development.",
       "shortDesc": "Kotlin Booleans Kotlin booleans are primitive data types that can hold only two possible values: or . In Kotlin, the boolean data type is represented by th...",
-      "lastModified": "2025-08-06T21:55:32.015Z",
+      "lastModified": "2025-08-06T22:02:13.866Z",
       "type": 1,
       "section": "General"
     },
@@ -142,7 +142,7 @@
       "titleTag": "Kotlin Standard Input/Output ",
       "descriptionTag": "Learn Kotlin standard input output with readln(), println(), and Scanner class. Complete guide to console I/O programming with examples, error handling, and practical projects for beginners and developers.",
       "shortDesc": "Kotlin Standard Input Output Kotlin standard input output (I/O) refers to the process of reading data from input devices like keyboards and displaying info...",
-      "lastModified": "2025-08-06T21:55:32.015Z",
+      "lastModified": "2025-08-06T22:02:13.867Z",
       "type": 1,
       "section": "General"
     },
@@ -155,7 +155,7 @@
       "titleTag": "Kotlin Type Conversion ",
       "descriptionTag": "Master Kotlin type conversion with explicit casting, smart casting, and safe operators. Complete guide with examples for Android developers in 2025.",
       "shortDesc": "Kotlin Type Conversion Kotlin type conversion differs significantly from Java’s approach to type casting. While Java allows implicit widening conversions (...",
-      "lastModified": "2025-08-06T21:55:32.016Z",
+      "lastModified": "2025-08-06T22:02:13.867Z",
       "type": 1,
       "section": "General"
     },
@@ -168,7 +168,7 @@
       "titleTag": "Kotlin Expression",
       "descriptionTag": "Master Kotlin expressions with our complete 2025 guide. Learn if expressions, when expressions, lambda expressions, and more with practical examples. Perfect for Android developers using Kotlin and Compose. Includes working code samples and best practices.",
       "shortDesc": "Kotlin Expressions A Kotlin expression is any piece of code that evaluates to a value. This fundamental concept sets Kotlin apart from many other programmi...",
-      "lastModified": "2025-08-06T21:55:32.016Z",
+      "lastModified": "2025-08-06T22:02:13.867Z",
       "type": 1,
       "section": "General"
     },
@@ -181,7 +181,7 @@
       "titleTag": "Kotlin if…else",
       "descriptionTag": "Master Kotlin if else statements with our comprehensive guide. Learn conditional logic, expressions vs statements, nested conditions, and practical Android development examples. Complete tutorial with working code samples.",
       "shortDesc": "Kotlin If Else Statement The Kotlin if statement is a conditional control structure that executes a block of code only when a specified condition evaluates...",
-      "lastModified": "2025-08-06T21:55:32.018Z",
+      "lastModified": "2025-08-06T22:02:13.869Z",
       "type": 1,
       "section": "General"
     },
@@ -194,7 +194,7 @@
       "titleTag": "Kotlin When ",
       "descriptionTag": "Master Kotlin when expression with this complete guide. Learn syntax, examples, sealed classes, type checking, and advanced patterns for Android development. Replace Java switch with powerful Kotlin when statements.",
       "shortDesc": "Kotlin When Expression The kotlin when statement is a conditional expression that evaluates multiple branches sequentially until it finds a matching condit...",
-      "lastModified": "2025-08-06T21:55:32.018Z",
+      "lastModified": "2025-08-06T22:02:13.869Z",
       "type": 1,
       "section": "General"
     },
@@ -207,7 +207,7 @@
       "titleTag": "Kotlin While Loop",
       "descriptionTag": "Learn Kotlin while loop syntax with comprehensive examples and practical applications. Master while loops in Kotlin for Android development with step-by-step tutorials and real-world code samples.",
       "shortDesc": "Kotlin While Loop A Kotlin while loop is a control structure that repeatedly executes a block of code as long as a specified condition evaluates to . Unlik...",
-      "lastModified": "2025-08-06T21:55:32.019Z",
+      "lastModified": "2025-08-06T22:02:13.869Z",
       "type": 1,
       "section": "General"
     },
@@ -220,7 +220,7 @@
       "titleTag": "Kotlin Break/Continue",
       "descriptionTag": "Master Kotlin break and continue statements with practical examples, labeled loops, and real-world applications. Complete guide for Android developers and Kotlin programmers with working code samples.",
       "shortDesc": "Kotlin Break and Continue Statements The Kotlin break continue statements are structural jump expressions that modify the normal flow of loop execution. Wh...",
-      "lastModified": "2025-08-06T21:55:32.019Z",
+      "lastModified": "2025-08-06T22:02:13.869Z",
       "type": 1,
       "section": "General"
     },
@@ -233,7 +233,7 @@
       "titleTag": "Kotlin For Loop",
       "descriptionTag": "Master Kotlin for loop with this complete guide for Android developers. Learn syntax, examples, and advanced techniques for iterating through ranges, arrays, and collections in mobile app development.",
       "shortDesc": "Kotlin For Loop The Kotlin for loop is a control flow structure designed to iterate through any object that provides an iterator. This includes ranges, arr...",
-      "lastModified": "2025-08-06T21:55:32.019Z",
+      "lastModified": "2025-08-06T22:02:13.870Z",
       "type": 1,
       "section": "General"
     },
@@ -246,7 +246,7 @@
       "titleTag": "Kotlin Arrays",
       "descriptionTag": "Master Kotlin arrays with this complete guide covering declaration, initialization, and operations. Learn arrayOf(), primitive arrays, sorting, filtering, and transformations with practical examples for Android development.",
       "shortDesc": "Kotlin Arrays Kotlin arrays represent fixed-size collections that hold elements of the same type or its subtypes. Unlike dynamic collections, Kotlin arrays...",
-      "lastModified": "2025-08-06T21:55:32.019Z",
+      "lastModified": "2025-08-06T22:02:13.870Z",
       "type": 1,
       "section": "General"
     },
@@ -259,7 +259,7 @@
       "titleTag": "Kotlin Ranges",
       "descriptionTag": "Master Kotlin ranges with this comprehensive guide. Learn range operators, iteration techniques, step functions, and practical examples for efficient Kotlin programming. Complete tutorial with code examples.",
       "shortDesc": "Kotlin Ranges Kotlin ranges represent an ordered sequence of values with defined start and end points. A range represents an ordered set of values with a d...",
-      "lastModified": "2025-08-06T21:55:32.020Z",
+      "lastModified": "2025-08-06T22:02:13.870Z",
       "type": 1,
       "section": "General"
     },
@@ -272,7 +272,7 @@
       "titleTag": "Kotlin Functions ",
       "descriptionTag": "Master Kotlin functions with our comprehensive guide covering lambda expressions, higher-order functions, extension functions, inline functions, and infix functions. Learn function syntax, parameters, return types, and advanced techniques with practical examples for Android and backend development.",
       "shortDesc": "Kotlin Functions Kotlin functions are blocks of reusable code that perform specific tasks and can accept input parameters while returning output values. Un...",
-      "lastModified": "2025-08-06T21:55:32.020Z",
+      "lastModified": "2025-08-06T22:02:13.871Z",
       "type": 1,
       "section": "General"
     },
@@ -285,7 +285,7 @@
       "titleTag": "Kotlin List",
       "descriptionTag": "Learn Kotlin lists with comprehensive listOf() and mutableListOf() examples. Master list operations, filtering, sorting, and transformations for Android development. Complete guide with practical code examples.",
       "shortDesc": "Kotlin List A Kotlin list is a generic, ordered collection interface that stores elements in a specific sequence. Lists maintain insertion order and allow ...",
-      "lastModified": "2025-08-06T21:55:32.020Z",
+      "lastModified": "2025-08-06T22:02:13.871Z",
       "type": 1,
       "section": "General"
     },
@@ -298,7 +298,7 @@
       "titleTag": "Kotlin Set",
       "descriptionTag": "Master Kotlin Set collections with this complete guide. Learn setOf(), mutableSetOf(), hashSetOf() with real examples, performance comparisons, and set operations for Android development.",
       "shortDesc": "Kotlin Set A Kotlin set is a generic collection interface that stores unique elements without allowing duplicates. The Kotlin set collection provides two m...",
-      "lastModified": "2025-08-06T21:55:32.020Z",
+      "lastModified": "2025-08-06T22:02:13.871Z",
       "type": 1,
       "section": "General"
     },
@@ -311,7 +311,7 @@
       "titleTag": "Kotlin Map",
       "descriptionTag": "Learn Kotlin Map with comprehensive examples and practical code. Master immutable maps, mutable maps, HashMap, and advanced operations for Android development and Kotlin programming.",
       "shortDesc": "Kotlin Map A Kotlin Map is a collection interface that represents a group of key-value pairs where each key is unique and maps to exactly one value. Kotlin...",
-      "lastModified": "2025-08-06T21:55:32.020Z",
+      "lastModified": "2025-08-06T22:02:13.871Z",
       "type": 1,
       "section": "General"
     },
@@ -324,7 +324,7 @@
       "titleTag": "Kotlin Class and Object ",
       "descriptionTag": "Learn Kotlin class and object fundamentals with complete examples. Master Kotlin constructor, companion object, data class, and inheritance for Android development. Comprehensive tutorial with code examples and practical implementations.",
       "shortDesc": "Kotlin Class and Object A Kotlin class is a blueprint or template that defines the structure and behavior of objects in your Android applications. Unlike J...",
-      "lastModified": "2025-08-06T21:55:32.021Z",
+      "lastModified": "2025-08-06T22:02:13.872Z",
       "type": 1,
       "section": "General"
     },
@@ -337,7 +337,7 @@
       "titleTag": "Kotlin Nested Class and Inner Class",
       "descriptionTag": "Learn Kotlin nested class and inner class concepts with practical examples for Android developers. Master the differences between nested classes and inner classes in Kotlin with complete code implementations and real-world use cases.",
       "shortDesc": "Kotlin Nested Class and Inner Class Understanding Kotlin Nested Class A Kotlin nested class is a class defined inside another class without using the keywo...",
-      "lastModified": "2025-08-06T21:55:32.021Z",
+      "lastModified": "2025-08-06T22:02:13.872Z",
       "type": 1,
       "section": "General"
     },
@@ -350,7 +350,7 @@
       "titleTag": "Kotlin Constructors ",
       "descriptionTag": "Learn Kotlin constructors with comprehensive examples covering primary constructors, secondary constructors, init blocks, and default parameters. Master Kotlin class initialization for Android development.",
       "shortDesc": "Kotlin Constructors Kotlin constructors are special member functions that initialize class instances when objects are created. Unlike Java, Kotlin provides...",
-      "lastModified": "2025-08-06T21:55:32.021Z",
+      "lastModified": "2025-08-06T22:02:13.872Z",
       "type": 1,
       "section": "General"
     },
@@ -363,7 +363,7 @@
       "titleTag": "Kotlin Setter and Getter",
       "descriptionTag": "Learn Kotlin getter and setter with complete examples for Android development. Master custom getters, setters, backing fields, property validation, and encapsulation in Kotlin programming with practical code examples.",
       "shortDesc": "Kotlin Getter and Setter Understanding Kotlin Properties and Default Accessors In Kotlin programming, properties are fundamental building blocks that simpl...",
-      "lastModified": "2025-08-06T21:55:32.021Z",
+      "lastModified": "2025-08-06T22:02:13.872Z",
       "type": 1,
       "section": "General"
     },
@@ -376,7 +376,7 @@
       "titleTag": "Kotlin Visibility Modifiers",
       "descriptionTag": "Learn Kotlin visibility modifiers (public, private, protected, internal) with practical examples for Android development. Complete guide to access control in Kotlin programming language with real-world code samples.",
       "shortDesc": "Kotlin Visibility Modifiers Kotlin visibility modifiers are special keywords that determine the accessibility scope of classes, objects, interfaces, constr...",
-      "lastModified": "2025-08-06T21:55:32.022Z",
+      "lastModified": "2025-08-06T22:02:13.873Z",
       "type": 1,
       "section": "General"
     },
@@ -389,7 +389,7 @@
       "titleTag": "Kotlin Inheritance",
       "descriptionTag": "Learn Kotlin inheritance with comprehensive examples covering class inheritance, method overriding, abstract classes, and sealed classes. Master open keyword, super keyword, and multiple inheritance patterns in this complete guide.",
       "shortDesc": "Kotlin Inheritance Kotlin inheritance is a fundamental object-oriented programming concept that allows you to create new classes based on existing ones. In...",
-      "lastModified": "2025-08-06T21:55:32.022Z",
+      "lastModified": "2025-08-06T22:02:13.873Z",
       "type": 1,
       "section": "General"
     },
@@ -402,7 +402,7 @@
       "titleTag": "Kotlin Interfaces ",
       "descriptionTag": "Master Kotlin interfaces with complete implementation examples, multiple inheritance patterns, default methods, and real-world applications. Learn interface vs abstract class differences, functional interfaces, delegation, and advanced patterns for Android development.",
       "shortDesc": "Kotlin Interfaces A Kotlin interface is a blueprint that defines a set of methods and properties that implementing classes must provide. Unlike abstract cl...",
-      "lastModified": "2025-08-06T21:55:32.022Z",
+      "lastModified": "2025-08-06T22:02:13.873Z",
       "type": 1,
       "section": "General"
     },
@@ -415,7 +415,7 @@
       "titleTag": "Kotlin Data Class",
       "descriptionTag": "Learn Kotlin Data Class fundamentals with comprehensive examples. Master toString(), equals(), copy(), destructuring declarations, and advanced features. Complete guide for Android developers.",
       "shortDesc": "Kotlin Data Class When working with Kotlin development, Kotlin data class represents one of the most powerful features for creating clean, efficient code. ...",
-      "lastModified": "2025-08-06T21:55:32.022Z",
+      "lastModified": "2025-08-06T22:02:13.873Z",
       "type": 1,
       "section": "General"
     },
@@ -428,7 +428,7 @@
       "titleTag": "Kotlin Abstract Class",
       "descriptionTag": "Learn Kotlin abstract class with complete examples and implementation guide. Master abstract keyword, methods, properties, and inheritance in Kotlin for Android development. Step-by-step tutorial with working code.",
       "shortDesc": "Kotlin Abstract Class A Kotlin abstract class is a special type of class that cannot be instantiated directly and serves as a blueprint for other classes. ...",
-      "lastModified": "2025-08-06T21:55:32.023Z",
+      "lastModified": "2025-08-06T22:02:13.876Z",
       "type": 1,
       "section": "General"
     },
@@ -441,7 +441,7 @@
       "titleTag": "Kotlin Sealed Class ",
       "descriptionTag": "Learn Kotlin sealed classes for Android development with complete examples. Master state management, exhaustive when expressions, and type-safe hierarchies in this comprehensive guide.",
       "shortDesc": "Kotlin Sealed Classes Kotlin sealed classes are special types of classes that restrict their inheritance hierarchy to a predefined set of subclasses, all k...",
-      "lastModified": "2025-08-06T21:55:32.023Z",
+      "lastModified": "2025-08-06T22:02:13.876Z",
       "type": 1,
       "section": "General"
     },
@@ -454,7 +454,7 @@
       "titleTag": "Kotlin Enum",
       "descriptionTag": "Learn Kotlin enum class with comprehensive examples for Android development. Master properties, methods, when expressions, and advanced features like interface implementation with practical code samples.",
       "shortDesc": "Kotlin Enum Class The kotlin enum class is a special type of class that represents a fixed set of named constants. Each enum constant is essentially an obj...",
-      "lastModified": "2025-08-06T21:55:32.023Z",
+      "lastModified": "2025-08-06T22:02:13.876Z",
       "type": 1,
       "section": "General"
     },
@@ -467,7 +467,7 @@
       "titleTag": "Kotlin Companion Objects ",
       "descriptionTag": "Learn Kotlin companion objects with comprehensive examples and practical code. Master static-like functionality, factory methods, properties, and advanced techniques in this complete guide for developers.",
       "shortDesc": "Kotlin Companion Objects A Kotlin companion object is a special type of object declaration that belongs to a class rather than to instances of that class. ...",
-      "lastModified": "2025-08-06T21:55:32.026Z",
+      "lastModified": "2025-08-06T22:02:13.876Z",
       "type": 1,
       "section": "General"
     },
@@ -480,7 +480,7 @@
       "titleTag": "Kotlin Null Safety ",
       "descriptionTag": "Learn Kotlin null safety with comprehensive examples covering nullable types, safe call operators, Elvis operator, and null pointer exception prevention. Master Kotlin’s powerful null safety features.",
       "shortDesc": "Kotlin Null Safety Kotlin null safety is a built-in language feature designed to eliminate null pointer exceptions (NPEs) at compile time. Unlike Java, whe...",
-      "lastModified": "2025-08-06T21:55:32.026Z",
+      "lastModified": "2025-08-06T22:02:13.877Z",
       "type": 1,
       "section": "General"
     },
@@ -493,7 +493,7 @@
       "titleTag": "Kotlin Equality",
       "descriptionTag": "Learn Kotlin equality with our comprehensive guide covering structural and referential equality. Master == vs === operators, custom equals implementation, null safety, and data class comparisons with practical examples.",
       "shortDesc": "Kotlin Equality Kotlin equality refers to the mechanism by which the Kotlin compiler determines whether two objects are considered equal. Unlike some progr...",
-      "lastModified": "2025-08-06T21:55:32.026Z",
+      "lastModified": "2025-08-06T22:02:13.877Z",
       "type": 1,
       "section": "General"
     },
@@ -506,7 +506,7 @@
       "titleTag": "Kotlin Exception Handling ",
       "descriptionTag": "Master Kotlin exception handling with comprehensive examples covering try-catch blocks, custom exceptions, coroutines, and sealed classes. Complete guide for building robust Kotlin applications with proper error management.",
       "shortDesc": "Kotlin Exception Handling Exception handling in Kotlin is a crucial skill every developer needs to master for building robust applications. Kotlin exceptio...",
-      "lastModified": "2025-08-06T21:55:32.027Z",
+      "lastModified": "2025-08-06T22:02:13.877Z",
       "type": 1,
       "section": "General"
     },
@@ -519,7 +519,7 @@
       "titleTag": "Kotlin Regular Expression ",
       "descriptionTag": "Learn Kotlin regular expressions with comprehensive examples and practical applications. Master Kotlin regex patterns, validation, string manipulation, and text processing for your programming projects.",
       "shortDesc": "Kotlin Regular Expressions Kotlin regular expressions are powerful tools for pattern matching and text manipulation in Kotlin programming. Whether you’re v...",
-      "lastModified": "2025-08-06T21:55:32.027Z",
+      "lastModified": "2025-08-06T22:02:13.877Z",
       "type": 1,
       "section": "General"
     },
@@ -532,20 +532,20 @@
       "titleTag": "Kotlin Ranges ",
       "descriptionTag": "Learn Kotlin Ranges with comprehensive examples and practical applications. Master range operations, iterations, and implementations in this complete Kotlin programming guide for developers.",
       "shortDesc": "Kotlin Ranges Kotlin ranges are one of the most powerful and frequently used features in Kotlin programming. Whether you’re iterating through collections, ...",
-      "lastModified": "2025-08-06T21:55:32.027Z",
+      "lastModified": "2025-08-06T22:02:13.877Z",
       "type": 1,
       "section": "General"
     },
     {
       "id": 42,
-      "title": "Kotlin This Expression",
+      "title": "Kotlin This Expressions",
       "url": "kotlin-this-expressions",
       "content": "# Kotlin This Expression\r\n\r\n**Kotlin this expression** represents a reference to the current receiver object in your code. The **this expression** provides access to the instance of the class, object, or function that is currently being executed. In Kotlin, **this expression** can refer to different receivers depending on the context where it’s used.\r\n\r\nThe **Kotlin this expression** syntax is straightforward - you simply use the keyword `this` followed by an optional label when disambiguation is needed. The **this expression** automatically resolves to the nearest enclosing receiver, making it intuitive for developers familiar with object-oriented programming.\r\n\r\n## Basic This Expression Usage\r\n\r\n### Simple Class Context\r\n\r\nIn a basic class context, **Kotlin this expression** refers to the current instance of the class:\r\n\r\n```kotlin\r\nclass Student {\r\n    private var name: String = \"\"\r\n    \r\n    fun setName(name: String) {\r\n        this.name = name  // this expression refers to current Student instance\r\n    }\r\n    \r\n    fun getName(): String {\r\n        return this.name  // this expression accesses instance property\r\n    }\r\n}\r\n```\r\n\r\nIn this example, **this expression** disambiguates between the parameter `name` and the instance property `name`. The **Kotlin this expression** ensures we’re assigning to the instance variable rather than the parameter.\r\n\r\nshow-adsense-ad\r\n\r\n### Constructor Context\r\n\r\n**Kotlin this expression** is particularly useful in constructors when parameter names match property names:\r\n\r\n```kotlin\r\nclass Book(private var title: String, private var author: String) {\r\n    \r\n    fun updateBook(title: String, author: String) {\r\n        this.title = title    // this expression refers to instance property\r\n        this.author = author  // this expression avoids naming conflicts\r\n    }\r\n    \r\n    fun getBookInfo(): String {\r\n        return \"Book: ${this.title} by ${this.author}\"\r\n    }\r\n}\r\n```\r\n\r\nHere, **this expression** clarifies that we’re setting instance properties, not just reassigning parameters.\r\n\r\n## Advanced This Expression Scenarios\r\n\r\n### Extension Functions and This Expression\r\n\r\n**Kotlin this expression** in extension functions refers to the receiver object being extended:\r\n\r\n```kotlin\r\nfun String.addExclamation(): String {\r\n    return this + \"!\"  // this expression refers to the String being extended\r\n}\r\n\r\nfun List<Int>.getSum(): Int {\r\n    return this.sum()  // this expression refers to the List receiver\r\n}\r\n```\r\n\r\nIn extension functions, **this expression** represents the object on which the extension function is called.\r\n\r\n### Scope Functions and This Expression\r\n\r\n**Kotlin this expression** behaves differently across various scope functions:\r\n\r\n```kotlin\r\nclass Person(var name: String, var age: Int)\r\n\r\nfun demonstrateThisInScopeFunctions() {\r\n    val person = Person(\"Alice\", 25)\r\n    \r\n    // In 'run' scope function, this refers to the receiver\r\n    person.run {\r\n        this.name = \"Bob\"     // this expression refers to person object\r\n        this.age = 30\r\n        println(\"Updated: ${this.name}\")\r\n    }\r\n    \r\n    // In 'with' scope function, this refers to the receiver\r\n    with(person) {\r\n        this.name = \"Charlie\"  // this expression refers to person object\r\n        println(\"Name: ${this.name}\")\r\n    }\r\n}\r\n```\r\n\r\n### Lambda Expressions and This Expression\r\n\r\n**Kotlin this expression** in lambda expressions can refer to different receivers:\r\n\r\n```kotlin\r\nclass Calculator {\r\n    fun calculate(operation: Calculator.() -> Int): Int {\r\n        return this.operation()  // this expression refers to Calculator instance\r\n    }\r\n    \r\n    fun add(a: Int, b: Int): Int = a + b\r\n    fun multiply(a: Int, b: Int): Int = a * b\r\n}\r\n\r\nfun useLambdaWithThis() {\r\n    val calc = Calculator()\r\n    val result = calc.calculate {\r\n        this.add(5, 3) * this.multiply(2, 4)  // this expression refers to Calculator\r\n    }\r\n}\r\n```\r\n\r\nshow-adsense-ad\r\n\r\n## Qualified This Expression\r\n\r\n**Kotlin this expression** can be qualified with labels to specify which receiver you’re referring to:\r\n\r\n```kotlin\r\nclass Outer {\r\n    private val outerProperty = \"Outer\"\r\n    \r\n    inner class Inner {\r\n        private val innerProperty = \"Inner\"\r\n        \r\n        fun accessBothProperties() {\r\n            println(this.innerProperty)        // this expression refers to Inner\r\n            println(this@Outer.outerProperty)  // qualified this expression refers to Outer\r\n        }\r\n        \r\n        fun demonstrateQualifiedThis() {\r\n            val lambda = {\r\n                println(this@Inner.innerProperty)  // qualified this expression to Inner\r\n                println(this@Outer.outerProperty)  // qualified this expression to Outer\r\n            }\r\n            lambda()\r\n        }\r\n    }\r\n}\r\n```\r\n\r\n**Qualified this expression** uses the `@` symbol followed by the class name to specify exactly which receiver you want to access.\r\n\r\n## This Expression in Object Declarations\r\n\r\n**Kotlin this expression** in object declarations refers to the singleton instance:\r\n\r\n```kotlin\r\nobject DatabaseManager {\r\n    private var isConnected = false\r\n    \r\n    fun connect() {\r\n        this.isConnected = true  // this expression refers to DatabaseManager object\r\n        println(\"${this::class.simpleName} connected\")\r\n    }\r\n    \r\n    fun disconnect() {\r\n        this.isConnected = false  // this expression refers to singleton instance\r\n    }\r\n    \r\n    fun getConnectionStatus(): Boolean {\r\n        return this.isConnected\r\n    }\r\n}\r\n```\r\n\r\n## This Expression with Companion Objects\r\n\r\n**Kotlin this expression** within companion objects refers to the companion object instance:\r\n\r\n```kotlin\r\nclass MathUtils {\r\n    companion object {\r\n        private const val PI = 3.14159\r\n        \r\n        fun calculateCircleArea(radius: Double): Double {\r\n            return this.PI * radius * radius  // this expression refers to companion object\r\n        }\r\n        \r\n        fun getPI(): Double {\r\n            return this.PI  // this expression accesses companion object property\r\n        }\r\n    }\r\n}\r\n```\r\n\r\n## This Expression in Higher-Order Functions\r\n\r\n**Kotlin this expression** in higher-order functions can have multiple receivers:\r\n\r\n```kotlin\r\nclass StringBuilder {\r\n    private val content = mutableListOf<String>()\r\n    \r\n    fun append(text: String): StringBuilder {\r\n        this.content.add(text)  // this expression refers to StringBuilder instance\r\n        return this             // this expression enables method chaining\r\n    }\r\n    \r\n    fun build(): String {\r\n        return this.content.joinToString(\"\")\r\n    }\r\n}\r\n\r\nfun buildString(builder: StringBuilder.() -> Unit): String {\r\n    val sb = StringBuilder()\r\n    sb.builder()  // this expression within builder refers to StringBuilder\r\n    return sb.build()\r\n}\r\n```\r\n\r\nshow-adsense-ad\r\n\r\n## Complete Example: This Expression in Practice\r\n\r\nHere’s a comprehensive example demonstrating various **Kotlin this expression** scenarios:\r\n\r\n```kotlin\r\n// Import statements\r\nimport kotlin.random.Random\r\n\r\n// Main class demonstrating this expression\r\nclass GameCharacter(private var name: String, private var health: Int) {\r\n    \r\n    // Companion object with this expression\r\n    companion object {\r\n        private const val MAX_HEALTH = 100\r\n        \r\n        fun createRandomCharacter(): GameCharacter {\r\n            val randomName = \"Player${Random.nextInt(1000)}\"\r\n            return GameCharacter(randomName, this.MAX_HEALTH)  // this refers to companion\r\n        }\r\n    }\r\n    \r\n    // Method using this expression for property access\r\n    fun updateCharacter(name: String, health: Int): GameCharacter {\r\n        this.name = name      // this expression disambiguates parameter from property\r\n        this.health = health  // this expression refers to instance property\r\n        return this           // this expression enables method chaining\r\n    }\r\n    \r\n    // Method demonstrating this expression in scope functions\r\n    fun performActions() {\r\n        // Using this expression in 'run' scope function\r\n        this.run {\r\n            println(\"Character ${this.name} has ${this.health} health\")\r\n            this.health -= 10  // this expression refers to current instance\r\n        }\r\n        \r\n        // Using this expression in 'also' scope function\r\n        this.also { character ->\r\n            println(\"Processing character: ${character.name}\")\r\n            // 'this' here still refers to the outer GameCharacter instance\r\n            this.health = maxOf(this.health, 0)\r\n        }\r\n    }\r\n    \r\n    // Extension function demonstrating this expression\r\n    fun String.toCharacterName(): String {\r\n        return this.uppercase()  // this expression refers to the String receiver\r\n    }\r\n    \r\n    // Inner class demonstrating qualified this expression\r\n    inner class CharacterStats {\r\n        private val statsName = \"Stats for ${this@GameCharacter.name}\"\r\n        \r\n        fun displayStats() {\r\n            println(this.statsName)  // this expression refers to CharacterStats\r\n            println(\"Health: ${this@GameCharacter.health}\")  // qualified this expression\r\n        }\r\n        \r\n        fun healCharacter(amount: Int) {\r\n            this@GameCharacter.health += amount  // qualified this expression to outer class\r\n            println(\"${this@GameCharacter.name} healed for $amount points\")\r\n        }\r\n    }\r\n    \r\n    // Method creating inner class instance\r\n    fun getStats(): CharacterStats {\r\n        return this.CharacterStats()  // this expression refers to current GameCharacter\r\n    }\r\n    \r\n    // Method demonstrating this expression in lambda\r\n    fun executeWithContext(action: GameCharacter.() -> Unit) {\r\n        this.action()  // this expression passes current instance as receiver\r\n    }\r\n    \r\n    // Override toString using this expression\r\n    override fun toString(): String {\r\n        return \"GameCharacter(name='${this.name}', health=${this.health})\"\r\n    }\r\n}\r\n\r\n// Function demonstrating this expression usage\r\nfun main() {\r\n    // Create character using companion object\r\n    val character = GameCharacter.createRandomCharacter()\r\n    println(\"Created: $character\")\r\n    \r\n    // Demonstrate method chaining with this expression\r\n    character.updateCharacter(\"Hero\", 80)\r\n        .also { println(\"Updated: $it\") }\r\n    \r\n    // Demonstrate this expression in various contexts\r\n    character.performActions()\r\n    \r\n    // Demonstrate qualified this expression with inner class\r\n    val stats = character.getStats()\r\n    stats.displayStats()\r\n    stats.healCharacter(15)\r\n    \r\n    // Demonstrate this expression in lambda context\r\n    character.executeWithContext {\r\n        println(\"Executing action on ${this.toString()}\")  // this refers to GameCharacter\r\n        this.updateCharacter(\"Champion\", 95)\r\n    }\r\n    \r\n    println(\"Final character state: $character\")\r\n}\r\n```\r\n\r\n**Expected Output:**\r\n\r\n```\r\nCreated: GameCharacter(name='Player123', health=100)\r\nUpdated: GameCharacter(name='Hero', health=80)\r\nCharacter Hero has 70 health\r\nProcessing character: Hero\r\nStats for Hero\r\nHealth: 70\r\nHero healed for 15 points\r\nExecuting action on GameCharacter(name='Hero', health=70)\r\nFinal character state: GameCharacter(name='Champion', health=95)\r\n```\r\n\r\nThis example demonstrates how **Kotlin this expression** works across different contexts including class methods, companion objects, scope functions, inner classes, and lambda expressions. The **this expression** provides clear references to the appropriate receiver object in each scenario, making your Kotlin code more readable and maintainable.\r\n",
       "keywords": "kotlin this expression, this keyword kotlin, kotlin this reference, this expression kotlin, kotlin this usage, this in kotlin, kotlin receiver object, qualified this kotlin, kotlin this scope functions, this expression examples​​​​​​​​​​​​​​​​",
-      "titleTag": "Kotlin This Expression",
+      "titleTag": "Kotlin This Expressions",
       "descriptionTag": "Master Kotlin this expression with comprehensive examples and explanations. Learn how to use this keyword in classes, extension functions, scope functions, and lambda expressions for better Kotlin programming.",
       "shortDesc": "Kotlin This Expression Kotlin this expression represents a reference to the current receiver object in your code. The this expression provides access to th...",
-      "lastModified": "2025-08-06T21:55:32.027Z",
+      "lastModified": "2025-08-06T22:02:13.877Z",
       "type": 1,
       "section": "General"
     }
@@ -554,7 +554,7 @@
   "titleTag": "Kotlin Tutorial | Kotlin Introduction ",
   "descriptionTag": "Learn Kotlin programming from scratch with this comprehensive Kotlin tutorial. Master Kotlin introduction concepts including null safety, data classes, extension functions, and collections with practical examples and a complete working project.",
   "totalPages": 42,
-  "lastUpdated": "2025-08-06T21:55:32.027Z",
+  "lastUpdated": "2025-08-06T22:02:13.877Z",
   "sections": [
     "General"
   ],
