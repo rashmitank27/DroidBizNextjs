@@ -280,7 +280,7 @@ console.log('📁 Ensuring directories exist...');
         sections: data.sections || ['General'],
         lastModified: data.lastUpdated,
         keywords: data.keywords || '',
-        titleTag: data.titleTag || `${data.name || data.id} Tutorial`,
+        titleTag: data.title || `${data.name || data.id} Tutorial`,
         descriptionTag: data.descriptionTag || `Learn ${data.name || data.id}`
       };
       
@@ -320,7 +320,7 @@ console.log('📁 Ensuring directories exist...');
         sections: data.sections || ['General'],
         lastModified: data.lastUpdated,
         keywords: data.keywords || '',
-        titleTag: data.titleTag || `${data.name || data.id} Tutorial`,
+        titleTag: data.title || `${data.name || data.id} Tutorial`,
         descriptionTag: data.descriptionTag || `Learn ${data.name || data.id}`
       });
     }
@@ -378,7 +378,7 @@ console.log('📁 Ensuring directories exist...');
         url: row.url || `page-${index + 1}`,
         content: row.content || '',
         keywords: row.keywords || '',
-        titleTag: row.titleTag || row.title || '',
+        titleTag: row.title || '',
         descriptionTag: row.descriptionTag || '',
         shortDesc: row.shortDesc || this.extractShortDescOptimized(row.content),
         lastModified: new Date().toISOString()
@@ -404,7 +404,7 @@ console.log('📁 Ensuring directories exist...');
       base_url: baseUrl,
       content: content,
       keywords: content[0]?.keywords || '',
-      titleTag: content[0]?.titleTag || `${this.capitalizeWords(subjectName)} ${subjectName === 'blogs' ? 'Blog' : 'Tutorial'}`,
+      titleTag: content[0]?.title || `${this.capitalizeWords(subjectName)} ${subjectName === 'blogs' ? 'Blog' : 'Tutorial'}`,
       descriptionTag: content[0]?.descriptionTag || `${subjectName === 'blogs' ? 'Read our latest blog posts' : `Learn ${this.capitalizeWords(subjectName)} programming`}.`,
       totalPages: content.length,
       lastUpdated: new Date().toISOString()

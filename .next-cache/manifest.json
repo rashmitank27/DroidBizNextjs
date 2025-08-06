@@ -1,22 +1,6 @@
 {
   "subjects": [
     {
-      "id": "kotlin",
-      "name": "Kotlin",
-      "base_url": "/kotlin",
-      "totalPages": 10,
-      "totalSections": 3,
-      "sections": [
-        "Getting Started",
-        "Basic Concepts",
-        "Advanced Topics"
-      ],
-      "lastModified": "2025-08-06T00:11:27.614Z",
-      "keywords": "Kotlin, Kotlin tutorial, Kotlin introduction, Kotlin programming, learn Kotlin, Kotlin syntax, Kotlin examples, Kotlin for beginners, Kotlin language, Kotlin development",
-      "titleTag": "Kotlin Tutorial | Kotlin Introduction ",
-      "descriptionTag": "Learn Kotlin programming from scratch with this comprehensive Kotlin tutorial. Master Kotlin introduction concepts including null safety, data classes, extension functions, and collections with practical examples and a complete working project."
-    },
-    {
       "id": "blogs",
       "name": "Blogs",
       "base_url": "/blogs",
@@ -25,9 +9,9 @@
       "sections": [
         "General"
       ],
-      "lastModified": "2025-08-05T19:50:35.946Z",
+      "lastModified": "2025-08-06T00:32:35.307Z",
       "keywords": "Android 15, Android 15 behavior changes, Android 15 updates, Android 15 features, Android 15 compatibility, Android 15 behavior changes for all apps, Android 15 updates for app developers, Android 15 security features for apps, Android 15 performance optimization techniques, Android 15 API changes for developers",
-      "titleTag": "Android 15 Behavior Changes: All Apps",
+      "titleTag": "Blogs Tutorial",
       "descriptionTag": "Android 15 : Discover the latest Android 15 behavior changes that affect all apps. Learn about the Android 15 new features, Android 15 updates, and requirements that impact app development and user experience."
     },
     {
@@ -39,23 +23,37 @@
       "sections": [
         "General"
       ],
-      "lastModified": "2025-08-05T19:50:36.007Z",
+      "lastModified": "2025-08-06T00:32:35.347Z",
       "keywords": "Jetpack Compose, Android UI development, Kotlin UI, declarative programming, composable functions, state management, Compose project setup, modern Android development, Material Design, native UI toolkit​​​​​​​​​​​​​​​​",
-      "titleTag": "Jetpack Compose Basics",
+      "titleTag": "Jetpack Compose Tutorial",
       "descriptionTag": "Master Jetpack Compose for Android development with this comprehensive guide covering project setup, fundamental concepts, and best practices. Learn to build modern, responsive UIs using Kotlin's declarative UI toolkit."
+    },
+    {
+      "id": "kotlin",
+      "name": "Kotlin",
+      "base_url": "/kotlin",
+      "totalPages": 10,
+      "totalSections": 1,
+      "sections": [
+        "General"
+      ],
+      "lastModified": "2025-08-06T00:32:35.403Z",
+      "keywords": "Kotlin, Kotlin tutorial, Kotlin introduction, Kotlin programming, learn Kotlin, Kotlin syntax, Kotlin examples, Kotlin for beginners, Kotlin language, Kotlin development",
+      "titleTag": "Kotlin Tutorial",
+      "descriptionTag": "Learn Kotlin programming from scratch with this comprehensive Kotlin tutorial. Master Kotlin introduction concepts including null safety, data classes, extension functions, and collections with practical examples and a complete working project."
     }
   ],
   "homepages": [],
-  "totalFiles": 1,
-  "totalPages": 78,
-  "lastUpdated": "2025-08-06T00:11:27.621Z",
-  "buildId": "7cd517ced1033bb0",
+  "totalFiles": 0,
+  "totalPages": 88,
+  "lastUpdated": "2025-08-06T00:32:51.317Z",
+  "buildId": "a9008094c063f821",
   "buildStats": {
-    "filesProcessed": 1,
+    "filesProcessed": 0,
     "filesSkipped": 0,
-    "totalSize": 159409,
-    "buildTime": "2025-08-06T00:11:27.621Z",
-    "nodeVersion": "v18.20.8",
-    "platform": "linux"
+    "totalSize": 0,
+    "buildTime": "2025-08-06T00:32:51.317Z",
+    "nodeVersion": "v22.17.1",
+    "platform": "win32"
   }
 }
