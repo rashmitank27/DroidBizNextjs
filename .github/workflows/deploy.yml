@@ -30,7 +30,7 @@ jobs:
           cache: 'npm'
       
       - name: 🔧 Install dependencies
-        run: npm install
+        run: npm ci
       
       - name: 🔄 Process Excel Files to JSON
         run: |
@@ -58,17 +58,8 @@ jobs:
             echo "✅ Processed data committed and pushed"
           fi
       
-      - name: ⏳ Wait for Vercel deployment
+      - name: 🎉 Success
         run: |
-          echo "🚀 Processed data pushed to repository"
-          echo "⏳ Vercel will automatically deploy the updated data"
-          echo "🔗 Check your Vercel dashboard for deployment status"
-      
-      - name: 🔍 Debug on failure
-        if: failure()
-        run: |
-          echo "❌ Processing failed!"
-          echo "📁 Excel files found:"
-          find data/excel -name "*.xlsx" 2>/dev/null || echo "No Excel files found"
-          echo "📄 Cache status:"
-          ls -la .next-cache/ || echo "No cache directory"
+          echo "🚀 Excel processing completed successfully!"
+          echo "📦 Vercel will auto-deploy updated content"
+          echo "⚡ Fresh data will be available shortly"

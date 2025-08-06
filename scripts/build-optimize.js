@@ -144,25 +144,15 @@ class StaticBuildOptimizer {
    * Ensure required directories exist
    */
   ensureDirectories() {
-    console.log('📁 Ensuring directories exist...');
-    
-    [CACHE_DIR, PUBLIC_DIR].forEach(dir => {
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-        console.log(`   ✅ Created directory: ${path.relative(process.cwd(), dir)}`);
-      }
-    });
-
-    // Ensure API directories exist
-    const apiDir = path.join(PUBLIC_DIR, 'api');
-    const dataApiDir = path.join(apiDir, 'data');
-    
-    [apiDir, dataApiDir].forEach(dir => {
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-        console.log(`   ✅ Created API directory: ${path.relative(process.cwd(), dir)}`);
-      }
-    });
+console.log('📁 Ensuring directories exist...');
+  
+  // Only create cache and public directories (NOT API directories)
+  [CACHE_DIR, PUBLIC_DIR].forEach(dir => {
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+      console.log(`   ✅ Created directory: ${path.relative(process.cwd(), dir)}`);
+    }
+  });
   }
 
   /**
@@ -491,39 +481,6 @@ class StaticBuildOptimizer {
   }
 
   /**
-   * Generate static API routes
-   */
-  async generateStaticAPI() {
-    console.log('\n🔧 Generating static API routes...');
-    
-    const apiDir = path.join(PUBLIC_DIR, 'api');
-    const dataApiDir = path.join(apiDir, 'data');
-    
-    try {
-      // Copy manifest to public API
-      if (fs.existsSync(MANIFEST_FILE)) {
-        fs.copyFileSync(MANIFEST_FILE, path.join(apiDir, 'manifest.json'));
-        console.log('   ✅ Copied manifest.json to API route');
-      }
-      
-      // Copy all cache files to public API
-      const cacheFiles = fs.readdirSync(CACHE_DIR)
-        .filter(file => file.endsWith('.json') && file !== 'file-hashes.json');
-      
-      for (const file of cacheFiles) {
-        const sourcePath = path.join(CACHE_DIR, file);
-        const targetPath = path.join(dataApiDir, file);
-        fs.copyFileSync(sourcePath, targetPath);
-      }
-      
-      console.log(`   ✅ Copied ${cacheFiles.length} data files to API routes`);
-      
-    } catch (error) {
-      console.error('   ❌ Failed to generate static API:', error.message);
-    }
-  }
-
-  /**
    * Show optimization statistics
    */
   showOptimizedStats() {
@@ -546,7 +503,7 @@ class StaticBuildOptimizer {
    * Main optimization process
    */
    async optimize() {
-    console.log(`🚀 Starting static build optimization...`);
+      console.log(`🚀 Starting static build optimization...`);
     console.log(`📊 Using ${this.stats.parallelWorkers} parallel workers\n`);
     
     try {
@@ -569,7 +526,7 @@ class StaticBuildOptimizer {
       console.log(`🔄 Changed files: ${changedFiles.length}`);
       console.log(`✅ Unchanged files: ${unchangedFiles.length} (will be skipped)\n`);
       
-      // Step 4: Process files (this now updates manifest as we go)
+      // Step 4: Process files
       if (changedFiles.length > 0) {
         await this.processFilesInParallel(changedFiles);
       }
@@ -585,17 +542,18 @@ class StaticBuildOptimizer {
       // Step 7: Save everything
       this.saveManifest();
       this.saveFileHashes();
+      
+      // REMOVE THIS LINE (it creates public/api):
       // await this.generateStaticAPI();
       
       // Step 8: Show results
       this.showOptimizedStats();
       
       console.log('\n✅ Static build optimization completed!');
-      console.log('📦 Ready for deployment with static files');
+      console.log('📦 Ready for deployment (no public/api needed)');
       
     } catch (error) {
       console.error('\n❌ Build optimization failed:', error);
-      console.error('Stack trace:', error.stack);
       process.exit(1);
     }
   }
