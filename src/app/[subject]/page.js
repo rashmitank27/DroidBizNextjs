@@ -225,6 +225,9 @@ export async function generateMetadata({ params }) {
                 },
                 verification: {
                     google: 'DzEo_8OpTDL4aq1q8mfcjmCQEaQC5jGbJcOm58hzRhs',
+                },
+                other: {
+                    'google-adsense-account': process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
                 }
             };
         }
@@ -242,12 +245,18 @@ export async function generateMetadata({ params }) {
                 locale: 'en_US',
                 siteName: 'www.droidbiz.in'
             },
+            other: {
+                'google-adsense-account': process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+            }
         };
     } catch (error) {
         console.error('Error generating metadata:', error);
         return {
             title: 'Programming Tutorial',
             description: 'Learn programming with comprehensive tutorials and guides.',
+            other: {
+                'google-adsense-account': process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+            }
         };
     }
 }

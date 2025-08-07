@@ -114,7 +114,10 @@ export async function generateMetadata({ params }) {
         if (!firestoreData || firestoreData.length === 0) {
             return {
                 title: 'Tutorial Not Found',
-                description: 'The requested tutorial could not be found.'
+                description: 'The requested tutorial could not be found.',
+                other: {
+                    'google-adsense-account': process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+                }
             };
         }
 
@@ -155,13 +158,19 @@ export async function generateMetadata({ params }) {
             },
             verification: {
                 google: 'DzEo_8OpTDL4aq1q8mfcjmCQEaQC5jGbJcOm58hzRhs',
+            },
+            other: {
+                'google-adsense-account': process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
             }
         };
     } catch (error) {
         console.error('Error generating metadata:', error);
         return {
             title: 'Tutorial',
-            description: 'Programming tutorial and guide.'
+            description: 'Programming tutorial and guide.',
+            other: {
+                'google-adsense-account': process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+            }
         };
     }
 }

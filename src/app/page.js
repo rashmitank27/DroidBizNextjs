@@ -106,7 +106,10 @@ export async function generateMetadata() {
       return {
         title: 'DroidBiz - Programming Tutorials',
         description: 'Learn programming with comprehensive tutorials and examples.',
-        keywords: 'programming, tutorials, kotlin, android development'
+        keywords: 'programming, tutorials, kotlin, android development',
+        other: {
+        'google-adsense-account': process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+      }
       };
     }
 
@@ -141,6 +144,9 @@ export async function generateMetadata() {
       },
       verification: {
         google: 'DzEo_8OpTDL4aq1q8mfcjmCQEaQC5jGbJcOm58hzRhs',
+      },
+      other: {
+        'google-adsense-account': process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
       }
     };
   } catch (error) {
@@ -148,7 +154,10 @@ export async function generateMetadata() {
     return {
       title: 'DroidBiz - Programming Tutorials',
       description: 'Learn programming with comprehensive tutorials and examples.',
-      keywords: 'programming, tutorials, kotlin, android development'
+      keywords: 'programming, tutorials, kotlin, android development',
+      other: {
+        'google-adsense-account': process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+      }
     };
   }
 }

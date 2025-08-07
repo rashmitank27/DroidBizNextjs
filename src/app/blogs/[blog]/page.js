@@ -107,7 +107,10 @@ export async function generateMetadata({ params }) {
         if (!firestoreData || firestoreData.length === 0) {
             return {
                 title: 'Blog Not Found',
-                description: 'The requested blog post could not be found.'
+                description: 'The requested blog post could not be found.',
+                other: {
+                    'google-adsense-account': process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+                }
             };
         }
 
@@ -148,13 +151,19 @@ export async function generateMetadata({ params }) {
             },
             verification: {
                 google: 'DzEo_8OpTDL4aq1q8mfcjmCQEaQC5jGbJcOm58hzRhs',
+            },
+            other: {
+                'google-adsense-account': process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
             }
         };
     } catch (error) {
         console.error('Error generating blog metadata:', error);
         return {
             title: 'Blog Post',
-            description: 'Programming blog post and guide.'
+            description: 'Programming blog post and guide.',
+             other: {
+                'google-adsense-account': process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+             }
         };
     }
 }
