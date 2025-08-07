@@ -1,20 +1,6 @@
 {
   "subjects": [
     {
-      "id": "kotlin",
-      "name": "Kotlin",
-      "base_url": "/kotlin",
-      "totalPages": 42,
-      "totalSections": 1,
-      "sections": [
-        "General"
-      ],
-      "lastModified": "2025-08-06T22:02:13.877Z",
-      "keywords": "Kotlin, Kotlin tutorial, Kotlin introduction, Kotlin programming, learn Kotlin, Kotlin syntax, Kotlin examples, Kotlin for beginners, Kotlin language, Kotlin development",
-      "titleTag": "Kotlin Tutorial",
-      "descriptionTag": "Learn Kotlin programming from scratch with this comprehensive Kotlin tutorial. Master Kotlin introduction concepts including null safety, data classes, extension functions, and collections with practical examples and a complete working project."
-    },
-    {
       "id": "blogs",
       "name": "Blogs",
       "base_url": "/blogs",
@@ -27,6 +13,20 @@
       "keywords": "Android 15, Android 15 behavior changes, Android 15 updates, Android 15 features, Android 15 compatibility, Android 15 behavior changes for all apps, Android 15 updates for app developers, Android 15 security features for apps, Android 15 performance optimization techniques, Android 15 API changes for developers",
       "titleTag": "Blogs Tutorial",
       "descriptionTag": "Android 15 : Discover the latest Android 15 behavior changes that affect all apps. Learn about the Android 15 new features, Android 15 updates, and requirements that impact app development and user experience."
+    },
+    {
+      "id": "kotlin",
+      "name": "Kotlin",
+      "base_url": "/kotlin",
+      "totalPages": 42,
+      "totalSections": 1,
+      "sections": [
+        "General"
+      ],
+      "lastModified": "2025-08-06T22:02:13.877Z",
+      "keywords": "Kotlin, Kotlin tutorial, Kotlin introduction, Kotlin programming, learn Kotlin, Kotlin syntax, Kotlin examples, Kotlin for beginners, Kotlin language, Kotlin development",
+      "titleTag": "Kotlin Tutorial",
+      "descriptionTag": "Learn Kotlin programming from scratch with this comprehensive Kotlin tutorial. Master Kotlin introduction concepts including null safety, data classes, extension functions, and collections with practical examples and a complete working project."
     },
     {
       "id": "jetpack-compose",
@@ -44,15 +44,15 @@
     }
   ],
   "homepages": [],
-  "totalFiles": 1,
-  "totalPages": 110,
-  "lastUpdated": "2025-08-06T22:02:13.889Z",
-  "buildId": "a4945f4e9322e13d",
+  "totalFiles": 0,
+  "totalPages": 152,
+  "lastUpdated": "2025-08-07T00:03:45.516Z",
+  "buildId": "f09924bba11fe052",
   "buildStats": {
-    "filesProcessed": 1,
+    "filesProcessed": 0,
     "filesSkipped": 0,
-    "totalSize": 774784,
-    "buildTime": "2025-08-06T22:02:13.889Z",
+    "totalSize": 0,
+    "buildTime": "2025-08-07T00:03:45.516Z",
     "nodeVersion": "v18.20.8",
     "platform": "linux"
   }
